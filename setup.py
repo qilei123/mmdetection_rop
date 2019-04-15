@@ -1,4 +1,5 @@
 import os
+from io import open
 import subprocess
 import time
 from setuptools import find_packages, setup
