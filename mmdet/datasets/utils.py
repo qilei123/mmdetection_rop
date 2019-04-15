@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from .concat_dataset import ConcatDataset
 from .repeat_dataset import RepeatDataset
-from .. import datasets
+#from .. import datasets
 
 
 def to_tensor(data):
