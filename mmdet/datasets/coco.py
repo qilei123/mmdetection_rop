@@ -30,6 +30,7 @@ class CocoDataset(CustomDataset):
             cat_id: i + 1
             for i, cat_id in enumerate(self.cat_ids)
         }
+        print(self.cat2label)
         self.img_ids = self.coco.getImgIds()
         img_infos = []
         for i in self.img_ids:
