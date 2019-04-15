@@ -30,7 +30,7 @@ class CocoDataset(CustomDataset):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.getCatIds()
         self.cat2label = {
-            cat_id: i + 1
+            cat_id+1: i + 1
             for i, cat_id in enumerate(self.cat_ids)
         }
         print(self.cat2label)
@@ -92,7 +92,7 @@ class CocoDataset(CustomDataset):
                 gt_bboxes_ignore.append(bbox)
             else:
                 gt_bboxes.append(bbox)
-                gt_labels.append(self.cat2label[ann['category_id']])
+                gt_labels.append(self.cat2label[ann['category_id']+1])
             if with_mask:
                 gt_masks.append(self.coco.annToMask(ann))
                 mask_polys = [
