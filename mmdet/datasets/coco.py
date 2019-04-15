@@ -5,7 +5,7 @@ from .custom import CustomDataset
 
 
 class CocoDataset(CustomDataset):
-
+    '''
     CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
                'train', 'truck', 'boat', 'traffic_light', 'fire_hydrant',
                'stop_sign', 'parking_meter', 'bench', 'bird', 'cat', 'dog',
@@ -20,7 +20,8 @@ class CocoDataset(CustomDataset):
                'mouse', 'remote', 'keyboard', 'cell_phone', 'microwave',
                'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
                'vase', 'scissors', 'teddy_bear', 'hair_drier', 'toothbrush')
-    #CLASSES = ('','')
+    '''
+    CLASSES = ('Macula','OpticDisk')
 
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
