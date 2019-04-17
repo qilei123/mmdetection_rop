@@ -166,5 +166,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = './work_dirs/mask_rcnn_r50_fpn_1x'
 load_from = None
-resume_from = None
+resume_from = 6
 workflow = [('train', 1)]
