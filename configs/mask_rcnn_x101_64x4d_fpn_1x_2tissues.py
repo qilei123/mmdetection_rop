@@ -165,6 +165,6 @@ total_epochs = 15
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = './work_dirs/mask_rcnn_r50_fpn_1x'
-load_from = './work_dirs/mask_rcnn_r50_fpn_1x/epoch_8.pth'
+load_from = None
 resume_from = None
 workflow = [('train', 1)]
