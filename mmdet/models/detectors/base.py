@@ -126,7 +126,7 @@ class BaseDetector(nn.Module):
                 for i, bbox in enumerate(bbox_result)
             ]
             labels = np.concatenate(labels)
-            print(labels)
+            print(class_names)
             mmcv.imshow_det_bboxes(
                 img_show,
                 bboxes,
