@@ -22,7 +22,7 @@ class CocoDataset(CustomDataset):
                'vase', 'scissors', 'teddy_bear', 'hair_drier', 'toothbrush')
     '''
 
-    CLASSES = ('Macula','OpticDisk')
+    CLASSES = ('OpticDisk','Macula')
     '''
     CLASSES = {'Laser Photocoagulation Spot','artifact','bleeding',
                 'Stage 1: demarcation line','Stage 2: ridge',
