@@ -59,10 +59,10 @@ def imagenet_vid_classes():
         'watercraft', 'whale', 'zebra'
     ]
 
-
+'''
 def coco_classes():
     return [
-        '''
+        
         'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
         'truck', 'boat', 'traffic_light', 'fire_hydrant', 'stop_sign',
         'parking_meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep',
@@ -76,10 +76,12 @@ def coco_classes():
         'laptop', 'mouse', 'remote', 'keyboard', 'cell_phone', 'microwave',
         'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
         'scissors', 'teddy_bear', 'hair_drier', 'toothbrush'
-        '''
+    ]
+'''
+def coco_classes():
+    return [
         'OpticDisk','Macula'
     ]
-
 
 dataset_aliases = {
     'voc': ['voc', 'pascal_voc', 'voc07', 'voc12'],
