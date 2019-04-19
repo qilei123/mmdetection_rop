@@ -22,8 +22,8 @@ def single_test(model, data_loader, show=False):
         results.append(result)
         print(dataset) 
         if show:
-            model.module.show_result(data, result, dataset.img_norm_cfg,
-                                     dataset=dataset.CLASSES)
+            model.module.show_result(data, result, dataset.img_norm_cfg)
+                                    #,dataset=dataset.CLASSES)
 
         batch_size = data['img'][0].size(0)
         for _ in range(batch_size):
