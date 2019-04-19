@@ -22,13 +22,13 @@ class CocoDataset(CustomDataset):
                'vase', 'scissors', 'teddy_bear', 'hair_drier', 'toothbrush')
     '''
 
-    #CLASSES = ('Macula','OpticDisk')
-    
+    CLASSES = ('Macula','OpticDisk')
+    '''
     CLASSES = {'Laser Photocoagulation Spot','artifact','bleeding',
                 'Stage 1: demarcation line','Stage 2: ridge',
                 'Stage 3: ridge with neovascularization',
                 'proliferation','Retina detachment','carcinoma'}
-    
+    '''
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.getCatIds()
