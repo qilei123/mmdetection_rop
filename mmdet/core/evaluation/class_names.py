@@ -80,7 +80,7 @@ def coco_classes():
 '''
 def coco_classes():
     return [
-        'OpticDisk','Macula'
+        'Macula','OpticDisk'
     ]
 
 dataset_aliases = {
