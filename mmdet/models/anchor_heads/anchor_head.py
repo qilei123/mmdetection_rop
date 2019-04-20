@@ -55,6 +55,8 @@ class AnchorHead(nn.Module):
         self.target_stds = target_stds
         self.use_sigmoid_cls = use_sigmoid_cls
         self.use_focal_loss = use_focal_loss
+        print ('----------use_focal_loss')
+        print (self.use_focal_loss)
 
         self.anchor_generators = []
         for anchor_base in self.anchor_base_sizes:
