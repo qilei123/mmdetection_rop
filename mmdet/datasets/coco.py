@@ -3,7 +3,8 @@ from pycocotools.coco import COCO
 
 from .custom import CustomDataset
 
-DATASET = 'DB_4LESIONS'
+#DATASET = 'DB_4LESIONS'
+DATASET = 'ROP_9LESIONS'
 
 class CocoDataset(CustomDataset):
     
@@ -25,7 +26,7 @@ class CocoDataset(CustomDataset):
     
     if DATASET=='ROP_2TISSUES':
         CLASSES = ('Macula','OpticDisk')
-    if DATASET=='ROP_9LESSIONS':
+    if DATASET=='ROP_9LESIONS':
         CLASSES = ('Laser Photocoagulation Spot','artifact','bleeding',
                     'Stage 1: demarcation line','Stage 2: ridge',
                     'Stage 3: ridge with neovascularization',
