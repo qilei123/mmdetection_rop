@@ -152,10 +152,10 @@ class AnchorHead(nn.Module):
             loss_cls = cls_criterion(
                 cls_score,
                 labels,
-                label_weights,
-                gamma=cfg.gamma,
-                alpha=cfg.alpha,
-                avg_factor=num_total_samples)
+                label_weights)#,
+                #gamma=cfg.gamma,
+                #alpha=cfg.alpha,
+                #avg_factor=num_total_samples)
         else:
             loss_cls = cls_criterion(
                 cls_score, labels, label_weights, avg_factor=num_total_samples)
