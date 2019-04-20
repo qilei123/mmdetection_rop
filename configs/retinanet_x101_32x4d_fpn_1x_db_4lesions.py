@@ -27,7 +27,7 @@ model = dict(
         octave_base_scale=4,
         scales_per_octave=3,
         anchor_ratios=[0.5, 1.0, 2.0],
-        anchor_strides=[1, 5, 15, 35, 65],
+        anchor_strides=[8, 16, 32, 64, 128],
         target_means=[.0, .0, .0, .0],
         target_stds=[1.0, 1.0, 1.0, 1.0]))
 # training and testing settings
