@@ -3,9 +3,10 @@ from pycocotools.coco import COCO
 
 from .custom import CustomDataset
 
+DATASET = 'DB_4LESIONS'
 
 class CocoDataset(CustomDataset):
-    '''
+    
     CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
                'train', 'truck', 'boat', 'traffic_light', 'fire_hydrant',
                'stop_sign', 'parking_meter', 'bench', 'bird', 'cat', 'dog',
@@ -20,22 +21,30 @@ class CocoDataset(CustomDataset):
                'mouse', 'remote', 'keyboard', 'cell_phone', 'microwave',
                'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
                'vase', 'scissors', 'teddy_bear', 'hair_drier', 'toothbrush')
-    '''
-
-    CLASSES = ('Macula','OpticDisk')
-    '''
-    CLASSES = {'Laser Photocoagulation Spot','artifact','bleeding',
-                'Stage 1: demarcation line','Stage 2: ridge',
-                'Stage 3: ridge with neovascularization',
-                'proliferation','Retina detachment','carcinoma'}
-    '''
+    
+    
+    if DATASET=='ROP_2TISSUES':
+        CLASSES = ('Macula','OpticDisk')
+    if DATASET=='ROP_9LESSIONS':
+        CLASSES = ('Laser Photocoagulation Spot','artifact','bleeding',
+                    'Stage 1: demarcation line','Stage 2: ridge',
+                    'Stage 3: ridge with neovascularization',
+                    'proliferation','Retina detachment','carcinoma')
+    if DATASET=='DB_4LESIONS':
+        CLASSES = ('hemorrhages', 'micro-aneurysms', 'hard exudate', 'cotton wool spot')
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.getCatIds()
-        self.cat2label = {
-            cat_id+1: i + 1
-            for i, cat_id in enumerate(self.cat_ids)
-        }
+        if 'ROP' in DATASET:
+            self.cat2label = {
+                cat_id+1: i + 1
+                for i, cat_id in enumerate(self.cat_ids)
+            }
+        else:
+            self.cat2label = {
+                cat_id: i + 1
+                for i, cat_id in enumerate(self.cat_ids)
+            }            
         print(self.cat2label)
         self.img_ids = self.coco.getImgIds()
         img_infos = []
