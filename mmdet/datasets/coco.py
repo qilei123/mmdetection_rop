@@ -104,7 +104,10 @@ class CocoDataset(CustomDataset):
                 gt_bboxes_ignore.append(bbox)
             else:
                 gt_bboxes.append(bbox)
-                gt_labels.append(self.cat2label[ann['category_id']+1])
+                if 'ROP' in DATASET:
+                    gt_labels.append(self.cat2label[ann['category_id']+1])
+                else:
+                    gt_labels.append(self.cat2label[ann['category_id']])
             if with_mask:
                 gt_masks.append(self.coco.annToMask(ann))
                 mask_polys = [
