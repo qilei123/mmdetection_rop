@@ -58,7 +58,7 @@ def imagenet_vid_classes():
         'red_panda', 'sheep', 'snake', 'squirrel', 'tiger', 'train', 'turtle',
         'watercraft', 'whale', 'zebra'
     ]
-
+DATASET = 'ROP_9LESIONS'
 '''
 def coco_classes():
     return [
@@ -78,10 +78,17 @@ def coco_classes():
         'scissors', 'teddy_bear', 'hair_drier', 'toothbrush'
     ]
 '''
+
 def coco_classes():
-    return [
-        'Macula','OpticDisk'
-    ]
+    if DATASET=='ROP_2TISSUES':
+        return [
+            'Macula','OpticDisk'
+        ]
+    elif DATASET=='ROP_9LESIONS':
+        return ['Laser Photocoagulation Spot','artifact','bleeding',
+                        'Stage 1: demarcation line','Stage 2: ridge',
+                        'Stage 3: ridge with neovascularization',
+                        'proliferation','Retina detachment','carcinoma']
 
 dataset_aliases = {
     'voc': ['voc', 'pascal_voc', 'voc07', 'voc12'],
