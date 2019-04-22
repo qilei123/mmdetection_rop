@@ -113,11 +113,11 @@ log_config = dict(
     ])
 # yapf:enable
 # runtime settings
-total_epochs = 12
+total_epochs = 20
 device_ids = range(8)
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB9/retinanet_r101_fpn_1x_crop'
 load_from = None
-resume_from = None
+resume_from = '/data0/qilei_chen/AI_EYE/BostonAI4DB9/retinanet_r101_fpn_1x_crop/epoch_12.pth'
 workflow = [('train', 1)]
