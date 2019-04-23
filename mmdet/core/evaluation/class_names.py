@@ -89,6 +89,8 @@ def coco_classes():
                         'Stage 1: demarcation line','Stage 2: ridge',
                         'Stage 3: ridge with neovascularization',
                         'proliferation','Retina detachment','carcinoma']
+    elif DATASET=='DR_4LESIONS':
+        return ['Hemorrhages','Microaneurysms','Hard Exudate','Cotton Wool Spot']
 
 dataset_aliases = {
     'voc': ['voc', 'pascal_voc', 'voc07', 'voc12'],
