@@ -3,8 +3,8 @@ from pycocotools.coco import COCO
 
 from .custom import CustomDataset
 
-DATASET = 'DB_4LESIONS'
-#DATASET = 'ROP_9LESIONS'
+#DATASET = 'DB_4LESIONS'
+DATASET = 'ROP_9LESIONS'
 
 class CocoDataset(CustomDataset):
     
