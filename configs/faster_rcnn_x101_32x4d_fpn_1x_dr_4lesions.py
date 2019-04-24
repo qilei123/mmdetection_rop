@@ -155,5 +155,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x'
 load_from = None
-resume_from = None
+resume_from = '/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
