@@ -58,7 +58,7 @@ def imagenet_vid_classes():
         'red_panda', 'sheep', 'snake', 'squirrel', 'tiger', 'train', 'turtle',
         'watercraft', 'whale', 'zebra'
     ]
-DATASET = 'DR_4LESIONS'
+DATASET = 'ROP_9LESIONS'
 '''
 def coco_classes():
     return [
