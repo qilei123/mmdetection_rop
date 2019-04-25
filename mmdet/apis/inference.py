@@ -75,6 +75,7 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None):
     ]
     labels = np.concatenate(labels)
     print(bboxes)
+    print(labels)
     mmcv.imshow_det_bboxes(
         img.copy(),
         bboxes,
