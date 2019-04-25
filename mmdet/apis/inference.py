@@ -6,7 +6,7 @@ import torch
 from mmdet.core import get_classes
 from mmdet.datasets import to_tensor
 from mmdet.datasets.transforms import ImageTransform
-import type
+import types
 
 def _prepare_data(img, img_transform, cfg, device):
     ori_shape = img.shape
