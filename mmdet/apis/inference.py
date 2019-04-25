@@ -77,11 +77,29 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None):
     print(bboxes)
     print(labels)
     print(type(bboxes))
-    
+    h0_score = 0
+    index_0 = -1
+    h1_score = 0
+    index_1 = -1
+
+    for i in range(bboxes.shape[0]):
+        if labels[i]==0:
+            if bboxes[i,4]>h0_score:
+                h0_score = bboxes[i,4]
+                index_0 = i
+        else:
+            if bboxes[i,4]>h1_score:
+                h1_score = bboxes[i,4]
+                index_1 = i
+    indexes = []
+    if index_0!=-1:
+        indexes.append(index_0)
+    if index_1!=-1:
+        indexes.append(index_1)
     mmcv.imshow_det_bboxes(
         img.copy(),
-        bboxes,
-        labels,
+        bboxes[indexes,:],
+        labels[indexes],
         class_names=class_names,
         score_thr=score_thr,
         show=out_file is None)
