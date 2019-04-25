@@ -45,7 +45,7 @@ result = inference_detector(model, img, cfg)
 show_result(img, result,score_thr = args.score_thr)
 
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/A. Segmentation/1. Original Images/a. Training Set'
-
+resize_scale = 0.2
 paths = glob.glob(os.path.join(folder,'*.jpg'))
 for path in paths:
     img = mmcv.imread(path)
