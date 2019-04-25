@@ -16,6 +16,9 @@ def parse_args():
     parser.add_argument(
         '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
         help='model file for testing')
+    parser.add_argument(
+        '--score_thr', default=0.3,
+        help='score threshold for testing')
     args = parser.parse_args()
     return args
 
@@ -37,7 +40,7 @@ resize_scale = 0.4
 height, width, depth = img.shape
 img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
-show_result(img, result)
+show_result(img, result,score_thr = args.score_thr)
 
 '''
 # test a list of images
