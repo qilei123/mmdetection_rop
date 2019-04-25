@@ -1,20 +1,37 @@
+import argparse
 import mmcv
 from mmcv.runner import load_checkpoint
 from mmdet.models import build_detector
 from mmdet.apis import inference_detector, show_result
 import cv2
 
-cfg = mmcv.Config.fromfile('configs/mask_rcnn_x101_64x4d_fpn_1x_2tissues.py')
+def parse_args():
+    parser = argparse.ArgumentParser(description='Detector')
+    parser.add_argument(
+        '--img_dir', default='/media/cql/DATA1/data/dr_2stages_samples/wrong_samples/0/297_left.jpeg', 
+        help='image path for testing')
+    parser.add_argument(
+        '--config_dir', default='configs/mask_rcnn_x101_64x4d_fpn_1x_2tissues.py',
+        help='config file for testing')
+    parser.add_argument(
+        '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
+        help='model file for testing')
+    args = parser.parse_args()
+    return args
+
+args = parse_args()
+
+cfg = mmcv.Config.fromfile(args.config_dir)
 cfg.model.pretrained = None
 
 # construct the model and load checkpoint
 #model_dir = 'https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth'
-model_dir = '../2TISSUES/mask_epoch_12.pth'
+model_dir = args.model_dir
 model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
 # test a single image
-img_dir = '/media/cql/DATA1/data/dr_2stages_samples/wrong_samples/0/297_left.jpeg'
+img_dir = args.img_dir
 img = mmcv.imread(img_dir)
 resize_scale = 0.4
 height, width, depth = img.shape
