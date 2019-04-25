@@ -4,6 +4,8 @@ from mmcv.runner import load_checkpoint
 from mmdet.models import build_detector
 from mmdet.apis import inference_detector, show_result
 import cv2
+import glob
+import os
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
@@ -33,14 +35,24 @@ model_dir = args.model_dir
 model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
-# test a single image
+# test a single 
+resize_scale = 0.4
 img_dir = args.img_dir
 img = mmcv.imread(img_dir)
-resize_scale = 0.4
 height, width, depth = img.shape
 img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
 show_result(img, result,score_thr = args.score_thr)
+
+folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/A. Segmentation/1. Original Images/a. Training Set'
+
+paths = glob.glob(os.path.join(folder,'*.jpg'))
+for path in paths:
+    img = mmcv.imread(path)
+    height, width, depth = img.shape
+    img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
+    result = inference_detector(model, img, cfg)
+    show_result(img, result,score_thr = args.score_thr)
 
 '''
 # test a list of images
