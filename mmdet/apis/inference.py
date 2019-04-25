@@ -6,7 +6,7 @@ import torch
 from mmdet.core import get_classes
 from mmdet.datasets import to_tensor
 from mmdet.datasets.transforms import ImageTransform
-
+import type
 
 def _prepare_data(img, img_transform, cfg, device):
     ori_shape = img.shape
@@ -76,6 +76,8 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None):
     labels = np.concatenate(labels)
     print(bboxes)
     print(labels)
+    print(type(bboxes))
+    
     mmcv.imshow_det_bboxes(
         img.copy(),
         bboxes,
