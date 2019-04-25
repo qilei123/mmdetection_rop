@@ -10,7 +10,7 @@ cfg.model.pretrained = None
 #model_dir = 'https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth'
 model_dir = '../2TISSUES/mask_epoch_12.pth'
 model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
-_ = load_checkpoint(model, )
+_ = load_checkpoint(model, model_dir)
 
 # test a single image
 img_dir = '/media/cql/DATA1/data/2TISSUES/val2014/val_3_2631ccbad6435fa1dbbcdc4c38b8d5fb.png'
