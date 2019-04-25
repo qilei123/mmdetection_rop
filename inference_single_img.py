@@ -17,7 +17,7 @@ def parse_args():
         '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
         help='model file for testing')
     parser.add_argument(
-        '--score_thr', default=0.3,
+        '--score_thr', default=0.3,type = float,
         help='score threshold for testing')
     args = parser.parse_args()
     return args
