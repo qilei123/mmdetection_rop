@@ -2,7 +2,7 @@ import argparse
 import mmcv
 from mmcv.runner import load_checkpoint
 from mmdet.models import build_detector
-from mmdet.apis import inference_detector, show_result
+from mmdet.apis import inference_detector, show_result, show_single_category_result
 import cv2
 import glob
 import os

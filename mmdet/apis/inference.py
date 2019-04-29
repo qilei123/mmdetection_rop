@@ -82,6 +82,43 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None):
         score_thr=score_thr,
         show=out_file is None)
 
+def show_single_category_result(img, result, dataset='coco', score_thr=0.3, out_file=None,category_id=0):
+    img = mmcv.imread(img)
+    class_names = get_classes(dataset)
+    if isinstance(result, tuple):
+        bbox_result, segm_result = result
+    else:
+        bbox_result, segm_result = result, None
+    bboxes = np.vstack(bbox_result)
+    # draw segmentation masks
+    if segm_result is not None:
+        segms = mmcv.concat_list(segm_result)
+        inds = np.where(bboxes[:, -1] > score_thr)[0]
+        for i in inds:
+            color_mask = np.random.randint(
+                0, 256, (1, 3), dtype=np.uint8)
+            mask = maskUtils.decode(segms[i]).astype(np.bool)
+            img[mask] = img[mask] * 0.5 + color_mask * 0.5
+    # draw bounding boxes
+    labels = [
+        np.full(bbox.shape[0], i, dtype=np.int32)
+        for i, bbox in enumerate(bbox_result)
+    ]
+    labels = np.concatenate(labels)
+    single_category_indexes = []
+    category_index = 0
+    for label in labels:
+        if label==category_id:
+            single_category_indexes.append(category_index)
+        category_index+=1
+    mmcv.imshow_det_bboxes(
+        img.copy(),
+        bboxes[single_category_indexes,:],
+        labels[single_category_indexes],
+        class_names=class_names,
+        score_thr=score_thr,
+        show=out_file is None)
+
 def show_result_rop_2tissue(img, result, dataset='coco', score_thr=0.3, out_file=None):
     img = mmcv.imread(img)
     class_names = get_classes(dataset)
