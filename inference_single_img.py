@@ -21,6 +21,9 @@ def parse_args():
     parser.add_argument(
         '--score_thr', default=0.3,type = float,
         help='score threshold for testing')
+    parser.add_argument(
+        '--resize_scale', default=0.5,type = float,
+        help='resize scale for testing')
     args = parser.parse_args()
     return args
 
@@ -36,7 +39,7 @@ model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
 # test a single 
-resize_scale = 1
+resize_scale = args.resize_scale
 img_dir = args.img_dir
 img = mmcv.imread(img_dir)
 height, width, depth = img.shape
