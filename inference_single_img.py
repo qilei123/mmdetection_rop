@@ -45,7 +45,7 @@ img = mmcv.imread(img_dir)
 height, width, depth = img.shape
 img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
-show_result(img, result,score_thr = args.score_thr)
+show_single_category_result(img, result,score_thr = args.score_thr,category_id=0)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
