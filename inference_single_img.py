@@ -36,7 +36,7 @@ model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
 # test a single 
-resize_scale = 0.9
+resize_scale = 1
 img_dir = args.img_dir
 img = mmcv.imread(img_dir)
 height, width, depth = img.shape
