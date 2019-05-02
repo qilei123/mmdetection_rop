@@ -58,7 +58,7 @@ def imagenet_vid_classes():
         'red_panda', 'sheep', 'snake', 'squirrel', 'tiger', 'train', 'turtle',
         'watercraft', 'whale', 'zebra'
     ]
-DATASET = 'DR_4LESIONS'
+DATASET = 'DR_6LESIONS'
 '''
 def coco_classes():
     return [
@@ -91,7 +91,8 @@ def coco_classes():
                         'proliferation','Retina detachment','carcinoma']
     elif DATASET=='DR_4LESIONS':
         return ['Hemorrhages','Microaneurysms','Hard Exudate','Cotton Wool Spot']
-
+    elif DATASET=='DB_6LESIONS':
+        return ['1','2','3','4','5','6']
 dataset_aliases = {
     'voc': ['voc', 'pascal_voc', 'voc07', 'voc12'],
     'imagenet_det': ['det', 'imagenet_det', 'ilsvrc_det'],
