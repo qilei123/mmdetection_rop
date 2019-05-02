@@ -5,7 +5,7 @@ from .custom import CustomDataset
 
 #DATASET = 'DB_4LESIONS'
 #DATASET = 'ROP_9LESIONS'
-DATASET = 'DB_6LESIONS'
+DATASET = 'DB_7LESIONS'
 class CocoDataset(CustomDataset):
     
     CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
@@ -33,8 +33,8 @@ class CocoDataset(CustomDataset):
                     'proliferation','Retina detachment','carcinoma')
     if DATASET=='DB_4LESIONS':
         CLASSES = ('hemorrhages', 'micro-aneurysms', 'hard exudate', 'cotton wool spot')
-    if DATASET=='DB_6LESIONS':
-        CLASSES = ('1','2','3','4','5','6')
+    if DATASET=='DB_7LESIONS':
+        CLASSES = ('1','2','3','4','5','6','7')
     def load_annotations(self, ann_file):
         self.coco = COCO(ann_file)
         self.cat_ids = self.coco.getCatIds()
