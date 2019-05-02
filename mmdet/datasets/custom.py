@@ -165,6 +165,7 @@ class CustomDataset(Dataset):
     def prepare_train_img(self, idx):
         img_info = self.img_infos[idx]
         # load image
+        print (osp.join(self.img_prefix, img_info['filename']))
         img = mmcv.imread(osp.join(self.img_prefix, img_info['filename']))
         # load proposals if necessary
         if self.proposals is not None:
