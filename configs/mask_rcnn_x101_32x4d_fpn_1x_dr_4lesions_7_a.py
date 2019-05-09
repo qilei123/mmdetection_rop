@@ -162,7 +162,7 @@ log_config = dict(
     ])
 # yapf:enable
 # runtime settings
-total_epochs = 15
+total_epochs = 24
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = data_root+'work_dirs/mask_rcnn_r50_fpn_1x_60'
