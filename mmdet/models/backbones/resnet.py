@@ -467,9 +467,9 @@ class Conv2d_2000(nn.Module):
 
     def __init__(self, in_channels, out_channels, **kwargs):
         super(Conv2d_2000, self).__init__()
-        self.conv1a = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=15, stride=4,padding = 7)
-        self.conv1b = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=31, stride=4,padding = 15)
-        self.conv1c = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=61, stride=4,padding = 30)
+        self.conv1a = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=15, stride=6,padding = 7)
+        self.conv1b = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=31, stride=6,padding = 15)
+        self.conv1c = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=61, stride=6,padding = 30)
 
     def forward(self, x):
         x1 = self.conv1a(x)
