@@ -2,6 +2,7 @@ import logging
 
 import torch.nn as nn
 import torch.utils.checkpoint as cp
+import torch.nn.functional as F
 
 from mmcv.cnn import constant_init, kaiming_init
 from mmcv.runner import load_checkpoint
@@ -10,6 +11,7 @@ from mmdet.ops import DeformConv, ModulatedDeformConv
 from ..registry import BACKBONES
 from ..utils import build_norm_layer
 
+input_styles={'1000','2000','3000'}
 
 def conv3x3(in_planes, out_planes, stride=1, dilation=1):
     "3x3 convolution with padding"
@@ -324,7 +326,8 @@ class ResNet(nn.Module):
                  dcn=None,
                  stage_with_dcn=(False, False, False, False),
                  with_cp=False,
-                 zero_init_residual=True):
+                 zero_init_residual=True,
+                 input_style = '1000'):
         super(ResNet, self).__init__()
         if depth not in self.arch_settings:
             raise KeyError('invalid depth {} for resnet'.format(depth))
@@ -346,6 +349,9 @@ class ResNet(nn.Module):
         if dcn is not None:
             assert len(stage_with_dcn) == num_stages
         self.zero_init_residual = zero_init_residual
+
+        self.input_style = input_style
+
         self.block, stage_blocks = self.arch_settings[depth]
         self.stage_blocks = stage_blocks[:num_stages]
         self.inplanes = 64
@@ -384,8 +390,11 @@ class ResNet(nn.Module):
         return getattr(self, self.norm1_name)
 
     def _make_stem_layer(self):
-        self.conv1 = nn.Conv2d(
-            3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        if self.input_style=='1000':
+            self.conv1 = nn.Conv2d(
+                3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        elif self.input_style=='2000':
+            self.conv1 = Conv2d_2000(3,64)
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
@@ -452,3 +461,19 @@ class ResNet(nn.Module):
                 # trick: eval have effect on BatchNorm only
                 if isinstance(m, nn.BatchNorm2d):
                     m.eval()
+
+
+class Conv2d_2000(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(Conv2d_2000, self).__init__()
+        self.conv1 = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=15, stride=5,padding = 7)
+        self.conv2 = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=31, stride=5,padding = 15)
+        self.conv3 = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=61, stride=5,padding = 30)
+
+    def forward(self, x):
+        x1 = self.conv1(x)
+        x2 = self.conv2(x)
+        x3 = self.conv3(x)
+        x = x1+x2+x3
+        return x
