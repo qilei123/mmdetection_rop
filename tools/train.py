@@ -2,7 +2,8 @@ from __future__ import division
 
 import argparse
 from mmcv import Config
-
+import sys
+sys.path.insert(0, '/data0/qilei_chen/Development/mmdetection_rop')
 from mmdet import __version__
 from mmdet.datasets import get_dataset
 from mmdet.apis import (train_detector, init_dist, get_root_logger,
