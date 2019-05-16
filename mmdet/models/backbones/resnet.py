@@ -359,6 +359,7 @@ class ResNet(nn.Module):
         self._make_stem_layer()
 
         self.res_layers = []
+        print(self.stage_blocks)
         for i, num_blocks in enumerate(self.stage_blocks):
             stride = strides[i]
             dilation = dilations[i]
