@@ -121,12 +121,16 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             ious2 = overlap/area2
             centers_in_gt = ious*0
             print(centers_in_gt)
+            '''
+            bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
             for i in range(rows):
                 for j in range(cols):
                     if bboxes1[i,2]>((bboxes2[j,0]+bboxes2[j,2])/2) and bboxes1[i,0]<((bboxes2[j,0]+bboxes2[j,2])/2):
                         if bboxes1[i,3]>((bboxes2[j,1]+bboxes2[j,3])/2) and bboxes1[i,1]<((bboxes2[j,1]+bboxes2[j,3])/2):
                             centers_in_gt[i,j] = 1
+            
             print(centers_in_gt)
+            '''
             return ious,ious2,centers_in_gt
         else:
             ious = overlap / (area1[:, None])
