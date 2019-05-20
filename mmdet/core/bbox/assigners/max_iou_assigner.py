@@ -210,12 +210,17 @@ class MaxIoUAssigner(BaseAssigner):
         #center focus strategy
         for j in range(num_bboxes):
             if assigned_gt_inds[j]<=0:
+                '''
                 mark_i=-1
-                max_iou = 0
+                max_iou=0
+                '''
+                max_iou,mark_i = torch.max(overlaps[:,j])
+                '''
                 for i in range(num_gts):
                     if max_iou<overlaps[i,j]:
                         mark_i=i
                         max_iou = overlaps[i,j]
+                '''
                 if max_iou>0.1:
                     if overlaps_bboxes[i,j]>0.7 and centers_in_gt[i,j]==1:
                         assigned_gt_inds[j] = mark_i+1
