@@ -120,18 +120,21 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             ious = overlap / (area1[:, None] + area2 - overlap)
             ious2 = overlap/area2
             centers_in_gt = ious*0
-            print(centers_in_gt)
-            '''
-            bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
+            centers_in_gt_np = centers_in_gt.numpy()
+            print(centers_in_gt_np)
+
+            #bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
+            bboxes1_np = bboxes1.numpy()
+            bboxes2_np = bboxes2.numpy()
             for i in range(rows):
                 for j in range(cols):
-                    if bboxes1[i,2]>((bboxes2[j,0]+bboxes2[j,2])/2) and bboxes1[i,0]<((bboxes2[j,0]+bboxes2[j,2])/2):
-                        if bboxes1[i,3]>((bboxes2[j,1]+bboxes2[j,3])/2) and bboxes1[i,1]<((bboxes2[j,1]+bboxes2[j,3])/2):
-                            centers_in_gt[i,j] = 1
+                    if bboxes1_np[i,2]>((bboxes2_np[j,0]+bboxes2_np[j,2])/2) and bboxes1_np[i,0]<((bboxes2_np[j,0]+bboxes2_np[j,2])/2):
+                        if bboxes1_np[i,3]>((bboxes2_np[j,1]+bboxes2_np[j,3])/2) and bboxes1_np[i,1]<((bboxes2_np[j,1]+bboxes2_np[j,3])/2):
+                            centers_in_gt_np[i,j] = 1
             
-            print(centers_in_gt)
-            '''
-            return ious,ious2,centers_in_gt
+            print(centers_in_gt_np)
+            
+            return ious,ious2,centers_in_gt_np
         else:
             ious = overlap / (area1[:, None])
 
