@@ -119,7 +119,9 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
                 bboxes2[:, 3] - bboxes2[:, 1] + 1)
             ious = overlap / (area1[:, None] + area2 - overlap)
             ious2 = overlap/area2
-            centers_in_gt = ious*0
+            centers_in_gt = torch.zeros(rows,cols)
+            print(bboxes1)
+            print(bboxes2)
             centers_in_gt_np = centers_in_gt.numpy()
             print(centers_in_gt_np)
 
