@@ -127,8 +127,8 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             print(centers_in_gt_np)
 
             #bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
-            bboxes1_np = bboxes1.numpy()
-            bboxes2_np = bboxes2.numpy()
+            bboxes1_np = bboxes1.cpu().numpy()
+            bboxes2_np = bboxes2.cpu().numpy()
             for i in range(rows):
                 for j in range(cols):
                     if bboxes1_np[i,2]>((bboxes2_np[j,0]+bboxes2_np[j,2])/2) and bboxes1_np[i,0]<((bboxes2_np[j,0]+bboxes2_np[j,2])/2):
