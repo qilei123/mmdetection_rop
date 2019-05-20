@@ -76,7 +76,7 @@ class MaxIoUAssigner(BaseAssigner):
             raise ValueError('No gt or bboxes')
         bboxes = bboxes[:, :4]
         if self.center_focus:
-            overlaps, overlaps_bboxes = bbox_overlaps2(gt_bboxes, bboxes)
+            overlaps, overlaps_bboxes,centers_in_gt = bbox_overlaps2(gt_bboxes, bboxes)
         else:
             overlaps = bbox_overlaps(gt_bboxes, bboxes)
 
@@ -92,7 +92,7 @@ class MaxIoUAssigner(BaseAssigner):
                 ignore_max_overlaps, _ = ignore_overlaps.max(dim=0)
             overlaps[:, ignore_max_overlaps > self.ignore_iof_thr] = -1
         if self.center_focus:
-            assign_result = self.assign_wrt_overlaps2(overlaps, gt_labels,overlaps_bboxes)
+            assign_result = self.assign_wrt_overlaps2(overlaps, gt_labels,overlaps_bboxes,centers_in_gt)
         else:
             assign_result = self.assign_wrt_overlaps(overlaps, gt_labels)
         return assign_result
@@ -158,7 +158,7 @@ class MaxIoUAssigner(BaseAssigner):
         return AssignResult(
             num_gts, assigned_gt_inds, max_overlaps, labels=assigned_labels)
 
-    def assign_wrt_overlaps2(self, overlaps, gt_labels=None, overlaps_bboxes = None):
+    def assign_wrt_overlaps2(self, overlaps, gt_labels=None, overlaps_bboxes = None,centers_in_gt = None):
         """Assign w.r.t. the overlaps of bboxes with gts.
 
         Args:
@@ -207,6 +207,20 @@ class MaxIoUAssigner(BaseAssigner):
                 else:
                     assigned_gt_inds[gt_argmax_overlaps[i]] = i + 1
 
+        #center focus strategy
+        for j in range(num_bboxes):
+            if assigned_gt_inds[j]<=0:
+                mark_i=-1
+                max_iou = 0
+                for i in range(num_gts):
+                    if max_iou<overlaps[i,j]:
+                        mark_i=i
+                        max_iou = overlaps[i,j]
+                if max_iou>0.1:
+                    if overlaps_bboxes[i,j]>0.7 and centers_in_gt[i,j]==1:
+                        assigned_gt_inds[j] = mark_i+1
+                        print("center focus!")
+        
         if gt_labels is not None:
             assigned_labels = assigned_gt_inds.new_zeros((num_bboxes, ))
             pos_inds = torch.nonzero(assigned_gt_inds > 0).squeeze()
