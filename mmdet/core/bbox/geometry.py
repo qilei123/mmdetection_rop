@@ -122,6 +122,7 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             centers_in_gt = torch.zeros(rows,cols)
             print(bboxes1)
             print(bboxes2)
+            print(cols)
             centers_in_gt_np = centers_in_gt.numpy()
             print(centers_in_gt_np)
 
