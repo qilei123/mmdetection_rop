@@ -177,6 +177,12 @@ class MaxIoUAssigner(BaseAssigner):
         # 1. assign -1 by default
         assigned_gt_inds = overlaps.new_full(
             (num_bboxes, ), -1, dtype=torch.long)
+        
+        # center focus strategy
+        center_focus_conditions = (overlaps<self.min_pos_iou)*(overlaps>0.1)*(centers_in_gt==1)*(overlaps_bboxes>0.7)
+        print(center_focus_conditions.size())
+        temp_zeros = overlaps*0
+        overlaps = torch.where(center_focus_conditions==1,temp_zeros+self.min_pos_iou,overlaps)
 
         # for each anchor, which gt best overlaps with it
         # for each anchor, the max iou of all gts
@@ -207,29 +213,7 @@ class MaxIoUAssigner(BaseAssigner):
                 else:
                     assigned_gt_inds[gt_argmax_overlaps[i]] = i + 1
 
-        #center focus strategy
-        '''
-        for j in range(num_bboxes):
-            if assigned_gt_inds[j]<=0:
-                
-                mark_i=-1
-                max_iou=0
-                
-                #max_iou,mark_i = torch.max(overlaps[:,j])
-                
-                for i in range(num_gts):
-                    if max_iou<overlaps[i,j]:
-                        mark_i=i
-                        max_iou = overlaps[i,j]
-                
-                if max_iou>0.1:
-                    if overlaps_bboxes[i,j]>0.7 and centers_in_gt[i,j]==1:
-                        assigned_gt_inds[j] = mark_i+1
-                        print("center focus!")
-        '''
-        center_focus_conditions = (overlaps>0.1)*(centers_in_gt==1)*(overlaps_bboxes>0.7)
-        print(center_focus_conditions.size())
-        
+
         if gt_labels is not None:
             assigned_labels = assigned_gt_inds.new_zeros((num_bboxes, ))
             pos_inds = torch.nonzero(assigned_gt_inds > 0).squeeze()

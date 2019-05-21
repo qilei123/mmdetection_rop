@@ -127,11 +127,10 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             bboxes1_gt = bboxes1_gt.permute(1,0,2)
 
             
-            temp1 = (bboxes1_gt[:,:,0]<centers[:,:,0])
-            temp2 = (bboxes1_gt[:,:,2]>centers[:,:,0])
-            temp3 = (bboxes1_gt[:,:,1]<centers[:,:,1])
-            temp4 = (bboxes1_gt[:,:,3]>centers[:,:,1])
-            centers_in_gt = temp1*temp2*temp3*temp4
+            centers_in_gt = (bboxes1_gt[:,:,0]<centers[:,:,0])
+            centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,2]>centers[:,:,0])
+            centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,1]<centers[:,:,1])
+            centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,3]>centers[:,:,1])
             print(centers_in_gt.size())
             '''
             ####
