@@ -131,7 +131,7 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,2]>centers[:,:,0])
             centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,1]<centers[:,:,1])
             centers_in_gt = centers_in_gt*(bboxes1_gt[:,:,3]>centers[:,:,1])
-            print(centers_in_gt.size())
+            #print(centers_in_gt.size())
             '''
             ####
             bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]

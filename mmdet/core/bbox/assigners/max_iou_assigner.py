@@ -180,7 +180,7 @@ class MaxIoUAssigner(BaseAssigner):
         
         # center focus strategy
         center_focus_conditions = (overlaps<self.min_pos_iou)*(overlaps>0.1)*(centers_in_gt==1)*(overlaps_bboxes>0.7)
-        print(center_focus_conditions.size())
+        #print(center_focus_conditions.size())
         temp_zeros = overlaps*0
         overlaps = torch.where(center_focus_conditions==1,temp_zeros+self.min_pos_iou,overlaps)
 
