@@ -1,3 +1,4 @@
+input_stride = 5
 # model settings
 model = dict(
     type='FasterRCNN',
@@ -96,7 +97,6 @@ data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7_a/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 img_scale_ = (2000, 2000)
-input_stride = 5
 size_divisor = 16*input_stride
 data = dict(
     imgs_per_gpu=2,
