@@ -125,6 +125,7 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             centers = torch.cat((((bboxes2[:,0]+bboxes2[:,2])/2).reshape(-1,1),((bboxes2[:,1]+bboxes2[:,3])/2).reshape(-1,1)),dim=1)
             print(centers.size())
             print(bboxes1.size())
+            print(bboxes1[:,0]<centers[:,0])
             '''
             ####
             bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
