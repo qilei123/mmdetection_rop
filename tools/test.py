@@ -1,10 +1,10 @@
 import argparse
-
+import sys
 import torch
 import mmcv
 from mmcv.runner import load_checkpoint, parallel_test, obj_from_dict
 from mmcv.parallel import scatter, collate, MMDataParallel
-
+sys.path.insert(0, '/data0/qilei_chen/Development/mmdetection_rop')
 from mmdet import datasets
 from mmdet.core import results2json, coco_eval
 from mmdet.datasets import build_dataloader
