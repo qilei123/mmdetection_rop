@@ -124,7 +124,8 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             centers_in_gt = torch.zeros(rows,cols)
             centers = torch.cat((((bboxes2[:,0]+bboxes2[:,2])/2).reshape(-1,1),((bboxes2[:,1]+bboxes2[:,3])/2).reshape(-1,1)),dim=1)
             centers = centers.repeat(rows,1,1)
-            bboxes1_gt = bboxes1.repeat(1,cols,1)
+            bboxes1_gt = bboxes1.repeat(cols,1,1)
+            bboxes1_gt = bboxes1_gt.transpose(rows,cols,0)
             print(centers.size())
             print(bboxes1_gt.size())
         
