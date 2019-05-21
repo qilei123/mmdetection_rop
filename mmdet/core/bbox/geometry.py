@@ -120,6 +120,11 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             ious = overlap / (area1[:, None] + area2 - overlap)
             ious2 = overlap/area2
 
+
+            centers_in_gt = torch.zeros(rows,cols)
+            centers = torch.cat((bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2,dim=1)
+            print(centers)
+            '''
             ####
             bboxes_center = [(bboxes2[:,0]+bboxes2[:,2])/2,(bboxes2[:,1]+bboxes2[:,3])/2]
             print(bboxes_center)
@@ -142,7 +147,8 @@ def bbox_overlaps2(bboxes1, bboxes2, mode='iou', is_aligned=False):
             
             print(centers_in_gt_np)
             #####
-            return ious,ious2,centers_in_gt_np
+            '''
+            return ious,ious2,centers_in_gt
         else:
             ious = overlap / (area1[:, None])
 
