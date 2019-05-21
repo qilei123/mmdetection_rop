@@ -208,6 +208,7 @@ class MaxIoUAssigner(BaseAssigner):
                     assigned_gt_inds[gt_argmax_overlaps[i]] = i + 1
 
         #center focus strategy
+        '''
         for j in range(num_bboxes):
             if assigned_gt_inds[j]<=0:
                 
@@ -225,6 +226,9 @@ class MaxIoUAssigner(BaseAssigner):
                     if overlaps_bboxes[i,j]>0.7 and centers_in_gt[i,j]==1:
                         assigned_gt_inds[j] = mark_i+1
                         print("center focus!")
+        '''
+        center_focus_conditions = (overlaps>0.1)*(centers_in_gt==1)*(overlaps_bboxes>0.7)
+        print(center_focus_conditions.size())
         
         if gt_labels is not None:
             assigned_labels = assigned_gt_inds.new_zeros((num_bboxes, ))
