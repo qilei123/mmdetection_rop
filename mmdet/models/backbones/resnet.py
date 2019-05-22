@@ -11,7 +11,7 @@ from mmdet.ops import DeformConv, ModulatedDeformConv
 from ..registry import BACKBONES
 from ..utils import build_norm_layer
 
-input_styles={'1000','2000','3000'}
+input_styles={'1000','2000','2000_simple','3000'}
 
 def conv3x3(in_planes, out_planes, stride=1, dilation=1):
     "3x3 convolution with padding"
@@ -396,6 +396,9 @@ class ResNet(nn.Module):
                 3, 64, kernel_size=7, stride=2, padding=3, bias=False)
         elif self.input_style=='2000':
             self.conv1 = Conv2d_2000(3,64)
+        elif self.input_style=='2000_simple':
+            self.conv1 = nn.Conv2d(
+                3, 64, kernel_size=15, stride=5, padding=7, bias=False)
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
