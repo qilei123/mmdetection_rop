@@ -24,7 +24,7 @@ model = dict(
         feat_channels=256,
         anchor_scales=[8],
         anchor_ratios=[0.5, 1.0, 2.0],
-        anchor_strides=[4, 8, 16, 32, 64],
+        anchor_strides=[i*input_stride/2 for i in [4, 8, 16, 32, 64]],
         target_means=[.0, .0, .0, .0],
         target_stds=[1.0, 1.0, 1.0, 1.0],
         use_sigmoid_cls=True),
@@ -33,7 +33,7 @@ model = dict(
         type='SingleRoIExtractor',
         roi_layer=dict(type='RoIAlign', out_size=7, sample_num=2),
         out_channels=256,
-        featmap_strides=[4, 8, 16, 32]),
+        featmap_strides=[i*input_stride/2 for i in [4, 8, 16, 32]]),
     bbox_head=dict(
         type='SharedFCBBoxHead',
         num_fcs=2,
