@@ -397,8 +397,7 @@ class ResNet(nn.Module):
         elif self.input_style=='2000':
             self.conv1 = Conv2d_2000(3,64)
         elif self.input_style=='2000_simple':
-            self.conv1 = nn.Conv2d(
-                3, 64, kernel_size=15, stride=5, padding=7, bias=False)
+            self.conv1 = Conv2d_2000_simple(3,64)
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
@@ -480,4 +479,13 @@ class Conv2d_2000(nn.Module):
         x2 = self.conv1b(x)
         x3 = self.conv1c(x)
         x = x1+x2+x3
+        return x
+class Conv2d_2000_simple(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(Conv2d_2000_simple, self).__init__()
+        self.conv1a = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=15, stride=5,padding = 7)
+
+    def forward(self, x):
+        x = self.conv1a(x)
         return x
