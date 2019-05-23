@@ -394,10 +394,15 @@ class ResNet(nn.Module):
         if self.input_style=='1000':
             self.conv1 = nn.Conv2d(
                 3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+            #self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         elif self.input_style=='2000':
             self.conv1 = Conv2d_2000(3,64)
+            #self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         elif self.input_style=='2000_simple':
             self.conv1 = Conv2d_2000_simple(3,64)
+            #self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        elif self.input_style=='2000_v2':
+            self.conv1 = Conv2d_2000_v2(3,64)
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
@@ -465,6 +470,17 @@ class ResNet(nn.Module):
                 if isinstance(m, nn.BatchNorm2d):
                     m.eval()
 
+class BasicConv2d(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(BasicConv2d, self).__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, bias=False, **kwargs)
+        self.bn = nn.BatchNorm2d(out_channels, eps=0.001)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return F.relu(x, inplace=True)
 
 class Conv2d_2000(nn.Module):
 
@@ -473,6 +489,20 @@ class Conv2d_2000(nn.Module):
         self.conv1a = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=15, stride=5,padding = 7)
         self.conv1b = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=31, stride=5,padding = 15)
         self.conv1c = nn.Conv2d(in_channels, out_channels, bias=False, kernel_size=61, stride=5,padding = 30)
+
+    def forward(self, x):
+        x1 = self.conv1a(x)
+        x2 = self.conv1b(x)
+        x3 = self.conv1c(x)
+        x = x1+x2+x3
+        return x
+class Conv2d_2000_v2(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(Conv2d_2000_re, self).__init__()
+        self.conv1a = BasicConv2d(in_channels, out_channels, kernel_size=15, stride=5,padding = 7)
+        self.conv1b = BasicConv2d(in_channels, out_channels, kernel_size=31, stride=5,padding = 15)
+        self.conv1c = BasicConv2d(in_channels, out_channels, kernel_size=61, stride=5,padding = 30)
 
     def forward(self, x):
         x1 = self.conv1a(x)
