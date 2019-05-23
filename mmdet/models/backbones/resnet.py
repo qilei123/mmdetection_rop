@@ -499,7 +499,21 @@ class Conv2d_2000(nn.Module):
 class Conv2d_2000_v2(nn.Module):
 
     def __init__(self, in_channels, out_channels, **kwargs):
-        super(Conv2d_2000_re, self).__init__()
+        super(Conv2d_2000_v2, self).__init__()
+        self.conv1a = BasicConv2d(in_channels, out_channels, kernel_size=15, stride=5,padding = 7)
+        self.conv1b = BasicConv2d(in_channels, out_channels, kernel_size=31, stride=5,padding = 15)
+        self.conv1c = BasicConv2d(in_channels, out_channels, kernel_size=61, stride=5,padding = 30)
+
+    def forward(self, x):
+        x1 = self.conv1a(x)
+        x2 = self.conv1b(x)
+        x3 = self.conv1c(x)
+        x = x1+x2+x3
+        return x
+class Conv2d_2000_v3(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(Conv2d_2000_v3, self).__init__()
         self.conv1a = BasicConv2d(in_channels, out_channels, kernel_size=15, stride=5,padding = 7)
         self.conv1b = BasicConv2d(in_channels, out_channels, kernel_size=31, stride=5,padding = 15)
         self.conv1c = BasicConv2d(in_channels, out_channels, kernel_size=61, stride=5,padding = 30)
