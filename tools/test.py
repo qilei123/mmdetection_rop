@@ -21,8 +21,8 @@ def single_test(model, data_loader, show=False):
         with torch.no_grad():
             result = model(return_loss=False, rescale=not show, **data)
         results.append(result)
-        print(dataset) 
-        print(result)
+        #print(dataset) 
+        #print(result)
         if show:
             model.module.show_result(data, result, dataset.img_norm_cfg,score_thr = 0.0)
                                     #,dataset=dataset.CLASSES)
