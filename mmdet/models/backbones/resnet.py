@@ -448,8 +448,9 @@ class ResNet(nn.Module):
 
     def forward(self, x):
         x = self.conv1(x)
-        x = self.norm1(x)
-        x = self.relu(x)
+        if not self.input_style=='2000_v2':
+            x = self.norm1(x)
+            x = self.relu(x)
         x = self.maxpool(x)
         outs = []
         for i, layer_name in enumerate(self.res_layers):
