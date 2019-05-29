@@ -526,12 +526,14 @@ class Conv2d_2000_v3(nn.Module):
         self.conv1a = BasicConv2d(in_channels, out_channels, kernel_size=15, stride=5,padding = 7)
         self.conv1b = BasicConv2d(in_channels, out_channels, kernel_size=31, stride=5,padding = 15)
         self.conv1c = BasicConv2d(in_channels, out_channels, kernel_size=61, stride=5,padding = 30)
+        self.conv1d = BasicConv2d(192, 64, kernel_size=1, stride=1)
 
     def forward(self, x):
         x1 = self.conv1a(x)
         x2 = self.conv1b(x)
         x3 = self.conv1c(x)
         x = torch.cat((x1,x2,x3),1)
+        x = self.conv1d(x)
         return x
 class Conv2d_2000_simple(nn.Module):
 
