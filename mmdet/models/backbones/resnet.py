@@ -3,6 +3,7 @@ import logging
 import torch.nn as nn
 import torch.utils.checkpoint as cp
 import torch.nn.functional as F
+import torch
 
 from mmcv.cnn import constant_init, kaiming_init
 from mmcv.runner import load_checkpoint
@@ -354,7 +355,10 @@ class ResNet(nn.Module):
 
         self.block, stage_blocks = self.arch_settings[depth]
         self.stage_blocks = stage_blocks[:num_stages]
-        self.inplanes = 64
+        if self.input_style=='2000_v3':
+            self.inplanes = 192
+        else:
+            self.inplanes = 64
 
         self._make_stem_layer()
 
@@ -403,6 +407,9 @@ class ResNet(nn.Module):
             #self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
         elif self.input_style=='2000_v2':
             self.conv1 = Conv2d_2000_v2(3,64)
+        elif self.input_style=='2000_v3':
+            self.conv1 = Conv2d_2000_v3(3,64)
+        
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
@@ -448,9 +455,10 @@ class ResNet(nn.Module):
 
     def forward(self, x):
         x = self.conv1(x)
-        if not self.input_style=='2000_v2':
+        if not (self.input_style=='2000_v2' or self.input_style=='2000_v3'):
             x = self.norm1(x)
             x = self.relu(x)
+        
         x = self.maxpool(x)
         outs = []
         for i, layer_name in enumerate(self.res_layers):
@@ -523,7 +531,7 @@ class Conv2d_2000_v3(nn.Module):
         x1 = self.conv1a(x)
         x2 = self.conv1b(x)
         x3 = self.conv1c(x)
-        x = x1+x2+x3
+        x = torch.cat((x1,x2,x3),1)
         return x
 class Conv2d_2000_simple(nn.Module):
 
