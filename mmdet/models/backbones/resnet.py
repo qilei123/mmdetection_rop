@@ -356,7 +356,7 @@ class ResNet(nn.Module):
         self.block, stage_blocks = self.arch_settings[depth]
         self.stage_blocks = stage_blocks[:num_stages]
         if self.input_style=='2000_v3':
-            self.inplanes = 192
+            self.inplanes = 64
         else:
             self.inplanes = 64
 
