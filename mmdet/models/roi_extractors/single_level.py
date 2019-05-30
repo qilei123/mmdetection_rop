@@ -25,12 +25,14 @@ class SingleRoIExtractor(nn.Module):
                  roi_layer,
                  out_channels,
                  featmap_strides,
-                 finest_scale=56):
+                 finest_scale=56,
+                 cat_mul_feats = False):
         super(SingleRoIExtractor, self).__init__()
         self.roi_layers = self.build_roi_layers(roi_layer, featmap_strides)
         self.out_channels = out_channels
         self.featmap_strides = featmap_strides
         self.finest_scale = finest_scale
+        self.cat_mul_feats = cat_mul_feats
 
     @property
     def num_inputs(self):
@@ -77,12 +79,23 @@ class SingleRoIExtractor(nn.Module):
         out_size = self.roi_layers[0].out_size
         num_levels = len(feats)
         target_lvls = self.map_roi_levels(rois, num_levels)
-        roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels,
-                                           out_size, out_size).fill_(0)
-        for i in range(num_levels):
-            inds = target_lvls == i
-            if inds.any():
-                rois_ = rois[inds, :]
-                roi_feats_t = self.roi_layers[i](feats[i], rois_)
-                roi_feats[inds] += roi_feats_t
+
+        if self.cat_mul_feats:
+            roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels*num_levels,
+                                            out_size, out_size).fill_(0)
+            for i in range(num_levels):
+                inds = target_lvls == i
+                if inds.any():
+                    rois_ = rois[inds, :]
+                    roi_feats_t = self.roi_layers[i](feats[i], rois_)
+                    roi_feats[inds] += roi_feats_t            
+        else:
+            roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels,
+                                            out_size, out_size).fill_(0)
+            for i in range(num_levels):
+                inds = target_lvls == i
+                if inds.any():
+                    rois_ = rois[inds, :]
+                    roi_feats_t = self.roi_layers[i](feats[i], rois_)
+                    roi_feats[inds] += roi_feats_t
         return roi_feats
