@@ -45,7 +45,7 @@ test_cfg = dict(
 # model training and testing settings
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[1, 1, 1], to_rgb=True)
 data = dict(
     imgs_per_gpu=8,
@@ -55,8 +55,8 @@ data = dict(
         times=5,
         dataset=dict(
             type=dataset_type,
-            ann_file=data_root + 'annotations/instances_train2017.json',
-            img_prefix=data_root + 'train2017/',
+            ann_file=data_root + 'annotations/instances_train2014.json',
+            img_prefix=data_root + 'train2014/',
             img_scale=(input_size, input_size),
             img_norm_cfg=img_norm_cfg,
             size_divisor=None,
@@ -125,7 +125,7 @@ log_config = dict(
 total_epochs = 24
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = './work_dirs/ssd512_coco'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_2000_v2_with_focal_loss_smallset'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
