@@ -1,5 +1,5 @@
 # model settings
-input_size = 2000
+input_size = 512
 model = dict(
     type='SingleStageDetector',
     pretrained='open-mmlab://vgg16_caffe',
