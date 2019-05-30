@@ -523,16 +523,17 @@ class Conv2d_2000_v3(nn.Module):
 
     def __init__(self, in_channels, out_channels, **kwargs):
         super(Conv2d_2000_v3, self).__init__()
-        self.conv1a = BasicConv2d(in_channels, out_channels, kernel_size=15, stride=5,padding = 7)
-        self.conv1b = BasicConv2d(in_channels, out_channels, kernel_size=31, stride=5,padding = 15)
-        self.conv1c = BasicConv2d(in_channels, out_channels, kernel_size=61, stride=5,padding = 30)
-        self.conv1d = BasicConv2d(192, 64, kernel_size=1, stride=1)
+        temp_out_channels=out_channels*4
+        self.conv1a = BasicConv2d(in_channels, temp_out_channels, kernel_size=15, stride=5,padding = 7)
+        self.conv1b = BasicConv2d(in_channels, temp_out_channels, kernel_size=31, stride=5,padding = 15)
+        self.conv1c = BasicConv2d(in_channels, temp_out_channels, kernel_size=61, stride=5,padding = 30)
+        self.conv1d = BasicConv2d(temp_out_channels, out_channels, kernel_size=1, stride=1)
 
     def forward(self, x):
         x1 = self.conv1a(x)
         x2 = self.conv1b(x)
         x3 = self.conv1c(x)
-        x = torch.cat((x1,x2,x3),1)
+        x = x1+x2+x3
         x = self.conv1d(x)
         return x
 class Conv2d_2000_simple(nn.Module):
