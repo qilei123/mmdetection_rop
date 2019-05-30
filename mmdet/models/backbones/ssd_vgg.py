@@ -14,6 +14,7 @@ class SSDVGG(VGG):
     extra_setting = {
         300: (256, 'S', 512, 128, 'S', 256, 128, 256, 128, 256),
         512: (256, 'S', 512, 128, 'S', 256, 128, 'S', 256, 128, 'S', 256, 128),
+        2000: (256, 'S', 512, 128, 'S', 256, 128, 'S', 256, 128, 'S', 256, 128),
     }
 
     def __init__(self,
@@ -29,7 +30,7 @@ class SSDVGG(VGG):
             with_last_pool=with_last_pool,
             ceil_mode=ceil_mode,
             out_indices=out_indices)
-        assert input_size in (300, 512)
+        assert input_size in (300, 512, 2000)
         self.input_size = input_size
 
         self.features.add_module(
