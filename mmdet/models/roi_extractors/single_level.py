@@ -26,13 +26,15 @@ class SingleRoIExtractor(nn.Module):
                  out_channels,
                  featmap_strides,
                  finest_scale=56,
-                 cat_mul_feats = False):
+                 cat_mul_feats = False,
+                 cat_mul_feats_v2=False):
         super(SingleRoIExtractor, self).__init__()
         self.roi_layers = self.build_roi_layers(roi_layer, featmap_strides)
         self.out_channels = out_channels
         self.featmap_strides = featmap_strides
         self.finest_scale = finest_scale
         self.cat_mul_feats = cat_mul_feats
+        self.cat_mul_feats_v2 = cat_mul_feats_v2
 
     @property
     def num_inputs(self):
@@ -93,6 +95,19 @@ class SingleRoIExtractor(nn.Module):
                     roi_feats_t = torch.cat((roi_feats_t,self.roi_layers[i](feats[i], rois)),1)
                 if i==num_levels-1:
                     roi_feats[:] += roi_feats_t
+        elif self.cat_mul_feats_v2:
+            roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels,
+                                            out_size, out_size).fill_(0)
+            for i in range(num_levels):
+                #inds = target_lvls == i
+                #if inds.any():
+                #    rois_ = rois[inds, :]
+                if i==0:
+                    roi_feats_t = self.roi_layers[i](feats[i], rois)
+                else:
+                    roi_feats_t += self.roi_layers[i](feats[i], rois)
+                if i==num_levels-1:
+                    roi_feats[:] += roi_feats_t            
         else:
             roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels,
                                             out_size, out_size).fill_(0)
