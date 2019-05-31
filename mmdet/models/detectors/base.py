@@ -132,4 +132,4 @@ class BaseDetector(nn.Module):
                 labels,
                 class_names=class_names,
                 score_thr=score_thr,
-                out_file = 'test.jpg')
+                out_file = '/data0/qilei_chen/Development/test.jpg')
