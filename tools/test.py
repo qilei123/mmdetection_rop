@@ -9,7 +9,7 @@ from mmdet import datasets
 from mmdet.core import results2json, coco_eval
 from mmdet.datasets import build_dataloader
 from mmdet.models import build_detector, detectors
-
+import os
 
 def single_test(model, data_loader, show=False):
     model.eval()
@@ -66,7 +66,9 @@ def main():
 
     if args.out is not None and not args.out.endswith(('.pkl', '.pickle')):
         raise ValueError('The output file must be a pkl file.')
-
+    Result_not_Exist = True
+    if os.path.exists(args.out):
+        Result_not_Exist = False
     cfg = mmcv.Config.fromfile(args.config)
     # set cudnn_benchmark
     if cfg.get('cudnn_benchmark', False):
@@ -75,37 +77,38 @@ def main():
     cfg.data.test.test_mode = True
 
     dataset = obj_from_dict(cfg.data.test, datasets, dict(test_mode=True))
-    
-    if args.gpus == 1:
-        model = build_detector(
-            cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
-        load_checkpoint(model, args.checkpoint)
-        model = MMDataParallel(model, device_ids=[0])
+    if Result_not_Exist:
+        if args.gpus == 1:
+            model = build_detector(
+                cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
+            load_checkpoint(model, args.checkpoint)
+            model = MMDataParallel(model, device_ids=[0])
 
-        data_loader = build_dataloader(
-            dataset,
-            imgs_per_gpu=1,
-            workers_per_gpu=cfg.data.workers_per_gpu,
-            num_gpus=1,
-            dist=False,
-            shuffle=False)
-        outputs = single_test(model, data_loader, args.show)
-    else:
-        model_args = cfg.model.copy()
-        model_args.update(train_cfg=None, test_cfg=cfg.test_cfg)
-        model_type = getattr(detectors, model_args.pop('type'))
-        outputs = parallel_test(
-            model_type,
-            model_args,
-            args.checkpoint,
-            dataset,
-            _data_func,
-            range(args.gpus),
-            workers_per_gpu=args.proc_per_gpu)
+            data_loader = build_dataloader(
+                dataset,
+                imgs_per_gpu=1,
+                workers_per_gpu=cfg.data.workers_per_gpu,
+                num_gpus=1,
+                dist=False,
+                shuffle=False)
+            outputs = single_test(model, data_loader, args.show)
+        else:
+            model_args = cfg.model.copy()
+            model_args.update(train_cfg=None, test_cfg=cfg.test_cfg)
+            model_type = getattr(detectors, model_args.pop('type'))
+            outputs = parallel_test(
+                model_type,
+                model_args,
+                args.checkpoint,
+                dataset,
+                _data_func,
+                range(args.gpus),
+                workers_per_gpu=args.proc_per_gpu)
 
     if args.out:
-        print('writing results to {}'.format(args.out))
-        mmcv.dump(outputs, args.out)
+        if Result_not_Exist:
+            print('writing results to {}'.format(args.out))
+            mmcv.dump(outputs, args.out)
         eval_types = args.eval
         if eval_types:
             print('Starting evaluate {}'.format(' and '.join(eval_types)))
