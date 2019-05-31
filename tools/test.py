@@ -75,6 +75,7 @@ def main():
     cfg.data.test.test_mode = True
 
     dataset = obj_from_dict(cfg.data.test, datasets, dict(test_mode=True))
+    
     if args.gpus == 1:
         model = build_detector(
             cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
