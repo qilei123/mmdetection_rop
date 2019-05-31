@@ -116,7 +116,10 @@ def main():
                 result_file = args.out
                 coco_eval(result_file, eval_types, dataset.coco)
             else:
-                if not isinstance(outputs[0], dict):
+                if not Result_not_Exist:
+                    result_file = args.out.replace('.pkl','.json')
+                    coco_eval(result_file, eval_types, dataset.coco)
+                elif not isinstance(outputs[0], dict):
                     result_file = args.out + '.json'
                     results2json(dataset, outputs, result_file)
                     coco_eval(result_file, eval_types, dataset.coco)
