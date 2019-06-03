@@ -65,9 +65,10 @@ result = inference_detector(model, img, cfg)
 act_gpu = activation['conv1'].squeeze()
 act = act_gpu.cpu().numpy()
 print(act.shape)
-fig, axarr = plt.subplots(act.shape[0])
+#fig, axarr = plt.subplots(act.shape[0])
 for idx in range(act.shape[0]):
-    axarr[idx].imshow(act[idx,:,:])
+    cv2.imshow('test',act[idx,:,:])
+    cv2.waitKey(0)
 
 show_single_category_result(img, result,score_thr = args.score_thr,category_id=args.single_category_id,out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
 show_result(img, result,score_thr = args.score_thr,out_file=save_dir+str(time.time())+'_show_result.jpg')
