@@ -22,7 +22,7 @@ def parse_args():
         '--score_thr', default=0.3,type = float,
         help='score threshold for testing')
     parser.add_argument(
-        '--resize_scale', default=0.5,type = float,
+        '--resize_scale', default=1,type = float,
         help='resize scale for testing')
     parser.add_argument(
         '--single_category_id', default=0,type = int,
