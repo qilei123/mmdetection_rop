@@ -63,6 +63,7 @@ img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
 
 act = activation['conv1'].squeeze()
+print(act.size())
 fig, axarr = plt.subplots(act.size(0))
 for idx in range(act.size(0)):
     axarr[idx].imshow(act[idx].squeeze())
