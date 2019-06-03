@@ -80,7 +80,7 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None):
         labels,
         class_names=class_names,
         score_thr=score_thr,
-        show=out_file is None)
+        show=out_file )
 
 def show_single_category_result(img, result, dataset='coco', score_thr=0.3, out_file=None,category_id=0):
     img = mmcv.imread(img)
@@ -117,7 +117,7 @@ def show_single_category_result(img, result, dataset='coco', score_thr=0.3, out_
         labels[single_category_indexes],
         class_names=class_names,
         score_thr=score_thr,
-        show=out_file is None)
+        show=out_file)
 
 def show_result_rop_2tissue(img, result, dataset='coco', score_thr=0.3, out_file=None):
     img = mmcv.imread(img)
