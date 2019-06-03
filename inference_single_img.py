@@ -41,6 +41,7 @@ model_dir = args.model_dir
 model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
+print(model)
 # test a single 
 resize_scale = args.resize_scale
 img_dir = args.img_dir
@@ -48,7 +49,8 @@ img = mmcv.imread(img_dir)
 height, width, depth = img.shape
 img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
-show_single_category_result(img, result,score_thr = args.score_thr,category_id=args.single_category_id)
+show_single_category_result(img, result,score_thr = args.score_thr,category_id=args.single_category_id,out_file='show_single_label_result.jpg')
+show_result(img, result,score_thr = args.score_thr,out_file='show_result.jpg')
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
