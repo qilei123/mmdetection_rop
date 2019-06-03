@@ -7,6 +7,8 @@ import cv2
 import glob
 import os
 import time
+import matplotlib.pyplot as plt
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
     parser.add_argument(
@@ -41,7 +43,16 @@ model_dir = args.model_dir
 model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
 _ = load_checkpoint(model, model_dir)
 
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
+
 print(model)
+
+model.backbone.conv1.register_forward_hook(get_activation('conv1'))
+
 # test a single 
 save_dir = '/data0/qilei_chen/Development/show_test/'
 resize_scale = args.resize_scale
