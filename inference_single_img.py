@@ -6,7 +6,7 @@ from mmdet.apis import inference_detector, show_result, show_single_category_res
 import cv2
 import glob
 import os
-
+import time
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
     parser.add_argument(
@@ -43,14 +43,15 @@ _ = load_checkpoint(model, model_dir)
 
 print(model)
 # test a single 
+save_dir = '/data0/qilei_chen/Development/show_test/'
 resize_scale = args.resize_scale
 img_dir = args.img_dir
 img = mmcv.imread(img_dir)
 height, width, depth = img.shape
 img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
 result = inference_detector(model, img, cfg)
-show_single_category_result(img, result,score_thr = args.score_thr,category_id=args.single_category_id,out_file='/data0/qilei_chen/Development/show_single_label_result.jpg')
-show_result(img, result,score_thr = args.score_thr,out_file='/data0/qilei_chen/Development/show_result.jpg')
+show_single_category_result(img, result,score_thr = args.score_thr,category_id=args.single_category_id,out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
+show_result(img, result,score_thr = args.score_thr,out_file=save_dir+str(time.time())+'_show_result.jpg')
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
