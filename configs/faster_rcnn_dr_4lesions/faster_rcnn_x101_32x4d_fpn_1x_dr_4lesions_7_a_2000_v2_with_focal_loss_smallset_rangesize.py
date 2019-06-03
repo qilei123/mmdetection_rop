@@ -99,7 +99,7 @@ img_norm_cfg = dict(
 img_scale_ = (2500, 1500)
 size_divisor = 16*input_stride
 data = dict(
-    imgs_per_gpu=8,
+    imgs_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
@@ -154,10 +154,10 @@ log_config = dict(
     ])
 # yapf:enable
 # runtime settings
-total_epochs = 24
+total_epochs = 20
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_2000_v2_with_focal_loss_smallset'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_2000_v2_with_focal_loss_smallset_rangesize'
 load_from = None
 resume_from = None#work_dir+'/epoch_19.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
