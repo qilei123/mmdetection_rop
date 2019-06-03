@@ -64,7 +64,7 @@ result = inference_detector(model, img, cfg)
 
 act_gpu = activation['conv1'].squeeze()
 act = act_gpu.cpu().numpy()
-print(act.size())
+print(act.shape)
 fig, axarr = plt.subplots(act.size(0))
 for idx in range(act.size(0)):
     axarr[idx].imshow(act[idx].squeeze())
