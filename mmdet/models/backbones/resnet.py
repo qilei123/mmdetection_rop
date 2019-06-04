@@ -457,7 +457,7 @@ class ResNet(nn.Module):
 
     def forward(self, x):
         x = self.conv1(x)
-        if not (self.input_style=='2000_v2' or self.input_style=='2000_v3' or self.input_style=='2000_v4'):
+        if (self.input_style=='2000_v2' or self.input_style=='2000_v3' or self.input_style=='2000_v4')==False:
             x = self.norm1(x)
             x = self.relu(x)
         
