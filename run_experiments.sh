@@ -1,1 +1,3 @@
-export CUDA_VISIBLE_DEVICES=0,1&&sh tools/dist_train_DR_4lesions.sh configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_rangesize.py 2
+export CUDA_VISIBLE_DEVICES=0,1
+config_file=configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_7lesions.py
+sh tools/dist_train_DR_4lesions.sh ${config_file} 2
