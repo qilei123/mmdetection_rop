@@ -59,7 +59,7 @@ resize_scale = args.resize_scale
 
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
-    #img_dir = args.img_dir
+    img_dir = args.img_dir
     img = mmcv.imread(img_dir)
     height, width, depth = img.shape
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
