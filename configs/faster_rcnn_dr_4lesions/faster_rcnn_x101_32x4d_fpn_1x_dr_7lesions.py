@@ -153,7 +153,7 @@ log_config = dict(
 total_epochs = 100
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_7lesions'
 load_from = None
 resume_from = None#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
