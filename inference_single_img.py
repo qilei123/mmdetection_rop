@@ -20,6 +20,7 @@ def cutMainROI1(img):
     x_e = 0
     threshold = 10
     for i in range(w):
+        print(img[int(h/2)][i])
         if not (img[int(h/2)][i][0]<10 and img[int(h/2)][i][1]<10 and img[int(h/2)][i][2]<10):
             x_s = i
             break 
@@ -91,8 +92,6 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 # test a single 
 
 resize_scale = args.resize_scale
-
-
 
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
