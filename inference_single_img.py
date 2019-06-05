@@ -98,11 +98,11 @@ for img_dir in img_dirs:
     print(img_dir)
     #img_dir = args.img_dir
     img = cv2.imread(img_dir)
-    height, width, depth = img.shape
+    
     img = cutMainROI1(img)
     #cv2.imwrite(save_dir+'cropped_img.jpg',img)
     img = mmcv.imread(save_dir+'cropped_img.jpg')
-
+    height, width, depth = img.shape
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
     result = inference_detector(model, img, cfg)
     '''
