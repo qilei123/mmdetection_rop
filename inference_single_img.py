@@ -8,6 +8,7 @@ import glob
 import os
 import time
 import matplotlib.pyplot as plt
+import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
