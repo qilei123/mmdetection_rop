@@ -58,7 +58,7 @@ save_dir = '/data0/qilei_chen/Development/show_test/'
 resize_scale = args.resize_scale
 
 def cutMainROI1(img):
-	x=img[img.shape[0]/2,:,:].sum(1)
+	#x=img[img.shape[0]/2,:,:].sum(1)
 	xx = img[img.shape[0]/2,:,:]
 	yy = img[:,img.shape[1]/2,:]
 	x_s = 0
