@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def cutMainROI1(img):
+    print(img[0,0,0])
 	#x=img[img.shape[0]/2,:,:].sum(1)
 	xx = img[img.shape[0]/2,:,:]
 	yy = img[:,img.shape[1]/2,:]
@@ -96,7 +97,7 @@ for img_dir in img_dirs:
     #img_dir = args.img_dir
     
     img = np.asarray(cv2.imread(img_dir))
-    print(img[0,0,0])
+    
     print(img.shape)
     img = cutMainROI1(img)
     img = mmcv.imread(img)
