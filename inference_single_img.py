@@ -91,6 +91,7 @@ img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4
 for img_dir in img_dirs:
     #img_dir = args.img_dir
     img = cv2.imread(img_dir)
+    print(img.shape)
     img = cutMainROI1(img)
     img = mmcv.imread(img)
     height, width, depth = img.shape
