@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def cutMainROI1(img):
+    print(img)
     print(img[0,0,0])
     #x=img[img.shape[0]/2,:,:].sum(1)
     xx = img[img.shape[0]/2,:,:]
