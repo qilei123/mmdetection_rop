@@ -20,10 +20,10 @@ def cutMainROI1(img):
     x_e = 0
     threshold = 10
     for i in range(w):
-        print(img[int(h/2)][i])
         if not (img[int(h/2)][i][0]<10 and img[int(h/2)][i][1]<10 and img[int(h/2)][i][2]<10):
             x_s = i
             break 
+    
     for i in range(w):
         if not (img[int(h/2)][w-i-1][0]<10 and img[int(h/2)][w-i-1][1]<10 and img[int(h/2)][w-i-1][2]<10):
             x_e = w-i
@@ -41,7 +41,7 @@ def cutMainROI1(img):
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
-    cv2.imwrite(save_dir+'cropped_img.jpg',img)
+    cv2.imwrite(save_dir+'cropped_img.jpg',cut_img)
     return cut_img,x_s,y_s
 
 def parse_args():
