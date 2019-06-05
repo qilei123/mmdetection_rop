@@ -57,7 +57,7 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 save_dir = '/data0/qilei_chen/Development/show_test/'
 resize_scale = args.resize_scale
 
-img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
+img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/BostonAI4DB10/gt_viewer/*.jpg')
 for img_dir in img_dirs:
     #img_dir = args.img_dir
     img = mmcv.imread(img_dir)
