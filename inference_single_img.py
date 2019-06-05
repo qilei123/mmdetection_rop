@@ -105,7 +105,7 @@ for img_dir in img_dirs:
     height, width, depth = img.shape
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
     result = inference_detector(model, img, cfg)
-    '''
+    
     act_gpu = activation['conv1'].squeeze()
     act = act_gpu.cpu().numpy()
     print(act.shape)
@@ -113,7 +113,7 @@ for img_dir in img_dirs:
     for idx in range(act.shape[0]):
         cv2.imshow('test',act[idx,:,:])
         cv2.waitKey(0)
-    '''
+    
     '''
     show_single_category_result(img, result,score_thr = args.score_thr,
         category_id=args.single_category_id,
