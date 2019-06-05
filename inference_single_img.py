@@ -13,30 +13,32 @@ import numpy as np
 def cutMainROI1(img):
     print(img)
     print(img[0,0,0])
-    #x=img[img.shape[0]/2,:,:].sum(1)
+    #x=img[img.shape[0]/2,:,:].stum(1)
     xx = img[img.shape[0]/2,:,:]
     yy = img[:,img.shape[1]/2,:]
+    w = img.shape[1]
+    h = img.shape[0]
     x_s = 0
     x_e = 0
     threshold = 10
-    for i in range(len(xx)):
-        if not (xx[i][0]<10 and xx[i][1]<10 and xx[i][2]<10):
+    for i in range(w):
+        if not (img[int(h/2)][i][0]<10 and img[int(h/2)][i][1]<10 and img[int(h/2)][i][2]<10):
             x_s = i
             break 
-    for i in range(len(xx)):
-        if not (xx[len(xx)-i-1][0]<10 and xx[len(xx)-i-1][1]<10 and xx[len(xx)-i-1][2]<10):
-            x_e = len(xx)-i
+    for i in range(w):
+        if not (img[int(h/2)][w-i-1][0]<10 and img[int(h/2)][w-i-1][1]<10 and img[int(h/2)][w-i-1][2]<10):
+            x_e = w-i
             break 
     y_s = 0
     y_e = 0
-    for i in range(len(yy)):
-        if not (yy[i][0]<10 and yy[i][1]<10 and yy[i][2]<10):
+    for i in range(h):
+        if not (img[i][int(w/2)][0]<10 and img[i][int(w/2)][1]<10 and img[i][int(w/2)][2]<10):
             y_s = i
             break 
 
-    for i in range(len(yy)):
-        if not (yy[len(yy)-i-1][0]<10 and yy[len(yy)-i-1][1]<10 and yy[len(yy)-i-1][2]<10):
-            y_e = len(yy)-i
+    for i in range(h):
+        if not (img[h-i-1][int(w/2)][0]<10 and img[h-i-1][int(w/2)][1]<10 and img[h-i-1][int(w/2)][2]<10):
+            y_e = h-i
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
