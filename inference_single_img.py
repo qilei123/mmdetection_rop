@@ -12,34 +12,34 @@ import numpy as np
 
 def cutMainROI1(img):
     print(img[0,0,0])
-	#x=img[img.shape[0]/2,:,:].sum(1)
-	xx = img[img.shape[0]/2,:,:]
-	yy = img[:,img.shape[1]/2,:]
-	x_s = 0
-	x_e = 0
-	threshold = 10
-	for i in range(len(xx)):
-		if not (xx[i][0]<10 and xx[i][1]<10 and xx[i][2]<10):
-			x_s = i
-			break 
-	for i in range(len(xx)):
-		if not (xx[len(xx)-i-1][0]<10 and xx[len(xx)-i-1][1]<10 and xx[len(xx)-i-1][2]<10):
-			x_e = len(xx)-i
-			break 
-	y_s = 0
-	y_e = 0
-	for i in range(len(yy)):
-		if not (yy[i][0]<10 and yy[i][1]<10 and yy[i][2]<10):
-			y_s = i
-			break 
-	
-	for i in range(len(yy)):
-		if not (yy[len(yy)-i-1][0]<10 and yy[len(yy)-i-1][1]<10 and yy[len(yy)-i-1][2]<10):
-			y_e = len(yy)-i
-			break
-	#print 'new image roi:'+str([y_s,y_e,x_s,x_e])
-	cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
-	return cut_img,x_s,y_s
+    #x=img[img.shape[0]/2,:,:].sum(1)
+    xx = img[img.shape[0]/2,:,:]
+    yy = img[:,img.shape[1]/2,:]
+    x_s = 0
+    x_e = 0
+    threshold = 10
+    for i in range(len(xx)):
+        if not (xx[i][0]<10 and xx[i][1]<10 and xx[i][2]<10):
+            x_s = i
+            break 
+    for i in range(len(xx)):
+        if not (xx[len(xx)-i-1][0]<10 and xx[len(xx)-i-1][1]<10 and xx[len(xx)-i-1][2]<10):
+            x_e = len(xx)-i
+            break 
+    y_s = 0
+    y_e = 0
+    for i in range(len(yy)):
+        if not (yy[i][0]<10 and yy[i][1]<10 and yy[i][2]<10):
+            y_s = i
+            break 
+
+    for i in range(len(yy)):
+        if not (yy[len(yy)-i-1][0]<10 and yy[len(yy)-i-1][1]<10 and yy[len(yy)-i-1][2]<10):
+            y_e = len(yy)-i
+            break
+    #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
+    cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
+    return cut_img,x_s,y_s
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
