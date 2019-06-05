@@ -98,9 +98,11 @@ resize_scale = args.resize_scale
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
     #img_dir = args.img_dir
-    img = cutMainROI1(cv2.imread(img_dir))
-    img = mmcv.imread(np.asarray(img))
+    img = cv2.imread(img_dir)
     height, width, depth = img.shape
+    img = cutMainROI1(img)
+    img = mmcv.imread(np.asarray(img))
+
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
     result = inference_detector(model, img, cfg)
     '''
