@@ -9,7 +9,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 import numpy as np
-
+save_dir = '/data0/qilei_chen/Development/show_test/'
 def cutMainROI1(img):
     #x=img[img.shape[0]/2,:,:].stum(1)
     #xx = img[img.shape[0]/2,:,:]
@@ -40,7 +40,7 @@ def cutMainROI1(img):
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
-
+    cv2.imwrite(save_dir+'cropped_img.jpg',img)
     return cut_img,x_s,y_s
 
 def parse_args():
@@ -89,7 +89,7 @@ print(model)
 model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 # test a single 
-save_dir = '/data0/qilei_chen/Development/show_test/'
+
 resize_scale = args.resize_scale
 
 
