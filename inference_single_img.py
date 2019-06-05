@@ -74,7 +74,7 @@ args = parse_args()
 cfg = mmcv.Config.fromfile(args.config_dir)
 cfg.model.pretrained = None
 
-img = cutMainROI1(cv2.imread(args.img_dir))
+#img = cutMainROI1(cv2.imread(args.img_dir))
 # construct the model and load checkpoint
 #model_dir = 'https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth'
 model_dir = args.model_dir
@@ -100,11 +100,7 @@ resize_scale = args.resize_scale
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
     #img_dir = args.img_dir
-    
-    img = np.asarray(cv2.imread(img_dir))
-    
-    print(img.shape)
-    img = cutMainROI1(img)
+    img = cutMainROI1(cv2.imread(img_dir))
     img = mmcv.imread(img)
     height, width, depth = img.shape
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
