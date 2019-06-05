@@ -9,6 +9,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 save_dir = '/data0/qilei_chen/Development/show_test/'
 def cutMainROI1(img):
     #x=img[img.shape[0]/2,:,:].stum(1)
@@ -102,6 +103,7 @@ for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.jpeg')
     for img_dir in img_dirs:
         print(img_dir)
+        img_file_name = os.path.basename(img_dir)
         #img_dir = args.img_dir
         img = cv2.imread(img_dir)
         
@@ -125,7 +127,7 @@ for folder in folders:
             category_id=args.single_category_id,
             out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
         '''    
-        output_file=save_dir+folder+'/'+str(time.time())+'_show_result.jpg'
+        output_file=save_dir+folder+'/'+img_file_name
         show_result(img, result,score_thr = args.score_thr,
             out_file=output_file,show=False)
 '''
