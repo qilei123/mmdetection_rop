@@ -25,8 +25,8 @@ model = dict(
         anchor_strides=[4, 8, 16, 32, 64],
         target_means=[.0, .0, .0, .0],
         target_stds=[1.0, 1.0, 1.0, 1.0],
-        use_sigmoid_cls=True),
-        #use_focal_loss=True),
+        use_sigmoid_cls=True,
+        use_focal_loss=True),
     bbox_roi_extractor=dict(
         type='SingleRoIExtractor',
         roi_layer=dict(type='RoIAlign', out_size=7, sample_num=2),
@@ -37,7 +37,7 @@ model = dict(
         num_fcs=2,
         in_channels=256,
         fc_out_channels=1024,
-        roi_feat_size=5,
+        roi_feat_size=7,
         num_classes=8,
         target_means=[0., 0., 0., 0.],
         target_stds=[0.1, 0.1, 0.2, 0.2],
@@ -150,7 +150,7 @@ log_config = dict(
     ])
 # yapf:enable
 # runtime settings
-total_epochs = 12
+total_epochs = 100
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x'
