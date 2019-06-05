@@ -328,10 +328,12 @@ class ResNet(nn.Module):
                  stage_with_dcn=(False, False, False, False),
                  with_cp=False,
                  zero_init_residual=True,
-                 input_style = '1000'):
+                 input_style = '1000',
+                 use_head = False):
         super(ResNet, self).__init__()
         if depth not in self.arch_settings:
             raise KeyError('invalid depth {} for resnet'.format(depth))
+        self.use_head = use_head
         self.depth = depth
         self.num_stages = num_stages
         assert num_stages >= 1 and num_stages <= 4
@@ -456,13 +458,16 @@ class ResNet(nn.Module):
             raise TypeError('pretrained must be a str or None')
 
     def forward(self, x):
+        outs = []
+
         x = self.conv1(x)
         if (self.input_style=='2000_v2' or self.input_style=='2000_v3' or self.input_style=='2000_v4')==False:
             x = self.norm1(x)
             x = self.relu(x)
-        
+        if self.use_head:
+            outs.append(x)
         x = self.maxpool(x)
-        outs = []
+        
         for i, layer_name in enumerate(self.res_layers):
             res_layer = getattr(self, layer_name)
             x = res_layer(x)
