@@ -93,34 +93,36 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/1/*.jpeg')
-for img_dir in img_dirs:
-    print(img_dir)
-    #img_dir = args.img_dir
-    img = cv2.imread(img_dir)
-    
-    img = cutMainROI1(img)
-    #cv2.imwrite(save_dir+'cropped_img.jpg',img)
-    img = mmcv.imread(save_dir+'cropped_img.jpg')
-    height, width, depth = img.shape
-    img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
-    result = inference_detector(model, img, cfg)
-    
-    act_gpu = activation['conv1'].squeeze()
-    act = act_gpu.cpu().numpy()
-    print(act.shape)
-    #fig, axarr = plt.subplots(act.shape[0])
-    for idx in range(act.shape[0]):
-        cv2.imshow('test',act[idx,:,:])
-        cv2.waitKey(0)
-    
-    '''
-    show_single_category_result(img, result,score_thr = args.score_thr,
-        category_id=args.single_category_id,
-        out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
-    '''    
-    show_result(img, result,score_thr = args.score_thr,
-        out_file=save_dir+str(time.time())+'_show_result.jpg')
+folders = ['1','2','3','4']
+for folder in folders:
+    img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'+folder+'/*.jpeg')
+    for img_dir in img_dirs:
+        print(img_dir)
+        #img_dir = args.img_dir
+        img = cv2.imread(img_dir)
+        
+        img = cutMainROI1(img)
+        #cv2.imwrite(save_dir+'cropped_img.jpg',img)
+        img = mmcv.imread(save_dir+'cropped_img.jpg')
+        height, width, depth = img.shape
+        img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
+        result = inference_detector(model, img, cfg)
+        
+        act_gpu = activation['conv1'].squeeze()
+        act = act_gpu.cpu().numpy()
+        print(act.shape)
+        #fig, axarr = plt.subplots(act.shape[0])
+        #for idx in range(act.shape[0]):
+        #    cv2.imshow('test',act[idx,:,:])
+        #    cv2.waitKey(0)
+        
+        '''
+        show_single_category_result(img, result,score_thr = args.score_thr,
+            category_id=args.single_category_id,
+            out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
+        '''    
+        show_result(img, result,score_thr = args.score_thr,
+            out_file=save_dir+folder+'/'+str(time.time())+'_show_result.jpg',show=False)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
