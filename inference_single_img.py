@@ -42,6 +42,8 @@ def cutMainROI1(img):
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
+    cv2.imshow('test',cut_img)
+    cv2.waitKey(0)
     return cut_img,x_s,y_s
 
 def parse_args():
