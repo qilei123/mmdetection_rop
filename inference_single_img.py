@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 save_dir = '/data0/qilei_chen/Development/show_test/'
-def cutMainROI1(img):
+def cutMainROI1(img,folder):
     #x=img[img.shape[0]/2,:,:].stum(1)
     #xx = img[img.shape[0]/2,:,:]
     #yy = img[:,img.shape[1]/2,:]
@@ -42,7 +42,7 @@ def cutMainROI1(img):
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
-    cv2.imwrite(save_dir+'cropped_img.jpg',cut_img)
+    cv2.imwrite(save_dir+folder+'_cropped_img.jpg',cut_img)
     return cut_img,x_s,y_s
 
 def parse_args():
@@ -94,10 +94,10 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-folders = ['4']
-dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
-#folders = ['0']
-#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
+#folders = ['4']
+#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
+folders = ['0']
+dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
 
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.jpeg')
@@ -107,9 +107,9 @@ for folder in folders:
         #img_dir = args.img_dir
         img = cv2.imread(img_dir)
         
-        img = cutMainROI1(img)
+        img = cutMainROI1(img,folder)
         #cv2.imwrite(save_dir+'cropped_img.jpg',img)
-        img = mmcv.imread(save_dir+'cropped_img.jpg')
+        img = mmcv.imread(save_dir+folder+'_cropped_img.jpg')
         height, width, depth = img.shape
         img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
         result = inference_detector(model, img, cfg)
