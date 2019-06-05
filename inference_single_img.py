@@ -83,13 +83,13 @@ def cutMainROI1(img):
 		if not (yy[len(yy)-i-1][0]<10 and yy[len(yy)-i-1][1]<10 and yy[len(yy)-i-1][2]<10):
 			y_e = len(yy)-i
 			break
-	print 'new image roi:'+str([y_s,y_e,x_s,x_e])
+	#print 'new image roi:'+str([y_s,y_e,x_s,x_e])
 	cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
 	return cut_img,x_s,y_s
 
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
-    img_dir = args.img_dir
+    #img_dir = args.img_dir
     img = cutMainROI1(mmcv.imread(img_dir))
     height, width, depth = img.shape
     img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
