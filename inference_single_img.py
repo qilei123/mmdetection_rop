@@ -14,8 +14,8 @@ def cutMainROI1(img):
     print(img)
     print(img[0,0,0])
     #x=img[img.shape[0]/2,:,:].stum(1)
-    xx = img[img.shape[0]/2,:,:]
-    yy = img[:,img.shape[1]/2,:]
+    #xx = img[img.shape[0]/2,:,:]
+    #yy = img[:,img.shape[1]/2,:]
     w = img.shape[1]
     h = img.shape[0]
     x_s = 0
