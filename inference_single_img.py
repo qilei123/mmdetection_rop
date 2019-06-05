@@ -10,54 +10,6 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-def parse_args():
-    parser = argparse.ArgumentParser(description='Detector')
-    parser.add_argument(
-        '--img_dir', default='/media/cql/DATA1/data/dr_2stages_samples/wrong_samples/0/297_left.jpeg', 
-        help='image path for testing')
-    parser.add_argument(
-        '--config_dir', default='configs/mask_rcnn_x101_64x4d_fpn_1x_2tissues.py',
-        help='config file for testing')
-    parser.add_argument(
-        '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
-        help='model file for testing')
-    parser.add_argument(
-        '--score_thr', default=0.3,type = float,
-        help='score threshold for testing')
-    parser.add_argument(
-        '--resize_scale', default=1,type = float,
-        help='resize scale for testing')
-    parser.add_argument(
-        '--single_category_id', default=0,type = int,
-        help='single category for testing')
-    args = parser.parse_args()
-    return args
-
-args = parse_args()
-
-cfg = mmcv.Config.fromfile(args.config_dir)
-cfg.model.pretrained = None
-
-# construct the model and load checkpoint
-#model_dir = 'https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth'
-model_dir = args.model_dir
-model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
-_ = load_checkpoint(model, model_dir)
-
-activation = {}
-def get_activation(name):
-    def hook(model, input, output):
-        activation[name] = output.detach()
-    return hook
-
-print(model)
-
-model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
-
-# test a single 
-save_dir = '/data0/qilei_chen/Development/show_test/'
-resize_scale = args.resize_scale
-
 def cutMainROI1(img):
 	#x=img[img.shape[0]/2,:,:].sum(1)
 	xx = img[img.shape[0]/2,:,:]
@@ -88,10 +40,62 @@ def cutMainROI1(img):
 	cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
 	return cut_img,x_s,y_s
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Detector')
+    parser.add_argument(
+        '--img_dir', default='/media/cql/DATA1/data/dr_2stages_samples/wrong_samples/0/297_left.jpeg', 
+        help='image path for testing')
+    parser.add_argument(
+        '--config_dir', default='configs/mask_rcnn_x101_64x4d_fpn_1x_2tissues.py',
+        help='config file for testing')
+    parser.add_argument(
+        '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
+        help='model file for testing')
+    parser.add_argument(
+        '--score_thr', default=0.3,type = float,
+        help='score threshold for testing')
+    parser.add_argument(
+        '--resize_scale', default=1,type = float,
+        help='resize scale for testing')
+    parser.add_argument(
+        '--single_category_id', default=0,type = int,
+        help='single category for testing')
+    args = parser.parse_args()
+    return args
+
+args = parse_args()
+
+cfg = mmcv.Config.fromfile(args.config_dir)
+cfg.model.pretrained = None
+img = cutMainROI1((cv2.imread(cfg.img_dir))
+# construct the model and load checkpoint
+#model_dir = 'https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_1x_20181010-3d1b3351.pth'
+model_dir = args.model_dir
+model = build_detector(cfg.model, test_cfg=cfg.test_cfg)
+_ = load_checkpoint(model, model_dir)
+
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
+
+print(model)
+
+model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
+
+# test a single 
+save_dir = '/data0/qilei_chen/Development/show_test/'
+resize_scale = args.resize_scale
+
+
+
 img_dirs = glob.glob('/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/4/*.jpeg')
 for img_dir in img_dirs:
     #img_dir = args.img_dir
+    
     img = np.asarray(cv2.imread(img_dir))
+    print(img[0,0,0])
     print(img.shape)
     img = cutMainROI1(img)
     img = mmcv.imread(img)
