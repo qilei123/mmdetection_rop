@@ -102,17 +102,17 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 resize_scale = args.resize_scale
 
 folders = ['1']
-dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
+dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
 #folders = ['0']
-#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
-
+#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/train_binary/'
+img_set = 'test'
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.jpeg')
     for img_dir in img_dirs:
         #print(img_dir)
         
         img_file_name = os.path.basename(img_dir)
-        output_file=save_dir+folder+'/'+img_file_name
+        output_file=save_dir+img_set+'/'+folder+'/'+img_file_name
         #img_dir = args.img_dir
         if not os.path.exists(output_file):
             img = cv2.imread(img_dir)
