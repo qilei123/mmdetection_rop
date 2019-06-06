@@ -41,8 +41,10 @@ class AnchorHead(nn.Module):
                  target_means=(.0, .0, .0, .0),
                  target_stds=(1.0, 1.0, 1.0, 1.0),
                  use_sigmoid_cls=False,
-                 use_focal_loss=False):
+                 use_focal_loss=False,
+                 use_kl_loss=False):
         super(AnchorHead, self).__init__()
+        self.use_kl_loss = use_focal_loss
         self.in_channels = in_channels
         self.num_classes = num_classes
         self.feat_channels = feat_channels

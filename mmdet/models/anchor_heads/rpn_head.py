@@ -30,6 +30,9 @@ class RPNHead(AnchorHead):
     def forward_single(self, x):
         x = self.rpn_conv(x)
         x = F.relu(x, inplace=True)
+        
+        #conv1*1(x)
+
         rpn_cls_score = self.rpn_cls(x)
         rpn_bbox_pred = self.rpn_reg(x)
         return rpn_cls_score, rpn_bbox_pred
