@@ -34,20 +34,19 @@ def cutMainROI1(img,folder):
     for i in range(h):
         if not (img[i][int(w/2)][0]<10 and img[i][int(w/2)][1]<10 and img[i][int(w/2)][2]<10):
             y_s = i
-            print(img[i][int(w/2)])
             break 
 
     for i in range(h):
         if not (img[h-i-1][int(w/2)][0]<10 and img[h-i-1][int(w/2)][1]<10 and img[h-i-1][int(w/2)][2]<10):
             y_e = h-i
-            print(img[h-i-1][int(w/2)])
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
-    print(y_s)
-    print(y_e)
-    print(x_s)
-    print(x_e)
+    
     cut_img = img[int(y_s):int(y_e),int(x_s):int(x_e)]
+    
+    if y_e-y_s<100 or x_e-x_s<100:
+        cut_img = img
+
     cv2.imwrite(save_dir+folder+'_cropped_img.jpg',cut_img)
     cv2.imshow('test',cut_img)
     cv2.waitKey(0)
