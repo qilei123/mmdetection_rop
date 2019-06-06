@@ -109,7 +109,7 @@ dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.jpeg')
     for img_dir in img_dirs:
-        print(img_dir)
+        #print(img_dir)
         
         img_file_name = os.path.basename(img_dir)
         output_file=save_dir+folder+'/'+img_file_name
