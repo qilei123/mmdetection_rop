@@ -48,8 +48,8 @@ def cutMainROI1(img,folder):
         cut_img = img
 
     cv2.imwrite(save_dir+folder+'_cropped_img.jpg',cut_img)
-    cv2.imshow('test',cut_img)
-    cv2.waitKey(0)
+    #cv2.imshow('test',cut_img)
+    #cv2.waitKey(0)
     return cut_img,x_s,y_s
 
 def parse_args():
