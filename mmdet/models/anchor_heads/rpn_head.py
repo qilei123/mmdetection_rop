@@ -84,6 +84,9 @@ class RPNHead(AnchorHead):
             img_metas,
             cfg,
             gt_bboxes_ignore=gt_bboxes_ignore)
+        if self.use_kl_loss:
+            return dict(
+                loss_rpn_cls=losses['loss_cls'], loss_rpn_reg=losses['loss_reg'],loss_kld=losses['loss_kld'])
         return dict(
             loss_rpn_cls=losses['loss_cls'], loss_rpn_reg=losses['loss_reg'])
 

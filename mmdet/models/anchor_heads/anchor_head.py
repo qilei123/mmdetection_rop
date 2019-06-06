@@ -223,7 +223,7 @@ class AnchorHead(nn.Module):
             for i in range(len(mus)):
                 kld_losses.append(self.KLD_loss(mus[i],logvars[i]))
         if self.use_kl_loss:
-            return dict(loss_cls=losses_cls, loss_reg=losses_reg,kld_loss=kld_losses)
+            return dict(loss_cls=losses_cls, loss_reg=losses_reg,loss_kld=kld_losses)
         return dict(loss_cls=losses_cls, loss_reg=losses_reg)
 
     def get_bboxes(self, cls_scores, bbox_preds, img_metas, cfg,
