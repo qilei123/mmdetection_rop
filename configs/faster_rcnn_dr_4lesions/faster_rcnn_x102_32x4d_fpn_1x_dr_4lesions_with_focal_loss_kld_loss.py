@@ -27,7 +27,7 @@ model = dict(
         target_stds=[1.0, 1.0, 1.0, 1.0],
         use_sigmoid_cls=True,
         use_focal_loss=True,
-        use_kl_loss=False),
+        use_kl_loss=True),
     bbox_roi_extractor=dict(
         type='SingleRoIExtractor',
         roi_layer=dict(type='RoIAlign', out_size=7, sample_num=2),
