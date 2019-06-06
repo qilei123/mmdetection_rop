@@ -68,7 +68,7 @@ class AnchorHead(nn.Module):
             self.cls_out_channels = self.num_classes - 1
         else:
             self.cls_out_channels = self.num_classes
-
+        
         self._init_layers()
 
     def _init_layers(self):
@@ -174,6 +174,8 @@ class AnchorHead(nn.Module):
     def loss(self,
              cls_scores,
              bbox_preds,
+             mus,
+             logvars,
              gt_bboxes,
              gt_labels,
              img_metas,
@@ -214,6 +216,10 @@ class AnchorHead(nn.Module):
             bbox_weights_list,
             num_total_samples=num_total_samples,
             cfg=cfg)
+        if self.use_kl_loss:
+            kld_losses = multi_apply(self.KLD_loss,mus,logvars)
+        if self.use_kl_loss:
+            return dict(loss_cls=losses_cls, loss_reg=losses_reg,kld_loss=kld_losses)
         return dict(loss_cls=losses_cls, loss_reg=losses_reg)
 
     def get_bboxes(self, cls_scores, bbox_preds, img_metas, cfg,

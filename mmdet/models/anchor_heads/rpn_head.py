@@ -7,7 +7,23 @@ from mmdet.core import delta2bbox
 from mmdet.ops import nms
 from .anchor_head import AnchorHead
 from ..registry import HEADS
+from torch.autograd import Variable
 
+
+def decode(head, output_channel):
+    decode_conv = nn.Sequential(
+        nn.Conv2d(head, 32, kernel_size=1, stride=1),
+        #nn.BatchNorm2d(32),
+        nn.ReLU(),
+        nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
+        # nn.BatchNorm2d(32),
+        nn.ReLU(),
+        nn.Conv2d(32, output_channel, kernel_size=1, stride=1)
+    )
+    return decode_conv
+def encode(head, h):
+    conv1 = nn.Conv2d(head, h, kernel_size=3, stride=1, padding=1)
+    return conv1
 
 @HEADS.register_module
 class RPNHead(AnchorHead):
@@ -22,6 +38,10 @@ class RPNHead(AnchorHead):
                                  self.num_anchors * self.cls_out_channels, 1)
         self.rpn_reg = nn.Conv2d(self.feat_channels, self.num_anchors * 4, 1)
 
+        if self.use_kl_loss:
+            self.encode_conv = encode(self.feat_channels,10)
+            self.decode_conv = decode(10,self.feat_channels)
+
     def init_weights(self):
         normal_init(self.rpn_conv, std=0.01)
         normal_init(self.rpn_cls, std=0.01)
@@ -34,12 +54,22 @@ class RPNHead(AnchorHead):
         #conv1*1(x)
 
         rpn_cls_score = self.rpn_cls(x)
+        if self.use_kl_loss:
+            x = self.encode_conv(x)
+            x,mu,logvar = self._reparameterization(x)
+            x = self.decode_conv(x)
+
         rpn_bbox_pred = self.rpn_reg(x)
-        return rpn_cls_score, rpn_bbox_pred
+        if self.use_kl_loss:
+            return rpn_cls_score, rpn_bbox_pred, mu, logvar
+        else:
+            return rpn_cls_score,rpn_bbox_pred
 
     def loss(self,
              cls_scores,
              bbox_preds,
+             mus,
+             logvars,
              gt_bboxes,
              img_metas,
              cfg,
@@ -47,6 +77,8 @@ class RPNHead(AnchorHead):
         losses = super(RPNHead, self).loss(
             cls_scores,
             bbox_preds,
+            mus,
+            logvars,
             gt_bboxes,
             None,
             img_metas,
@@ -105,3 +137,35 @@ class RPNHead(AnchorHead):
             _, topk_inds = scores.topk(num)
             proposals = proposals[topk_inds, :]
         return proposals
+    def KLD_loss(self, mu, logvar):#, weights):#, mu_target=0, logvar_target=0):
+        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp(), dim=1)#*weights
+        KLD = KLD.mean()
+        return KLD
+    def _reparameterization(self, input):
+        half_size = input.size(1)/2
+        mu = input[:,:half_size]
+        if self.train:
+            logvar = input[:,half_size:]
+            std = torch.exp(0.5*logvar)
+            eps = Variable(torch.cuda.FloatTensor(std.shape).normal_(), requires_grad=False)
+            return mu + eps * std,mu,logvar
+        else:
+            # when testing, propagate mu directly
+            return mu
+    '''
+    def decode(self,head, output_channel):
+        decode_conv = nn.Sequential(
+            nn.Conv2d(head, 32, kernel_size=1, stride=1),
+            #nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
+            # nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(32, output_channel, kernel_size=1, stride=1)
+        )
+        return decode_conv
+    def encode(self,head, h):
+        conv1 = nn.Conv2d(head, h, kernel_size=3, stride=1, padding=1)
+
+        return conv1
+    '''
