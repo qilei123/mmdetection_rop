@@ -143,6 +143,7 @@ class RPNHead(AnchorHead):
         return KLD
     def _reparameterization(self, input):
         half_size = input.size(1)/2
+        print(half_size)
         mu = input[:,:half_size]
         if self.train:
             logvar = input[:,half_size:]
