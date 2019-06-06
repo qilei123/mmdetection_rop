@@ -129,7 +129,9 @@ def main():
                     for name in outputs[0]:
                         print('\nEvaluating {}'.format(name))
                         outputs_ = [out[name] for out in outputs]
+                        
                         result_file = args.out + '.{}.json'.format(name)
+                        print(result_file)
                         results2json(dataset, outputs_, result_file)
                         coco_eval(result_file, eval_types, dataset.coco)
 
