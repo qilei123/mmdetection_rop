@@ -122,6 +122,7 @@ def main():
                     coco_eval(result_file, eval_types, dataset.coco)
                 elif not isinstance(outputs[0], dict):
                     result_file = args.out + '.json'
+                    print(result_file)
                     results2json(dataset, outputs, result_file)
                     coco_eval(result_file, eval_types, dataset.coco)
                 else:
