@@ -106,12 +106,13 @@ for folder in folders:
         
         img_file_name = os.path.basename(img_dir)
         #img_dir = args.img_dir
-        img = cv2.imread(img_dir)
-        
-        img = cutMainROI1(img,folder)
-
-        output_file=save_dir+folder+'/'+img_file_name
         if not os.path.exists(output_file):
+            img = cv2.imread(img_dir)
+        
+            img = cutMainROI1(img,folder)
+
+            output_file=save_dir+folder+'/'+img_file_name
+        
             #cv2.imwrite(save_dir+'cropped_img.jpg',img)
             img = mmcv.imread(save_dir+folder+'_cropped_img.jpg')
             height, width, depth = img.shape
