@@ -23,7 +23,6 @@ def cutMainROI1(img,folder):
     for i in range(w):
         if not (img[int(h/2)][i][0]<10 and img[int(h/2)][i][1]<10 and img[int(h/2)][i][2]<10):
             x_s = i
-            print(img[int(h/2)][i])
             break 
     
     for i in range(w):
@@ -35,11 +34,13 @@ def cutMainROI1(img,folder):
     for i in range(h):
         if not (img[i][int(w/2)][0]<10 and img[i][int(w/2)][1]<10 and img[i][int(w/2)][2]<10):
             y_s = i
+            print(img[i][int(w/2)])
             break 
 
     for i in range(h):
         if not (img[h-i-1][int(w/2)][0]<10 and img[h-i-1][int(w/2)][1]<10 and img[h-i-1][int(w/2)][2]<10):
             y_e = h-i
+            print(img[h-i-1][int(w/2)])
             break
     #print 'new image roi:'+str([y_s,y_e,x_s,x_e])
     print(y_s)
