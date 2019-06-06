@@ -63,7 +63,7 @@ class RPNHead(AnchorHead):
         if self.use_kl_loss:
             return rpn_cls_score, rpn_bbox_pred, mu, logvar
         else:
-            return rpn_cls_score,rpn_bbox_pred
+            return rpn_cls_score,rpn_bbox_pred, None,None
 
     def loss(self,
              cls_scores,
