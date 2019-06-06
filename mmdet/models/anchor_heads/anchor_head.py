@@ -217,8 +217,8 @@ class AnchorHead(nn.Module):
             num_total_samples=num_total_samples,
             cfg=cfg)
         if self.use_kl_loss:
-            print(mus)
-            print(bbox_preds)
+            #print(mus)
+            #print(bbox_preds)
             kld_losses=[] 
             for i in range(len(mus)):
                 kld_losses.append(self.KLD_loss(mus[i],logvars[i]))
