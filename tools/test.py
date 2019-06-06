@@ -119,6 +119,7 @@ def main():
                 if not Result_not_Exist:
                     print('\nEvaluating...')
                     result_file = args.out+'.json'
+                    print(result_file)
                     coco_eval(result_file, eval_types, dataset.coco)
                 elif not isinstance(outputs[0], dict):
                     result_file = args.out + '.json'
