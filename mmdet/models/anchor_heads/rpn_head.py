@@ -137,10 +137,7 @@ class RPNHead(AnchorHead):
             _, topk_inds = scores.topk(num)
             proposals = proposals[topk_inds, :]
         return proposals
-    def KLD_loss(self, mu, logvar):#, weights):#, mu_target=0, logvar_target=0):
-        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp(), dim=1)#*weights
-        KLD = KLD.mean()
-        return KLD
+
     def _reparameterization(self, input):
         half_size = int(input.size(1)/2)
         print(half_size)
