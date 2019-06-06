@@ -23,6 +23,7 @@ def cutMainROI1(img,folder):
     for i in range(w):
         if not (img[int(h/2)][i][0]<10 and img[int(h/2)][i][1]<10 and img[int(h/2)][i][2]<10):
             x_s = i
+            print(img[int(h/2)][i])
             break 
     
     for i in range(w):
