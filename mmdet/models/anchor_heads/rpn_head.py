@@ -40,7 +40,7 @@ class RPNHead(AnchorHead):
 
         if self.use_kl_loss:
             self.encode_conv = encode(self.feat_channels,10)
-            self.decode_conv = decode(10,self.feat_channels)
+            self.decode_conv = decode(5,self.feat_channels)
 
     def init_weights(self):
         normal_init(self.rpn_conv, std=0.01)
