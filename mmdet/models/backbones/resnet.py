@@ -414,7 +414,7 @@ class ResNet(nn.Module):
         elif self.input_style=='2000_v4':
             self.conv1 = Conv2d_2000_v4(3,64)
         elif self.input_style=='pool_stride_5_v2':
-            self.conv11 = Conv2d_3(
+            self.conv1 = Conv2d_3(
                 3, 64)
         
         self.norm1_name, norm1 = build_norm_layer(
