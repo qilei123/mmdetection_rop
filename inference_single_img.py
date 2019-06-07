@@ -79,6 +79,9 @@ def parse_args():
     parser.add_argument(
         '--single_category_id', default=0,type = int,
         help='single category for testing')
+    parser.add_argument(
+        '--show', default=False,type = bool,
+        help='single category for testing')
     args = parser.parse_args()
     return args
 
@@ -161,7 +164,7 @@ for folder in folders:
             '''    
             
             show_result(img, result,score_thr = args.score_thr,
-                out_file=None,show=True)
+                out_file=None,show=args.show)
 
 json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
 mmcv.dump(json_results,json_results_dir)
