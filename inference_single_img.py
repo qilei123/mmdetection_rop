@@ -108,7 +108,7 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-folders = ['3']
+folders = ['4']
 dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
 #folders = ['0']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
