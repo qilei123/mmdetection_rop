@@ -161,7 +161,7 @@ for folder in folders:
             '''    
             
             show_result(img, result,score_thr = args.score_thr,
-                out_file=output_file,show=False)
+                out_file=None,show=False)
 
 json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
 mmcv.dump(json_results,json_results_dir)
