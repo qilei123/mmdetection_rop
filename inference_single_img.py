@@ -51,7 +51,14 @@ def cutMainROI1(img,folder):
     #cv2.imshow('test',cut_img)
     #cv2.waitKey(0)
     return cut_img,x_s,y_s
-
+def xyxy2xywh(bbox):
+    _bbox = bbox.tolist()
+    return [
+        _bbox[0],
+        _bbox[1],
+        _bbox[2] - _bbox[0] + 1,
+        _bbox[3] - _bbox[1] + 1,
+    ]
 def parse_args():
     parser = argparse.ArgumentParser(description='Detector')
     parser.add_argument(
@@ -101,20 +108,21 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-#folders = ['4']
-#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
-folders = ['0']
-dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
+folders = ['1']
+dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/val_4/'
+#folders = ['0']
+#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
 img_set = 'train'
+json_results = []
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.jpeg')
     for img_dir in img_dirs:
-        print(img_dir)
+        #print(img_dir)
         
         img_file_name = os.path.basename(img_dir)
         output_file=save_dir+img_set+'/'+folder+'/'+img_file_name
         #img_dir = args.img_dir
-        if not os.path.exists(output_file):
+        if (not os.path.exists(output_file)) or True:
             img = cv2.imread(img_dir)
         
             img = cutMainROI1(img,folder)
@@ -124,18 +132,19 @@ for folder in folders:
             height, width, depth = img.shape
             img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
-            '''
-            print(result)
+            json_result = dict()
+            json_result['image_name'] = img_file_name
+            json_result['image_dir'] = img_dir
+            json_result['box_results']=[]
             for label in range(len(result)):
                 bboxes = result[label]
                 for i in range(bboxes.shape[0]):
                     data = dict()
-                    data['image_id'] = img_id
                     data['bbox'] = xyxy2xywh(bboxes[i])
                     data['score'] = float(bboxes[i][4])
-                    data['category_id'] = dataset.cat_ids[label]
-                    json_results.append(data)
-            '''
+                    data['category_id'] = label+1
+                    json_result['box_results'].append(data)
+            json_results.append(json_result)
             '''
             act_gpu = activation['conv1'].squeeze()
             act = act_gpu.cpu().numpy()
@@ -153,6 +162,9 @@ for folder in folders:
             
             show_result(img, result,score_thr = args.score_thr,
                 out_file=output_file,show=False)
+
+json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
+mmcv.dump(json_results,json_results_dir)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
