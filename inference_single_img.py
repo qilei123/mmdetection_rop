@@ -154,6 +154,7 @@ for folder in folders:
             print(act.shape)
             fig, axarr = plt.subplots(act.shape[0])
             for idx in range(act.shape[0]):
+                print(idx)
                 cv2.imshow('test',act[idx,:,:])
                 cv2.waitKey(0)
             
