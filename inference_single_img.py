@@ -111,10 +111,10 @@ model.backbone.conv1.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-folders = ['3']
-dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
-#folders = ['0']
-#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
+#folders = ['3']
+#dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
+folders = ['0']
+dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
 img_set = 'test'
 json_results = []
 for folder in folders:
@@ -128,10 +128,10 @@ for folder in folders:
         if (not os.path.exists(output_file)) or True:
             img = cv2.imread(img_dir)
         
-            img = cutMainROI1(img,folder)
+            img = cutMainROI1(img,img_set+folder)
 
             #cv2.imwrite(save_dir+'cropped_img.jpg',img)
-            img = mmcv.imread(save_dir+folder+'_cropped_img.jpg')
+            img = mmcv.imread(save_dir+img_set+folder+'_cropped_img.jpg')
             #img = mmcv.imread(np.asarray(img))
             #height, width, depth = img.shape
             #img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
