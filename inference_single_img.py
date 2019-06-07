@@ -131,7 +131,7 @@ for folder in folders:
             img = cutMainROI1(img,folder)
 
             #cv2.imwrite(save_dir+'cropped_img.jpg',img)
-            img = mmcv.imread(save_dir+folder+'_cropped_img.jpg')
+            #img = mmcv.imread(save_dir+folder+'_cropped_img.jpg')
             height, width, depth = img.shape
             img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
