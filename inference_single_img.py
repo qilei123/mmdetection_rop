@@ -163,6 +163,7 @@ for folder in folders:
             
             show_result(img, result,score_thr = args.score_thr,
                 out_file=None,show=args.show,win_name='DB')
+            cv2.resizeWindow('DB', 1000,1000)
             for idx in range(act.shape[0]):
                 print(idx)
                 cv2.imshow('test',act[idx,:,:])
