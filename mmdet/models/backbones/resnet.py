@@ -413,6 +413,9 @@ class ResNet(nn.Module):
             self.conv1 = Conv2d_2000_v3(3,64)
         elif self.input_style=='2000_v4':
             self.conv1 = Conv2d_2000_v4(3,64)
+        elif self.input_style=='pool_stride_5_v2':
+            self.conv1 = nn.Conv2d(
+                3, 64, kernel_size=3, stride=2, padding=1, bias=False)
         
         self.norm1_name, norm1 = build_norm_layer(
             self.normalize, 64, postfix=1)
@@ -420,6 +423,8 @@ class ResNet(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         if self.input_style == 'pool_stride_5_v1':
             self.maxpool = nn.MaxPool2d(kernel_size=15, stride=5, padding=7)
+        elif self.input_style == 'pool_stride_5_v2':
+            self.maxpool = nn.MaxPool2d(kernel_size=11, stride=4, padding=5)
         else:
             self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 

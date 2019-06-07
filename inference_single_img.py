@@ -149,9 +149,6 @@ for folder in folders:
                     json_result['box_results'].append(data)
             json_results.append(json_result)
             
-            act_gpu = activation['conv1'].squeeze()
-            act = act_gpu.cpu().numpy()
-            print(act.shape)
             #fig, axarr = plt.subplots(act.shape[0])
 
             
@@ -164,10 +161,14 @@ for folder in folders:
             show_result(img, result,score_thr = args.score_thr,
                 out_file=None,show=args.show,win_name='DB')
             cv2.resizeWindow('DB', 1000,1000)
-            for idx in range(act.shape[0]):
-                print(idx)
-                cv2.imshow('test',act[idx,:,:])
-                cv2.waitKey(0)
+            if args.show:
+                act_gpu = activation['conv1'].squeeze()
+                act = act_gpu.cpu().numpy()
+                print(act.shape)
+                for idx in range(act.shape[0]):
+                    print(idx)
+                    cv2.imshow('test',act[idx,:,:])
+                    cv2.waitKey(0)
 
 json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
 mmcv.dump(json_results,json_results_dir)
