@@ -397,7 +397,7 @@ class ResNet(nn.Module):
         return getattr(self, self.norm1_name)
 
     def _make_stem_layer(self):
-        if self.input_style=='1000':
+        if self.input_style=='1000' or self.input_style=='pool_stride_5_v1':
             self.conv1 = nn.Conv2d(
                 3, 64, kernel_size=7, stride=2, padding=3, bias=False)
             #self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
@@ -418,7 +418,10 @@ class ResNet(nn.Module):
             self.normalize, 64, postfix=1)
         self.add_module(self.norm1_name, norm1)
         self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
+        if self.input_style == 'pool_stride_5_v1':
+            self.maxpool = nn.MaxPool2d(kernel_size=15, stride=5, padding=7)
+        else:
+            self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
     def _freeze_stages(self):
         if self.frozen_stages >= 0:
