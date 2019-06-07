@@ -51,7 +51,7 @@ def inference_detector(model, imgs, cfg, device='cuda:0'):
         return _inference_generator(model, imgs, img_transform, cfg, device)
 
 
-def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None,show=True):
+def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None,show=True,win_name='DB'):
     img = mmcv.imread(img)
     class_names = get_classes(dataset)
     if isinstance(result, tuple):
@@ -81,7 +81,9 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None,show=T
         class_names=class_names,
         score_thr=score_thr,
         show = show,
-        out_file=out_file )
+        out_file=out_file,
+        win_name=win_name,
+        wait_time=1)
 
 def show_single_category_result(img, result, dataset='coco', score_thr=0.3, out_file=None,category_id=0):
     img = mmcv.imread(img)
