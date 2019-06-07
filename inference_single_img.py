@@ -124,7 +124,18 @@ for folder in folders:
             height, width, depth = img.shape
             img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
+            '''
             print(result)
+            for label in range(len(result)):
+                bboxes = result[label]
+                for i in range(bboxes.shape[0]):
+                    data = dict()
+                    data['image_id'] = img_id
+                    data['bbox'] = xyxy2xywh(bboxes[i])
+                    data['score'] = float(bboxes[i][4])
+                    data['category_id'] = dataset.cat_ids[label]
+                    json_results.append(data)
+            '''
             '''
             act_gpu = activation['conv1'].squeeze()
             act = act_gpu.cpu().numpy()
