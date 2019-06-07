@@ -414,7 +414,7 @@ class ResNet(nn.Module):
         elif self.input_style=='2000_v4':
             self.conv1 = Conv2d_2000_v4(3,64)
         elif self.input_style=='pool_stride_5_v2':
-            self.conv1 = nn.Conv2d(
+            self.conv11 = nn.Conv2d(
                 3, 64, kernel_size=3, stride=2, padding=1, bias=False)
         
         self.norm1_name, norm1 = build_norm_layer(
@@ -468,7 +468,7 @@ class ResNet(nn.Module):
     def forward(self, x):
         outs = []
 
-        x = self.conv1(x)
+        x = self.conv11(x)
         if (self.input_style=='2000_v2' or self.input_style=='2000_v3' or self.input_style=='2000_v4')==False:
             x = self.norm1(x)
             x = self.relu(x)
