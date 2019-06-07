@@ -108,7 +108,7 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-folders = ['2']
+folders = ['3']
 dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
 #folders = ['0']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/val_binary/'
@@ -145,7 +145,7 @@ for folder in folders:
                     data['category_id'] = label+1
                     json_result['box_results'].append(data)
             json_results.append(json_result)
-            '''
+            
             act_gpu = activation['conv1'].squeeze()
             act = act_gpu.cpu().numpy()
             print(act.shape)
@@ -153,7 +153,7 @@ for folder in folders:
             for idx in range(act.shape[0]):
                 cv2.imshow('test',act[idx,:,:])
                 cv2.waitKey(0)
-            '''
+            
             '''
             show_single_category_result(img, result,score_thr = args.score_thr,
                 category_id=args.single_category_id,
@@ -161,7 +161,7 @@ for folder in folders:
             '''    
             
             show_result(img, result,score_thr = args.score_thr,
-                out_file=None,show=False)
+                out_file=None,show=True)
 
 json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
 mmcv.dump(json_results,json_results_dir)
