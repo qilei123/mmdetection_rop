@@ -124,6 +124,7 @@ for folder in folders:
             height, width, depth = img.shape
             img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
+            print(result)
             '''
             act_gpu = activation['conv1'].squeeze()
             act = act_gpu.cpu().numpy()
