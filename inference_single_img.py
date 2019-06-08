@@ -105,7 +105,7 @@ def get_activation(name):
 
 print(model)
 
-model.backbone.conv1.register_forward_hook(get_activation('conv1'))
+model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 # test a single 
 
