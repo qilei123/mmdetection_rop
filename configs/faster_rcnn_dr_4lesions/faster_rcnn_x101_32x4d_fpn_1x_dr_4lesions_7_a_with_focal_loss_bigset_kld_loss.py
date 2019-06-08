@@ -94,7 +94,7 @@ dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7_a/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
-img_scale_ = (1500, 1500)
+img_scale_ = (2000, 2000)
 data = dict(
     imgs_per_gpu=1,
     workers_per_gpu=1,
@@ -154,7 +154,7 @@ log_config = dict(
 total_epochs = 15
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_kld_loss'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_bigset_kld_loss'
 load_from = None
 resume_from = None#work_dir+'/epoch_19.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
