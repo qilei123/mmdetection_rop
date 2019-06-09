@@ -92,7 +92,7 @@ test_cfg = dict(
 )
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7_a/'
+data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 img_scale_ = (2000, 2000)
@@ -152,10 +152,10 @@ log_config = dict(
     ])
 # yapf:enable
 # runtime settings
-total_epochs = 15
+total_epochs = 24
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_bigset_kld_loss'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset'
 load_from = None
 resume_from = None#work_dir+'/epoch_19.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
