@@ -96,8 +96,8 @@ img_norm_cfg = dict(
     mean=[122.5, 122.5, 122.5], std=[122.5, 122.5, 122.5], to_rgb=True)
 img_scale_ = (2000, 2000)
 data = dict(
-    imgs_per_gpu=1,
-    workers_per_gpu=1,
+    imgs_per_gpu=2,
+    workers_per_gpu=2,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_train2014.json',
@@ -154,7 +154,7 @@ log_config = dict(
 total_epochs = 20
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset'
+work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance'
 load_from = None
 resume_from = None#work_dir+'/epoch_19.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
