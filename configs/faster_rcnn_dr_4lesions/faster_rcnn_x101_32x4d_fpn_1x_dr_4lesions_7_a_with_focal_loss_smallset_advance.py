@@ -96,7 +96,7 @@ img_norm_cfg = dict(
     mean=[122.5, 122.5, 122.5], std=[122.5, 122.5, 122.5], to_rgb=True)
 img_scale_ = (2000, 2000)
 data = dict(
-    imgs_per_gpu=2,
+    imgs_per_gpu=1,
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
