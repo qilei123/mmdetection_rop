@@ -1,5 +1,5 @@
 # model settings
-input_size = 512
+input_size = 1024
 model = dict(
     type='SingleStageDetector',
     pretrained='open-mmlab://vgg16_caffe',
@@ -48,8 +48,8 @@ dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 img_norm_cfg = dict(mean=[122.5, 122.5, 122.5], std=[1, 1, 1], to_rgb=True)
 data = dict(
-    imgs_per_gpu=32,
-    workers_per_gpu=3,
+    imgs_per_gpu=4,
+    workers_per_gpu=2,
     train=dict(
         type='RepeatDataset',
         times=5,
