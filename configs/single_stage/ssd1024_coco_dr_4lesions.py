@@ -125,7 +125,7 @@ log_config = dict(
 total_epochs = 24
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'/work_dirs/ssd512_coco_dr_4lesions'
+work_dir = data_root+'/work_dirs/ssd1024_coco_dr_4lesions'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
