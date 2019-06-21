@@ -94,7 +94,7 @@ dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 img_norm_cfg = dict(
     mean=[122.5, 122.5, 122.5], std=[122.5, 122.5, 122.5], to_rgb=True)
-img_scale_ = (2000, 2000)
+img_scale_ = (2048, 2048)
 data = dict(
     imgs_per_gpu=1,
     workers_per_gpu=2,

@@ -69,6 +69,13 @@ class SSDHead(AnchorHead):
             elif basesize_ratio_range[0] == 0.15:  # SSD512 VOC
                 min_sizes.insert(0, int(input_size * 7 / 100))
                 max_sizes.insert(0, int(input_size * 15 / 100))
+        elif input_size == 1024:
+            if basesize_ratio_range[0] == 0.1:  # SSD512 COCO
+                min_sizes.insert(0, int(input_size * 2 / 100))
+                max_sizes.insert(0, int(input_size * 5 / 100))
+            elif basesize_ratio_range[0] == 0.15:  # SSD512 VOC
+                min_sizes.insert(0, int(input_size * 7 / 100))
+                max_sizes.insert(0, int(input_size * 15 / 100))
         self.anchor_generators = []
         self.anchor_strides = anchor_strides
         for k in range(len(anchor_strides)):
