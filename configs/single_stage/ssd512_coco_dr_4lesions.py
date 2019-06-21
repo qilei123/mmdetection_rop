@@ -46,7 +46,7 @@ test_cfg = dict(
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
-img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[1, 1, 1], to_rgb=True)
+img_norm_cfg = dict(mean=[122.5, 122.5, 122.5], std=[122.5, 122.5, 122.5], to_rgb=True)
 data = dict(
     imgs_per_gpu=32,
     workers_per_gpu=3,
@@ -60,7 +60,7 @@ data = dict(
             img_scale=(512, 512),
             img_norm_cfg=img_norm_cfg,
             size_divisor=None,
-            flip_ratio=0.5,
+            flip_ratio=0,
             with_mask=False,
             with_crowd=False,
             with_label=True,
