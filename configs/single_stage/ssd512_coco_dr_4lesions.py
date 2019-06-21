@@ -46,7 +46,7 @@ test_cfg = dict(
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
-img_norm_cfg = dict(mean=[122.5, 122.5, 122.5], std=[122.5, 122.5, 122.5], to_rgb=True)
+img_norm_cfg = dict(mean=[122.5, 122.5, 122.5], std=[1, 1, 1], to_rgb=True)
 data = dict(
     imgs_per_gpu=32,
     workers_per_gpu=3,
