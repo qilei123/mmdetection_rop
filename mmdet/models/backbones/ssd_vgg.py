@@ -111,7 +111,7 @@ class SSDVGG(VGG):
             layers.append(conv)
             self.inplanes = outplanes[i]
             num_layers += 1
-        if self.input_size == 512:
+        if self.input_size == 512 or self.input_size == 1024:
             layers.append(nn.Conv2d(self.inplanes, 256, 4, padding=1))
 
         return nn.Sequential(*layers)
