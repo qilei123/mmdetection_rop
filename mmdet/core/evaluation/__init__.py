@@ -1,3 +1,4 @@
+import sys
 sys.path.insert(0,'/data0/qilei_chen/Development/coco_tool/PythonAPI')
 from .class_names import (voc_classes, imagenet_det_classes,
                           imagenet_vid_classes, coco_classes, dataset_aliases,
