@@ -213,7 +213,7 @@ class MaxIoUAssigner(BaseAssigner):
                 else:
                     assigned_gt_inds[gt_argmax_overlaps[i]] = i + 1
 
-
+        # this part is for rcnn of multi-labels
         if gt_labels is not None:
             assigned_labels = assigned_gt_inds.new_zeros((num_bboxes, ))
             pos_inds = torch.nonzero(assigned_gt_inds > 0).squeeze()
