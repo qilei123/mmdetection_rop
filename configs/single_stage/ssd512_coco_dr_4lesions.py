@@ -48,7 +48,7 @@ dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[1, 1, 1], to_rgb=True)
 data = dict(
-    imgs_per_gpu=8,
+    imgs_per_gpu=32,
     workers_per_gpu=3,
     train=dict(
         type='RepeatDataset',
