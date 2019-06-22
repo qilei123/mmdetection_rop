@@ -1,5 +1,6 @@
 import mmcv
 import numpy as np
+
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 
@@ -31,7 +32,7 @@ def coco_eval(result_file, result_types, coco, max_dets=(100, 300, 1000)):
         cocoEval = COCOeval(coco, coco_dets, iou_type)
         cocoEval.params.imgIds = img_ids
         if res_type == 'proposal':
-            cocoEval.params.useCats = 0
+            cocoEval.params.useCats = 1
             cocoEval.params.maxDets = list(max_dets)
         cocoEval.evaluate()
         cocoEval.accumulate()
