@@ -7,7 +7,7 @@ from pycocotools.cocoeval import COCOeval
 from .recall import eval_recalls
 
 
-def coco_eval(result_file, result_types, coco, max_dets=(100, 300, 1000)):
+def coco_eval(result_file, result_types, coco, max_dets=(100, 300, 1000),catIds=[]):
     for res_type in result_types:
         assert res_type in [
             'proposal', 'proposal_fast', 'bbox', 'segm', 'keypoints'
@@ -31,8 +31,8 @@ def coco_eval(result_file, result_types, coco, max_dets=(100, 300, 1000)):
         iou_type = 'bbox' if res_type == 'proposal' else res_type
         cocoEval = COCOeval(coco, coco_dets, iou_type)
         cocoEval.params.imgIds = img_ids
-        
-        cocoEval.params.catIds=[4]
+        if not len(catIds)==0:
+            cocoEval.params.catIds=catIds
         if res_type == 'proposal':
             cocoEval.params.useCats = 1
             cocoEval.params.maxDets = list(max_dets)

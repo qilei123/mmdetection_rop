@@ -120,7 +120,8 @@ def main():
                     print('\nEvaluating...')
                     result_file = args.out+'.json'
                     print(result_file)
-                    coco_eval(result_file, eval_types, dataset.coco)
+                    catIds=[1]
+                    coco_eval(result_file, eval_types, dataset.coco,catIds=catIds)
                 elif not isinstance(outputs[0], dict):
                     result_file = args.out + '.json'
                     print(result_file)
