@@ -25,8 +25,8 @@ model = dict(
         anchor_strides=[4, 8, 16, 32, 64],
         target_means=[.0, .0, .0, .0],
         target_stds=[1.0, 1.0, 1.0, 1.0],
-        use_sigmoid_cls=True,
-        use_focal_loss=True),
+        use_sigmoid_cls=True),
+        #use_focal_loss=True),
     bbox_roi_extractor=dict(
         type='SingleRoIExtractor',
         roi_layer=dict(type='RoIAlign', out_size=7, sample_num=2),
@@ -156,5 +156,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset'
 load_from = None
-resume_from = work_dir+'/epoch_11.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
+resume_from = None#work_dir+'/epoch_11.pth'#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_2.pth'
 workflow = [('train', 1)]
