@@ -190,7 +190,10 @@ class AnchorHead(nn.Module):
         label_channels = self.cls_out_channels if self.use_sigmoid_cls else 1
 
         print(gt_labels)
-        
+        #print(gt_labels)
+        #print(gt_bboxes)
+        if gt_labels==None:
+            gt_labels=gt_bboxes.new_ones(gt_bboxes.shape[0], dtype=torch.uint8) 
         cls_reg_targets = anchor_target(
             anchor_list,
             valid_flag_list,
