@@ -193,7 +193,8 @@ class AnchorHead(nn.Module):
         #print(gt_labels)
         print(gt_bboxes)
         if gt_labels==None:
-            gt_labels=torch.Tensor.new_ones(len(gt_bboxes), dtype=torch.uint8) 
+            gt_labels=torch.tensor((),dtype = torch.uint8)
+            gt_labels.new_ones(len(gt_bboxes)) 
         cls_reg_targets = anchor_target(
             anchor_list,
             valid_flag_list,
