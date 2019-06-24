@@ -190,6 +190,7 @@ class AnchorHead(nn.Module):
         label_channels = self.cls_out_channels if self.use_sigmoid_cls else 1
 
         print(gt_labels)
+        
         cls_reg_targets = anchor_target(
             anchor_list,
             valid_flag_list,
