@@ -55,6 +55,7 @@ class BaseSampler(metaclass=ABCMeta):
             bboxes = torch.cat([gt_bboxes, bboxes], dim=0)
             print(gt_labels)
             print(gt_bboxes)
+            
             assign_result.add_gt_(gt_labels)
             gt_ones = bboxes.new_ones(gt_bboxes.shape[0], dtype=torch.uint8)
             gt_flags = torch.cat([gt_ones, gt_flags])
