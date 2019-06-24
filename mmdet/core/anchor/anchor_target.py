@@ -111,7 +111,7 @@ def anchor_target_single(flat_anchors,
     # assign gt and sample anchors
     anchors = flat_anchors[inside_flags, :]
     #print("sampling::::::::::"+str(sampling))
-    if sampling:
+    if not sampling:
         assign_result, sampling_result = assign_and_sample(
             anchors, gt_bboxes, gt_bboxes_ignore, None, cfg)
     else:
@@ -119,7 +119,7 @@ def anchor_target_single(flat_anchors,
         assign_result = bbox_assigner.assign(anchors, gt_bboxes,
                                              gt_bboxes_ignore, gt_labels)
         bbox_sampler = PseudoSampler()
-        print(bbox_sampler)
+        
         sampling_result = bbox_sampler.sample(assign_result, anchors,
                                               gt_bboxes)
 
