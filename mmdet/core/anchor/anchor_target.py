@@ -111,6 +111,7 @@ def anchor_target_single(flat_anchors,
     # assign gt and sample anchors
     anchors = flat_anchors[inside_flags, :]
     #print("sampling::::::::::"+str(sampling))
+    print(gt_labels)
     if sampling:
         assign_result, sampling_result = assign_and_sample(
             anchors, gt_bboxes, gt_bboxes_ignore, gt_labels, cfg)
