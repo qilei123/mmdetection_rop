@@ -125,7 +125,10 @@ def main():
                         coco_eval(result_file, eval_types, dataset.coco,catIds=catIds)
                     else:
                         for i in range(len(catIds)):
+                            print('--------category:'+str(i+1))
                             coco_eval(result_file, eval_types, dataset.coco,catIds=[catIds[i]])
+                    print('---------total categories...')
+                    coco_eval(result_file, eval_types, dataset.coco)
                 elif not isinstance(outputs[0], dict):
                     result_file = args.out + '.json'
                     print(result_file)
