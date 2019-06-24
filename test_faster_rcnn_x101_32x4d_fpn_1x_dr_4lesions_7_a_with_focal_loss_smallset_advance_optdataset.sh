@@ -1,7 +1,7 @@
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64
 export CUDA_VISIBLE_DEVICES=0
 
-config_dir=configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optadvance2.py
+config_dir=configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset2.py
 model_dir=/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset2
 
 python3 tools/test.py ${config_dir} ${model_dir}/epoch_4.pth --gpus 1 --out ${model_dir}/e4_results.pkl --eval bbox
