@@ -501,7 +501,7 @@ class ResNet(nn.Module):
             outs.append(x)
             x = self.deephead_4(x)
             outs.append(x)
-            print(x.shape)            
+            #print(x.shape)            
         if len(outs) == 1:
             return outs[0]
         else:
