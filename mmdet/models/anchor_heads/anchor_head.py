@@ -182,6 +182,7 @@ class AnchorHead(nn.Module):
              cfg,
              gt_bboxes_ignore=None):
         featmap_sizes = [featmap.size()[-2:] for featmap in cls_scores]
+
         assert len(featmap_sizes) == len(self.anchor_generators)
 
         anchor_list, valid_flag_list = self.get_anchors(
