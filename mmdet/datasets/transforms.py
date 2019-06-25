@@ -1,7 +1,7 @@
 import mmcv
 import numpy as np
 import torch
-
+import cv2
 __all__ = ['ImageTransform', 'BboxTransform', 'MaskTransform', 'Numpy2Tensor']
 
 
@@ -26,11 +26,17 @@ class ImageTransform(object):
         self.size_divisor = size_divisor
 
     def __call__(self, img, scale, flip=False, keep_ratio=True):
-        print(scale)
+        
         if keep_ratio:
-            img, scale_factor = mmcv.imrescale(img, scale, return_scale=True)
+            # img, scale_factor = mmcv.imrescale(img, scale, return_scale=True)
+            h,w = img.shape[:2]
+            img = cv2.resize(img,scale)
+            w_scale = scale[0]/w
+            h_scale = scale[1]/w
+            scale_factor = np.array([w_scale, h_scale, w_scale, h_scale],
+                                    dtype=np.float32)            
+
         else:
-            
             img, w_scale, h_scale = mmcv.imresize(
                 img, scale, return_scale=True)
             
