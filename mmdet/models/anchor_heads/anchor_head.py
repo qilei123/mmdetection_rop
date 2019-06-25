@@ -189,9 +189,9 @@ class AnchorHead(nn.Module):
         sampling = False if self.use_focal_loss else True
         label_channels = self.cls_out_channels if self.use_sigmoid_cls else 1
 
-        print(gt_labels)
         #print(gt_labels)
-        print(gt_bboxes)
+        #print(gt_labels)
+        #print(gt_bboxes)
         if gt_labels==None:
             gt_labels=[]
             for gt_bbox in gt_bboxes:
@@ -201,7 +201,7 @@ class AnchorHead(nn.Module):
                 
 
 
-        print(gt_labels)
+        #print(gt_labels)
         cls_reg_targets = anchor_target(
             anchor_list,
             valid_flag_list,
