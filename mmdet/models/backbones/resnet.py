@@ -491,7 +491,17 @@ class ResNet(nn.Module):
             x = res_layer(x)
             if i in self.out_indices:
                 outs.append(x)
-                print(x.shape)
+                
+        if self.use_deephead_v1:
+            x = self.deephead_1(x)
+            outs.append(x)
+            x = self.deephead_2(x)
+            outs.append(x)
+            x = self.deephead_3(x)
+            outs.append(x)
+            x = self.deephead_4(x)
+            outs.append(x)
+            print(x.shape)            
         if len(outs) == 1:
             return outs[0]
         else:
