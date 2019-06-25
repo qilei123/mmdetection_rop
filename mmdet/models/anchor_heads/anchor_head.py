@@ -196,7 +196,7 @@ class AnchorHead(nn.Module):
             gt_labels=[]
             for gt_bbox in gt_bboxes:
                 #tgt_labels=torch.tensor((),dtype = torch.uint8)
-                gt_labels.append(gt_bbox.new_ones(gt_bbox.shape[0]))
+                gt_labels.append(gt_bbox.new_ones(gt_bbox.shape[0],dtype=torch.long))
                 
                 
 
