@@ -11,5 +11,5 @@ model_dir=/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x
 #python3 tools/test.py ${config_dir} ${model_dir}/epoch_11.pth --gpus 1 --out ${model_dir}/e11_results.pkl --eval bbox
 #python3 tools/test.py ${config_dir} ${model_dir}/epoch_12.pth --gpus 1 --out ${model_dir}/e12_results.pkl --eval bbox
 #python3 tools/test.py ${config_dir} ${model_dir}/epoch_13.pth --gpus 1 --out ${model_dir}/e13_results.pkl --eval bbox
-python3 tools/test.py ${config_dir} ${model_dir}/epoch_14.pth --gpus 1 --out ${model_dir}/e14_results.pkl --eval bbox
+python3 tools/test.py ${config_dir} ${model_dir}/epoch_14.pth --gpus 1 --out ${model_dir}/e14_results.pkl --eval bbox --show
 #python3 tools/test.py ${config_dir} ${model_dir}/epoch_15.pth --gpus 1 --out ${model_dir}/e15_results.pkl --eval bbox
