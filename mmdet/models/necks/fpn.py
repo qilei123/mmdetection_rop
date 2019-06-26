@@ -100,13 +100,13 @@ class FPN(nn.Module):
             lateral_conv(inputs[i + self.start_level])
             for i, lateral_conv in enumerate(self.lateral_convs)
         ]
-        for lateral in laterals:
-            print(lateral.shape)
+            
         # build top-down path
         used_backbone_levels = len(laterals)
         for i in range(used_backbone_levels - 1, 0, -1):
+            print(laterals[i].shape)
             laterals[i - 1] += F.interpolate(
-                laterals[i], scale_factor=2, mode='nearest')
+                laterals[i], size=2, mode='nearest')
 
         # build outputs
         # part 1: from original levels
