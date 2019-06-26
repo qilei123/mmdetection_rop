@@ -396,8 +396,8 @@ class ResNet(nn.Module):
         if self.use_deephead_v1:
             self.deephead_1 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #for input size 2048 output 32x32
             self.deephead_2 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #16x16
-            self.deephead_3 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #8x8
-            self.deephead_4 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #4x4
+            #self.deephead_3 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #8x8
+            #self.deephead_4 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #4x4
     @property
     def norm1(self):
         return getattr(self, self.norm1_name)
@@ -497,10 +497,10 @@ class ResNet(nn.Module):
             outs.append(x)
             x = self.deephead_2(x)
             outs.append(x)
-            x = self.deephead_3(x)
-            outs.append(x)
-            x = self.deephead_4(x)
-            outs.append(x)
+            #x = self.deephead_3(x)
+            #outs.append(x)
+            #x = self.deephead_4(x)
+            #outs.append(x)
             #print(x.shape)            
         if len(outs) == 1:
             return outs[0]
