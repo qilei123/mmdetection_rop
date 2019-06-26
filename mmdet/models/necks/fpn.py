@@ -105,6 +105,7 @@ class FPN(nn.Module):
         used_backbone_levels = len(laterals)
         for i in range(used_backbone_levels - 1, 0, -1):
             print(laterals[i].shape)
+            print(laterals[i-1].shape)
             laterals[i - 1] += F.interpolate(
                 laterals[i], size=2, mode='nearest')
 
