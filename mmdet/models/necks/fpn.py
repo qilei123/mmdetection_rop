@@ -104,8 +104,8 @@ class FPN(nn.Module):
         # build top-down path
         used_backbone_levels = len(laterals)
         for i in range(used_backbone_levels - 1, 0, -1):
-            print(laterals[i - 1].shape)
-            print(laterals[i].shape)
+            #print(laterals[i - 1].shape)
+            #print(laterals[i].shape)
             laterals[i - 1] += F.interpolate(
                 laterals[i], size=(laterals[i - 1].shape[2],laterals[i - 1].shape[3]), mode='nearest')
 
