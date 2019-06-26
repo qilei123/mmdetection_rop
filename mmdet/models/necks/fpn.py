@@ -107,7 +107,7 @@ class FPN(nn.Module):
             print(laterals[i - 1].shape)
             print(laterals[i].shape)
             laterals[i - 1] += F.interpolate(
-                laterals[i], scale_factor=2, mode='nearest')
+                laterals[i], size=(laterals[i - 1].shape[2],laterals[i - 1].shape[3]), mode='nearest')
 
         # build outputs
         # part 1: from original levels
