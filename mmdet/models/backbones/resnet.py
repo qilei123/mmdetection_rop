@@ -329,13 +329,14 @@ class ResNet(nn.Module):
                  with_cp=False,
                  zero_init_residual=True,
                  input_style = '1000',
-                 use_head = False,
+                 use_head_v1 = False,
                  use_deephead_v1=False):
         super(ResNet, self).__init__()
         if depth not in self.arch_settings:
             raise KeyError('invalid depth {} for resnet'.format(depth))
+        #self.larger_v1 = larger_v1
         self.use_deephead_v1 = use_deephead_v1
-        self.use_head = use_head
+        self.use_head_v1 = use_head_v1
         self.depth = depth
         self.num_stages = num_stages
         assert num_stages >= 1 and num_stages <= 4
@@ -482,7 +483,7 @@ class ResNet(nn.Module):
         if (self.input_style=='2000_v2' or self.input_style=='2000_v3' or self.input_style=='2000_v4')==False:
             x = self.norm1(x)
             x = self.relu(x)
-        if self.use_head:
+        if self.use_head_v1:
             outs.append(x)
         x = self.maxpool(x)
         

@@ -48,6 +48,7 @@ class RPNHead(AnchorHead):
         normal_init(self.rpn_reg, std=0.01)
 
     def forward_single(self, x):
+        ##### add a relative location feature map
         x = self.rpn_conv(x)
         x = F.relu(x, inplace=True)
         
