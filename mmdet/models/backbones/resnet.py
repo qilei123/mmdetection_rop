@@ -330,12 +330,14 @@ class ResNet(nn.Module):
                  zero_init_residual=True,
                  input_style = '1000',
                  use_head_v1 = False,
-                 use_deephead_v1=False):
+                 use_deephead_v1=False,
+                 use_deephead_v2=False):
         super(ResNet, self).__init__()
         if depth not in self.arch_settings:
             raise KeyError('invalid depth {} for resnet'.format(depth))
         #self.larger_v1 = larger_v1
         self.use_deephead_v1 = use_deephead_v1
+        self.use_deephead_v2 = use_deephead_v2
         self.use_head_v1 = use_head_v1
         self.depth = depth
         self.num_stages = num_stages
@@ -399,6 +401,10 @@ class ResNet(nn.Module):
             self.deephead_2 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #16x16
             #self.deephead_3 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #8x8
             #self.deephead_4 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #4x4
+        if self.use_deephead_v2:
+            self.deephead_1 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #for input size 2048 output 32x32
+            self.deephead_2 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #16x16
+            self.deephead_3 = BasicConv2d(2048,2048,stride=2,kernel_size=3,padding=1) #8x8            
     @property
     def norm1(self):
         return getattr(self, self.norm1_name)
@@ -502,7 +508,14 @@ class ResNet(nn.Module):
             #outs.append(x)
             #x = self.deephead_4(x)
             #outs.append(x)
-            #print(x.shape)            
+            #print(x.shape)
+        if self.use_deephead_v2:
+            x = self.deephead_1(x)
+            outs.append(x)
+            x = self.deephead_2(x)
+            outs.append(x)
+            x = self.deephead_3(x)
+            outs.append(x)                        
         if len(outs) == 1:
             return outs[0]
         else:
