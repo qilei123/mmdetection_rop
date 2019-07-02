@@ -165,7 +165,7 @@ for folder in folders:
             show_result(img, result,score_thr = args.score_thr,
                 out_file=None,show=args.show,win_name='DB')
             
-            if args.show or False:
+            if args.show and False:
                 cv2.resizeWindow('DB', 1000,1000)
                 cv2.waitKey(1)
                 act_gpu = activation['conv1'].squeeze()
