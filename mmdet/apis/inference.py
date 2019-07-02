@@ -83,7 +83,7 @@ def show_result(img, result, dataset='coco', score_thr=0.3, out_file=None,show=T
         show = show,
         out_file=out_file,
         win_name=win_name,
-        wait_time=1)
+        wait_time=0)
 
 def show_single_category_result(img, result, dataset='coco', score_thr=0.3, out_file=None,category_id=0):
     img = mmcv.imread(img)
