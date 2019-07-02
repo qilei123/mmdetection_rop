@@ -121,7 +121,7 @@ suffix ='jpg'
 #folders = ['0','1','2','3','4']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/train_binary/'
 #suffix ='jpeg'
-#img_set = 'test'
+img_set = 'test'
 json_results = []
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.'+suffix)

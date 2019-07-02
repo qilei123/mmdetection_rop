@@ -1,5 +1,5 @@
 git pull
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 img_dir=/data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/2TISSUES/
 config_dir=configs/mask/mask_rcnn_x101_64x4d_fpn_1x_2tissues.py
 model_dir=/data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/2TISSUES/mask_epoch_12.pth
