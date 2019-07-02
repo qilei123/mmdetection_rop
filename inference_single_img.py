@@ -176,7 +176,7 @@ for folder in folders:
                     cv2.imshow('test',act[idx,:,:])
                     cv2.waitKey(0)
 
-    json_results_dir = dataset_dir+'/'+folder+'_results.json'
+    json_results_dir = dataset_dir+'/'+folder+'_head_v1_results.json'
     mmcv.dump(json_results,json_results_dir)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
