@@ -149,6 +149,7 @@ for folder in folders:
             json_result['image_name'] = img_file_name
             json_result['image_dir'] = img_dir
             json_result['box_results']=[]
+            '''
             for label in range(len(result)):
                 bboxes = result[label]
                 for i in range(bboxes.shape[0]):
@@ -158,7 +159,7 @@ for folder in folders:
                     data['category_id'] = label+1
                     json_result['box_results'].append(data)
             json_results.append(json_result)
-            
+            '''
             #fig, axarr = plt.subplots(act.shape[0])
 
             
