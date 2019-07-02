@@ -119,7 +119,7 @@ resize_scale = args.resize_scale
 #dataset_dir = args.img_dir
 
 folders = ['0','1','2','3','4']
-dataset_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/'
+dataset_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/'
 suffix ='jpeg'
 img_set = 'test'
 json_results = []
