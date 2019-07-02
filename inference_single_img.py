@@ -146,7 +146,7 @@ for folder in folders:
             #img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
             bbox_result, segm_result = result
-            print(bbox_result)
+            #print(bbox_result)
             json_result = dict()
             json_result['image_name'] = img_file_name
             json_result['image_dir'] = img_dir
