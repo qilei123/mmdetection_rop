@@ -103,9 +103,9 @@ def get_activation(name):
         activation[name] = output.detach()
     return hook
 
-print(model)
+#print(model)
 
-model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
+#model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 # test a single 
 
@@ -114,9 +114,14 @@ resize_scale = args.resize_scale
 folders = ['train2014']
 dataset_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 suffix ='jpg'
-#folders = ['0']
+
+
+dataset_dir = args.img_dir
+
+#folders = ['0','1','2','3','4']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/train_binary/'
-img_set = 'test'
+#suffix ='jpeg'
+#img_set = 'test'
 json_results = []
 for folder in folders:
     img_dirs = glob.glob(dataset_dir+folder+'/*.'+suffix)
