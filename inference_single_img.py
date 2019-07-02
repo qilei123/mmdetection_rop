@@ -111,7 +111,7 @@ def get_activation(name):
 
 resize_scale = args.resize_scale
 
-folders = ['train2014']
+folders = ['val2014']
 dataset_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 suffix ='jpg'
 
