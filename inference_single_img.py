@@ -116,7 +116,7 @@ dataset_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 suffix ='jpg'
 
 
-dataset_dir = args.img_dir
+#dataset_dir = args.img_dir
 
 #folders = ['0','1','2','3','4']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/train_binary/'
@@ -182,7 +182,7 @@ for folder in folders:
                     cv2.imshow('test',act[idx,:,:])
                     cv2.waitKey(0)
 
-    json_results_dir = dataset_dir+'/'+folder+'_head_v1_results.json'
+    json_results_dir = dataset_dir+'/'+folder+'_mask_2tissue_results.json'
     mmcv.dump(json_results,json_results_dir)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
