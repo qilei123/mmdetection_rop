@@ -145,14 +145,15 @@ for folder in folders:
             #height, width, depth = img.shape
             #img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
             result = inference_detector(model, img, cfg)
-            print(result)
+            bbox_result, segm_result = result
+            print(bbox_result)
             json_result = dict()
             json_result['image_name'] = img_file_name
             json_result['image_dir'] = img_dir
             json_result['box_results']=[]
-            '''
-            for label in range(len(result)):
-                bboxes = result[label]
+            
+            for label in range(len(bbox_result)):
+                bboxes = bbox_result[label]
                 for i in range(bboxes.shape[0]):
                     data = dict()
                     data['bbox'] = xyxy2xywh(bboxes[i])
@@ -160,7 +161,7 @@ for folder in folders:
                     data['category_id'] = label+1
                     json_result['box_results'].append(data)
             json_results.append(json_result)
-            '''
+            
             #fig, axarr = plt.subplots(act.shape[0])
 
             
