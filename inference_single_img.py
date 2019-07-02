@@ -111,8 +111,8 @@ model.backbone.maxpool.register_forward_hook(get_activation('conv1'))
 
 resize_scale = args.resize_scale
 
-folders = ['3']
-dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/dataset_4stages/train_4/'
+folders = ['0','1','2','3','4']
+dataset_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train_aug/'
 #folders = ['0']
 #dataset_dir = '/data0/qilei_chen/AI_EYE/kaggle_data/train_binary/'
 img_set = 'test'
@@ -126,12 +126,15 @@ for folder in folders:
         output_file=save_dir+img_set+'/'+folder+'/'+img_file_name
         #img_dir = args.img_dir
         if (not os.path.exists(output_file)) or True:
+            '''
             img = cv2.imread(img_dir)
         
-            img = cutMainROI1(img,img_set+folder)
+            #img = cutMainROI1(img,img_set+folder)
 
-            #cv2.imwrite(save_dir+'cropped_img.jpg',img)
+            cv2.imwrite(save_dir+img_set+folder+'cropped_img.jpg',img)
             img = mmcv.imread(save_dir+img_set+folder+'_cropped_img.jpg')
+            '''
+            img = mmcv.imread(img_dir)
             #img = mmcv.imread(np.asarray(img))
             #height, width, depth = img.shape
             #img = cv2.resize(img,(int(resize_scale*width),int(resize_scale*height)))
@@ -162,7 +165,7 @@ for folder in folders:
             show_result(img, result,score_thr = args.score_thr,
                 out_file=None,show=args.show,win_name='DB')
             
-            if args.show:
+            if args.show or False:
                 cv2.resizeWindow('DB', 1000,1000)
                 cv2.waitKey(1)
                 act_gpu = activation['conv1'].squeeze()
@@ -173,8 +176,8 @@ for folder in folders:
                     cv2.imshow('test',act[idx,:,:])
                     cv2.waitKey(0)
 
-json_results_dir = save_dir+img_set+'/'+folder+'_results.json'
-mmcv.dump(json_results,json_results_dir)
+    json_results_dir = dataset_dir+'/'+folder+'_results.json'
+    mmcv.dump(json_results,json_results_dir)
 '''
 folder = '/media/cql/DATA0/Development/RetinaImg/dataset/IDRID/C. Localization/1. Original Images/b. Testing Set'
 resize_scale = 0.2
