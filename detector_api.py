@@ -165,12 +165,12 @@ class lesion_detector():
         self.cfg = None
         self.model = None
         self.threshold = 0.1
-    def init_predictor(self,config_dir='',model_dir=''):
+    def init_predictor(self,config_dir='/home/intellifai/docker_images/mmdetection4dr/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py',model_dir='/home/intellifai/docker_images/mmdetection_models/epoch_9.pth'):
         self.cfg = mmcv.Config.fromfile(config_dir)
         self.cfg.model.pretrained = None
         self.model = build_detector(self.cfg.model, test_cfg=self.cfg.test_cfg)
         _ = load_checkpoint(self.model, model_dir)
-    def prediction(self,img_dir,show_save_dir=''):
+    def prediction(self,img_dir,show_save_dir='/home/intellifai/docker_images/mmdetection_models/test_pytorch_detector.jpg'):
         img = mmcv.imread(img_dir)
         result = inference_detector(self.model, img, self.cfg)
         if isinstance(result, tuple):
@@ -198,8 +198,8 @@ class lesion_detector():
                 cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),(0,255,0),2)
                 cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)                
             cv2.imwrite(show_save_dir,image)
-            cv2.imshow('test',image)
-            cv2.waitKey(0)
+            #cv2.imshow('test',image)
+            #cv2.waitKey(0)
         self.json_result = json_result
         return self.json_result
     def getResult(self):
