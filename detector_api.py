@@ -26,13 +26,13 @@ def xyxy2xywh(bbox):
 
 
 
-def py_cpu_nms(dets, thresh):  
+def py_cpu_nms(dets,scores, thresh):  
     """Pure Python NMS baseline."""  
     x1 = dets[:, 0]  
     y1 = dets[:, 1]  
     x2 = dets[:, 2]  
     y2 = dets[:, 3]  
-    scores = dets[:, 4]  #bbox打分
+    #scores = dets[:, 4]  #bbox打分
   
     areas = (x2 - x1 + 1) * (y2 - y1 + 1)  
     #打分从大到小排列，取index  
@@ -154,7 +154,8 @@ def nms_result(json_result):
     boxscores = np.array(boxscores,dtype = np.float32)
     #print(boxes)
     if len(boxes)>0:
-        index = py_cpu_softnms(boxes, boxscores, method=3)
+        #index = py_cpu_softnms(boxes, boxscores, method=3)
+        index = py_cpu_nms(boxes,boxscores,0.15)
         #print(index)
         temp_list = []
         for index in index:
