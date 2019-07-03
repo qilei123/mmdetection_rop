@@ -190,7 +190,7 @@ class lesion_detector():
                     data['score'] = float(bboxes[i][4])
                     data['label'] = str(label+1)
                     json_result['results'].append(data)        
-        nms_result(json_result)
+        #nms_result(json_result)
         if not show_save_dir=='':
             image = cv2.imread(img_dir)
             for result in json_result['results']:
@@ -215,14 +215,18 @@ def test():
     #img_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/2/*.jpeg'
     img_dir = '/data0/qilei_chen/AI_EYE/Messidor/cropped_base_jpeg/*.jpeg'
     show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
-    #show_save_dir = ''
+    show_save_dir = ''
     img_dirs = glob.glob(img_dir)
     #for i in range(10000):
+    results = dict()
+    results['results']=[]
     for img_dir in img_dirs:
         print(img_dir)
         oldtime=datetime.datetime.now()
-        LesionDetector.prediction(img_dir,show_save_dir)
+        result = LesionDetector.prediction(img_dir,show_save_dir)
         newtime=datetime.datetime.now()
         print((newtime-oldtime).microseconds/1000)
-
+        results['results'].append(result)
+    with open('/data0/qilei_chen/AI_EYE/Messidor/head_v1_detect_results.json','w') as json_file:
+        json.dump(results,json_file)
 test()
