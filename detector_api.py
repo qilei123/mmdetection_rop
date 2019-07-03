@@ -77,7 +77,7 @@ def test():
     img_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/4/5304_right.jpeg'
     show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
     show_save_dir = ''
-    for i in range(100):
+    for i in range(10000):
         oldtime=datetime.datetime.now()
         LesionDetector.prediction(img_dir,show_save_dir)
         newtime=datetime.datetime.now()
