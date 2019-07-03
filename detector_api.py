@@ -74,3 +74,5 @@ def test():
     show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
     for i in range(100):
         LesionDetector.prediction(img_dir,show_save_dir)
+
+test()
