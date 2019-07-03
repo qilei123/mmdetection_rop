@@ -167,7 +167,7 @@ class lesion_detector():
         self.json_result = None
         self.cfg = None
         self.model = None
-        self.threshold = 0.3
+        self.threshold = 0.1
     def init_predictor(self,config_dir='',model_dir=''):
         self.cfg = mmcv.Config.fromfile(config_dir)
         self.cfg.model.pretrained = None
@@ -207,6 +207,8 @@ class lesion_detector():
         return self.json_result
     def getResult(self):
         return self.json_result
+    def getDetectorName(self):
+        return self.name
 import glob
 def test():
     LesionDetector = lesion_detector()
