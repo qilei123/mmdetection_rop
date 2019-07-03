@@ -28,7 +28,7 @@ class lesion_detector():
         self.json_result = None
         self.cfg = None
         self.model = None
-        self.threshold = 0.2
+        self.threshold = 0.3
     def init_predictor(self,config_dir='',model_dir=''):
         self.cfg = mmcv.Config.fromfile(config_dir)
         self.cfg.model.pretrained = None
