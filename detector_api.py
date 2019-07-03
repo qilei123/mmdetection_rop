@@ -190,7 +190,7 @@ class lesion_detector():
                     data['score'] = float(bboxes[i][4])
                     data['label'] = str(label+1)
                     json_result['results'].append(data)        
-        #nms_result(json_result)
+        nms_result(json_result)
         if not show_save_dir=='':
             image = cv2.imread(img_dir)
             for result in json_result['results']:
