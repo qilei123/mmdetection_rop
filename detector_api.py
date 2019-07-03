@@ -24,8 +24,6 @@ def xyxy2xywh(bbox):
         _bbox[3] - _bbox[1] + 1,
     ]
 
-
-
 def py_cpu_nms(dets,scores, thresh):  
     """Pure Python NMS baseline."""  
     x1 = dets[:, 0]  
@@ -60,8 +58,6 @@ def py_cpu_nms(dets,scores, thresh):
         order = order[inds + 1]  
   
     return keep
-
-
 
 def py_cpu_softnms(dets, sc, Nt=0.3, sigma=0.5, thresh=0.001, method=2):
     """
@@ -223,6 +219,7 @@ def test():
     img_dirs = glob.glob(img_dir)
     #for i in range(10000):
     for img_dir in img_dirs:
+        print(img_dir)
         oldtime=datetime.datetime.now()
         LesionDetector.prediction(img_dir,show_save_dir)
         newtime=datetime.datetime.now()
