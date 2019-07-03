@@ -153,6 +153,7 @@ def nms_result(json_result):
         boxscores.append(result['score'])
     boxes = np.array(boxes,dtype = np.float32)
     boxscores = np.array(boxscores,dtype = np.float32)
+    print(boxes)
     index = py_cpu_softnms(boxes, boxscores, method=3)
     print(index)
 
