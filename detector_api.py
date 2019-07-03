@@ -215,7 +215,7 @@ def test():
     img_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/1/*.jpeg'
     #img_dir = '/data0/qilei_chen/AI_EYE/Messidor/cropped_base_jpeg/*.jpeg'
     show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
-    show_save_dir = ''
+    #show_save_dir = ''
     img_dirs = glob.glob(img_dir)
     #for i in range(10000):
     results = dict()
