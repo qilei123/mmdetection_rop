@@ -82,5 +82,6 @@ def test():
         LesionDetector.prediction(img_dir,show_save_dir)
         newtime=datetime.datetime.now()
         print((newtime-oldtime).microseconds)
+        print((newtime-oldtime).seconds)
 
 test()
