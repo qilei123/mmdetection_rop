@@ -232,4 +232,4 @@ def test():
         results['results'].append(result)
     with open('/data0/qilei_chen/AI_EYE/Messidor/head_v1_detect_results.json','w') as json_file:
         json.dump(results,json_file)
-test()
+#test()
