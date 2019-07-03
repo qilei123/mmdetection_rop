@@ -141,7 +141,6 @@ def py_cpu_softnms(dets, sc, Nt=0.3, sigma=0.5, thresh=0.001, method=2):
     # select the boxes and keep the corresponding indexes
     inds = dets[:, 4][scores > thresh]
     keep = inds.astype(int)
-    print(keep)
 
     return keep
 
@@ -157,6 +156,7 @@ def nms_result(json_result):
     if len(boxes)>0:
         index = py_cpu_softnms(boxes, boxscores, method=3)
         print(index)
+        json_result['results']=json_result['results'][index]
 
 class lesion_detector():
     def __init__(self,name='DR_lesion_detector'):
