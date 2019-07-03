@@ -36,7 +36,10 @@ class lesion_detector():
     def prediction(self,img_dir,show_save_dir=''):
         img = mmcv.imread(img_dir)
         result = inference_detector(self.model, img, self.cfg)
-        bbox_result, _ = result        
+        if isinstance(result, tuple):
+            bbox_result, segm_result = result
+        else:
+            bbox_result, segm_result = result, None       
         json_result = dict()
         json_result['image_dir'] = img_dir
         json_result['results']=[]
