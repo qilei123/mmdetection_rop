@@ -196,7 +196,7 @@ class lesion_detector():
             for result in json_result['results']:
                 bbox = [int(result['bbox'][0]),int(result['bbox'][1]),int(result['bbox'][2]),int(result['bbox'][3])]
                 cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),(0,0,255),1)
-                cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 2,(0,0,255),2,cv2.LINE_AA)                
+                cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2,cv2.LINE_AA)                
             cv2.imwrite(show_save_dir,image)
             cv2.imshow('test',image)
             cv2.waitKey(0)
