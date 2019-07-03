@@ -209,7 +209,7 @@ class lesion_detector():
 import glob
 def test():
     LesionDetector = lesion_detector()
-    config_dir = 'configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
+    config_dir = '/home/intellifai/docker_images/mmdetection4dr/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
     #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4/epoch_9.pth'
     model_dir = '/home/intellifai/docker_images/mmdetection_models/epoch_9.pth'
     LesionDetector.init_predictor(config_dir,model_dir)
