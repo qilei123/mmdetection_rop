@@ -154,8 +154,9 @@ def nms_result(json_result):
     boxes = np.array(boxes,dtype = np.float32)
     boxscores = np.array(boxscores,dtype = np.float32)
     print(boxes)
-    index = py_cpu_softnms(boxes, boxscores, method=3)
-    print(index)
+    if len(boxes)>0:
+        index = py_cpu_softnms(boxes, boxscores, method=3)
+        print(index)
 
 class lesion_detector():
     def __init__(self,name='DR_lesion_detector'):
