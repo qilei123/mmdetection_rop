@@ -47,7 +47,7 @@ class lesion_detector():
         for label in range(len(bbox_result)):
             bboxes = bbox_result[label]
             for i in range(bboxes.shape[0]):
-                if float(bboxes[i][4])< self.threshold:
+                if float(bboxes[i][4])> self.threshold:
                     data = dict()
                     data['bbox'] = xyxy2xywh(bboxes[i])
                     data['score'] = float(bboxes[i][4])
