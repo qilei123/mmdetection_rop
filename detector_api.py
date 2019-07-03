@@ -158,7 +158,7 @@ def nms_result(json_result):
         print(index)
         temp_list = []
         for index in index:
-            temp_list.append(json_result['result'][int(index)])
+            temp_list.append(json_result['results'][int(index)])
         json_result['results']=temp_list
 
 class lesion_detector():
