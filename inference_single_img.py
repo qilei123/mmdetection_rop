@@ -115,15 +115,19 @@ resize_scale = args.resize_scale
 #dataset_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/'
 #suffix ='jpg'
 
+folders = ['20190703','20190704']
+dataset_dir = '/data0/qilei_chen/Development/eye_new_device/'
+suffix ='jpg'
 
 #dataset_dir = args.img_dir
 
-folders = ['0','1','2','3','4']
-dataset_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/'
-suffix ='jpeg'
+#folders = ['0','1','2','3','4']
+#dataset_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/'
+#suffix ='jpeg'
 img_set = 'test'
-json_results = []
+
 for folder in folders:
+    json_results = []
     img_dirs = glob.glob(dataset_dir+folder+'/*.'+suffix)
     for img_dir in img_dirs:
         #print(img_dir)
