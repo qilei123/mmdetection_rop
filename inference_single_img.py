@@ -174,9 +174,9 @@ for folder in folders:
                 category_id=args.single_category_id,
                 out_file=save_dir+str(time.time())+'_show_single_label_result.jpg')
             '''    
-            
+            file_name = os.path.basename(img_dir)
             show_result(img, result,score_thr = args.score_thr,
-                out_file=None,show=args.show,win_name='DB')
+                out_file='/data0/qilei_chen/Development/eye_new_device/'+file_name,show=args.show,win_name='DB')
             
             if args.show and False:
                 cv2.resizeWindow('DB', 1000,1000)
