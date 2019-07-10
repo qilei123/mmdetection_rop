@@ -266,10 +266,10 @@ def test():
         json.dump(results,json_file)
 
 def test_show_results():
-    json_result_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/0_head_v1_results.json'
-    image_folder = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/0'
-    save_folder = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/0_head_v1_results_show'
-    show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3)
+    json_result_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results.json'
+    image_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014'
+    save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
+    show_results(json_result_dir,image_folder,save_folder)
 
 if __name__ == "__main__":
     #test()
