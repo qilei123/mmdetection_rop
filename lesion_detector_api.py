@@ -158,6 +158,24 @@ def nms_result(json_result):
             temp_list.append(json_result['results'][int(index)])
         json_result['results']=temp_list
 
+def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
+
+    json_results = json.load(open(json_result_dir))
+    if not os.path.exists(save_folder):
+        os.makedirs(save_folder)
+    for image_result in json_results:
+        if len(image_result['box_results'])>0:
+            image = cv2.imread(image_result['image_dir'])
+            for box_result in image_result['box_results']:
+                if box_result['score']>=score_threshold:
+                    bbox = box_result['bbox']
+                    cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
+                    font = cv2.FONT_HERSHEY_SIMPLEX
+                    cv2.putText(image,str(bbox['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
+            cv2.imwrite(os.path.join(save_folder,image_result['image_name']),image)
+
+
+
 class lesion_detector():
     def __init__(self,name='DR_lesion_detector'):
         self.name = name
@@ -232,5 +250,13 @@ def test():
         results['results'].append(result)
     with open('/data0/qilei_chen/AI_EYE/Messidor/head_v1_detect_results.json','w') as json_file:
         json.dump(results,json_file)
+
+def test_show_results():
+    json_result_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/0_head_v1_results.json'
+    image_folder = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/0'
+    save_folder = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/train/0_head_v1_results_show'
+    show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3)
+
 if __name__ == "__main__":
-    test()
+    #test()
+    test_show_results()
