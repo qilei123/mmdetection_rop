@@ -157,13 +157,15 @@ def nms_result(json_result):
         for index in index:
             temp_list.append(json_result['results'][int(index)])
         json_result['results']=temp_list
-
+import os
 def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
 
     json_results = json.load(open(json_result_dir))
     if not os.path.exists(save_folder):
         os.makedirs(save_folder)
+    count = 0
     for image_result in json_results:
+        count+=1
         if len(image_result['box_results'])>0:
             image_loaded = False
             for box_result in image_result['box_results']:
@@ -175,7 +177,10 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
                     cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     cv2.putText(image,str(box_result['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
-            cv2.imwrite(os.path.join(save_folder,image_result['image_name']),image)
+            cv2.imwrite(os.path.join(save_folder,image_result['image_name'].replace('.jpeg','_show.jpeg')),image)
+            os.system('cp '+image_result['image_dir']+' '+save_folder)
+        if count%1000==0:
+            print(str(count/1000)+'k')
 
 
 
