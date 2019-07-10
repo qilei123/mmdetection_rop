@@ -165,9 +165,11 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
         os.makedirs(save_folder)
     for image_result in json_results:
         if len(image_result['box_results'])>0:
-            image = cv2.imread(image_result['image_dir'])
+            image = None
             for box_result in image_result['box_results']:
                 if box_result['score']>=score_threshold:
+                    if image==None:
+                        image = cv2.imread(image_result['image_dir'])
                     bbox = box_result['bbox']
                     cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
                     font = cv2.FONT_HERSHEY_SIMPLEX
