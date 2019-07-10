@@ -164,26 +164,31 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
     if not os.path.exists(save_folder):
         os.makedirs(save_folder)
     count = 0
+    count_f = 0
     for image_result in json_results:
         count+=1
         if len(image_result['box_results'])>0:
             image_loaded = False
             for box_result in image_result['box_results']:
                 if box_result['score']>=score_threshold:
+                    
                     if image_loaded==False:
                         image_loaded = True
-                        image = cv2.imread(image_result['image_dir'])
+                        #image = cv2.imread(image_result['image_dir'])
+                        count_f += 1
                     bbox = box_result['bbox']
-                    cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
+                    #cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
                     font = cv2.FONT_HERSHEY_SIMPLEX
-                    cv2.putText(image,str(box_result['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
+                    #cv2.putText(image,str(box_result['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
             if image_loaded:
-                cv2.imwrite(os.path.join(save_folder,image_result['image_name'].replace('.jpeg','_show.jpeg')),image)
-                os.system('cp '+image_result['image_dir']+' '+save_folder)
+                #cv2.imwrite(os.path.join(save_folder,image_result['image_name'].replace('.jpeg','_show.jpeg')),image)
+                #os.system('cp '+image_result['image_dir']+' '+save_folder)
+                pass
         if count%1000==0:
             print(str(count/1000)+'k')
 
-
+    print(count)
+    print(count_f)
 
 class lesion_detector():
     def __init__(self,name='DR_lesion_detector'):
