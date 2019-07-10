@@ -171,7 +171,7 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
                     bbox = box_result['bbox']
                     cv2.rectangle(image,(int(bbox[0]),int(bbox[1])),(int(bbox[0]+bbox[2]),int(bbox[1]+bbox[3])),(0,255,0),2)
                     font = cv2.FONT_HERSHEY_SIMPLEX
-                    cv2.putText(image,str(bbox['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
+                    cv2.putText(image,str(box_result['category_id']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
             cv2.imwrite(os.path.join(save_folder,image_result['image_name']),image)
 
 
