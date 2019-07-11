@@ -157,6 +157,7 @@ class CustomDataset(Dataset):
             return self.prepare_test_img(idx)
         while True:
             data = self.prepare_train_img(idx)
+            print(data)
             if data is None:
                 idx = self._rand_another(idx)
                 continue
