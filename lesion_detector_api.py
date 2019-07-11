@@ -190,6 +190,27 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
     print(count)
     print(count_f)
 
+def show_groundtruth(json_annotation_dir,image_folder,save_folder):
+    json_annotation = json.load(open(json_annotation_dir))
+    images_dict = dict()
+
+    for img in json_annotation['images']:
+        images_dict[img['id']] = img
+
+    annos_by_image_id = dict()
+    for anno in json_annotation['annotations']:
+        if not annos_by_image_id.has_key(anno['image_id']):
+            annos_by_image_id[anno['image_id']]=[]
+        annos_by_image_id[anno['image_id']].append(anno)
+
+    for key in annos_by_image_id.keys():
+        image = cv2.imread(os.path.join(image_folder,images_dict[key]['file_name']))
+        for anno in annos_by_image_id[key]:
+            bbox = [int(anno['bbox'][0]),int(anno['bbox'][1]),int(anno['bbox'][2]),int(anno['bbox'][3])]
+            cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),(0,0,255),5)
+            cv2.putText(image,str(anno['category_id']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),2,cv2.LINE_AA)
+        cv2.imwrite(os.path.join(save_folder,images_dict[key]['file_name']),image)
+
 class lesion_detector():
     def __init__(self,name='DR_lesion_detector'):
         self.name = name
@@ -271,6 +292,12 @@ def test_show_results():
     save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
     show_results(json_result_dir,image_folder,save_folder)
 
+def test_show_gt():
+    json_annotation_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/annotations/instances_train2014.json.original.opt_v2.hflip'
+    image_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
+    save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
+    show_groundtruth(json_annotation_dir,image_folder,save_folder)
 if __name__ == "__main__":
     #test()
-    test_show_results()
+    #test_show_results()
+    test_show_gt()
