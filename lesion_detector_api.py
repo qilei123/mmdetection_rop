@@ -199,7 +199,7 @@ def show_groundtruth(json_annotation_dir,image_folder,save_folder):
 
     annos_by_image_id = dict()
     for anno in json_annotation['annotations']:
-        if not annos_by_image_id.has_key(anno['image_id']):
+        if not anno['image_id'] in annos_by_image_id:
             annos_by_image_id[anno['image_id']]=[]
         annos_by_image_id[anno['image_id']].append(anno)
 
