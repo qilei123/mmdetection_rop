@@ -210,6 +210,7 @@ def show_groundtruth(json_annotation_dir,image_folder,save_folder):
             cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),(0,0,255),5)
             cv2.putText(image,str(anno['category_id']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),2,cv2.LINE_AA)
         cv2.imwrite(os.path.join(save_folder,images_dict[key]['file_name']),image)
+        image = cv2.resize(image,(image.shape[0],image.shape[1]))
         cv2.imshow('gt_show',image)
         cv2.waitKey(0)
 class lesion_detector():
