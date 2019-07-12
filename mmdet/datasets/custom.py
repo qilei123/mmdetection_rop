@@ -234,7 +234,7 @@ class CustomDataset(Dataset):
                 [proposals, scores]) if scores is not None else proposals
         gt_bboxes = self.bbox_transform(gt_bboxes, img_shape, scale_factor,
                                         flip)
-        if with_pseudo:
+        if self.with_pseudo:
             pseudo_bboxes = self.bbox_transform(pseudo_bboxes,img_shape,scale_factor,flip)
         
         if self.with_crowd:
@@ -264,7 +264,7 @@ class CustomDataset(Dataset):
             data['gt_bboxes_ignore'] = DC(to_tensor(gt_bboxes_ignore))
         if self.with_mask:
             data['gt_masks'] = DC(gt_masks, cpu_only=True)
-        if self. with_pseudo:
+        if self.with_pseudo:
             data['pseudo_bboxes'] = DC(to_tensor(pseudo_bboxes))
             data['pseudo_labels'] = DC(to_tensor(pseudo_labels))
         return data
