@@ -50,14 +50,17 @@ class CustomDataset(Dataset):
                  with_label=True,
                  extra_aug=None,
                  resize_keep_ratio=True,
-                 test_mode=False):
+                 test_mode=False,
+                 with_pseudo=False):
         # prefix of images path
         self.img_prefix = img_prefix
+        self.with_pseudo = with_pseudo
 
         # load annotations (and proposals)
         self.img_infos = self.load_annotations(ann_file)
-        self.pseudo_ann_info = self.load_Pseudo_annotations(
-            ann_file.replace('annotations/instances_train2014.json.original.opt_v2.hflip',
+        if self.with_pseudo:
+            self.pseudo_ann_info = self.load_Pseudo_annotations(
+                ann_file.replace('annotations/instances_train2014.json.original.opt_v2.hflip',
                             'train2014_head_v1_results.json'))
 
         if proposal_file is not None:
@@ -197,15 +200,16 @@ class CustomDataset(Dataset):
                 scores = None
 
         ann = self.get_ann_info(idx)
-        pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
+        if self.with_pseudo:
+            pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
         #print(pseudo_ann)
         gt_bboxes = ann['bboxes']
         gt_labels = ann['labels']
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
-
-        pseudo_bboxes = pseudo_ann['bboxes']
-        pseudo_labels = pseudo_ann['labels']
+        if self.with_pseudo:
+            pseudo_bboxes = pseudo_ann['bboxes']
+            pseudo_labels = pseudo_ann['labels']
 
         # skip the image if there is no valid gt bbox
         if len(gt_bboxes) == 0:
@@ -230,8 +234,8 @@ class CustomDataset(Dataset):
                 [proposals, scores]) if scores is not None else proposals
         gt_bboxes = self.bbox_transform(gt_bboxes, img_shape, scale_factor,
                                         flip)
-
-        pseudo_bboxes = self.bbox_transform(pseudo_bboxes,img_shape,scale_factor,flip)
+        if with_pseudo:
+            pseudo_bboxes = self.bbox_transform(pseudo_bboxes,img_shape,scale_factor,flip)
         
         if self.with_crowd:
             gt_bboxes_ignore = self.bbox_transform(gt_bboxes_ignore, img_shape,
@@ -260,8 +264,9 @@ class CustomDataset(Dataset):
             data['gt_bboxes_ignore'] = DC(to_tensor(gt_bboxes_ignore))
         if self.with_mask:
             data['gt_masks'] = DC(gt_masks, cpu_only=True)
-        data['pseudo_bboxes'] = DC(to_tensor(pseudo_bboxes))
-        data['pseudo_labels'] = DC(to_tensor(pseudo_labels))
+        if self. with_pseudo:
+            data['pseudo_bboxes'] = DC(to_tensor(pseudo_bboxes))
+            data['pseudo_labels'] = DC(to_tensor(pseudo_labels))
         return data
 
     def prepare_test_img(self, idx):
