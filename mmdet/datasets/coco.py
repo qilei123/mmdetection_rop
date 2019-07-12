@@ -1,6 +1,6 @@
 import numpy as np
 from pycocotools.coco import COCO
-
+import json
 from .custom import CustomDataset
 
 #DATASET = 'DB_4LESIONS'
@@ -57,11 +57,44 @@ class CocoDataset(CustomDataset):
             img_infos.append(info)
         return img_infos
 
+    def load_Pseudo_annotations(self,Pseudo_ann_file):
+        pseudo_ann_info = dict()
+        json_pseudo_ann = json.load(open(Pseudo_ann_file))
+
+        for pseudo_ann in json_pseudo_ann:
+            pseudo_ann_info[pseudo_ann['image_name']] = pseudo_ann
+        return pseudo_ann_info
+
     def get_ann_info(self, idx):
         img_id = self.img_infos[idx]['id']
         ann_ids = self.coco.getAnnIds(imgIds=[img_id])
         ann_info = self.coco.loadAnns(ann_ids)
         return self._parse_ann_info(ann_info, self.with_mask)
+
+    def get_Pseudo_ann_info(self, image_name):
+        gt_bboxes = []
+        gt_labels = []
+        gt_bboxes_ignore = []
+        pseudo_ann = self.pseudo_ann_info[image_name]
+        for pseudo_box in pseudo_ann['box_results']:
+            if pseudo_box['score']>0.2:
+                x1, y1, w, h = pseudo_box['bbox']
+                box = [int(x1), int(y1), int(x1 + w - 1), int(y1 + h - 1)]
+                gt_bboxes.append(box)
+                gt_labels.append(pseudo_box['category_id'])
+        if gt_bboxes:
+            gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
+            gt_labels = np.array(gt_labels, dtype=np.int64)
+        else:
+            gt_bboxes = np.zeros((0, 4), dtype=np.float32)
+            gt_labels = np.array([], dtype=np.int64)
+        if gt_bboxes_ignore:
+            gt_bboxes_ignore = np.array(gt_bboxes_ignore, dtype=np.float32)
+        else:
+            gt_bboxes_ignore = np.zeros((0, 4), dtype=np.float32)
+        pseudo_ann = dict(
+            bboxes=gt_bboxes, labels=gt_labels, bboxes_ignore=gt_bboxes_ignore)
+        return pseudo_ann
 
     def _filter_imgs(self, min_size=32):
         """Filter images too small or without ground truths."""

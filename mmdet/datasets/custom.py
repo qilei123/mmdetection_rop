@@ -56,6 +56,10 @@ class CustomDataset(Dataset):
 
         # load annotations (and proposals)
         self.img_infos = self.load_annotations(ann_file)
+        self.pseudo_ann_info = self.load_Pseudo_annotations(
+            ann_file.replace('annotations/instances_train2014.json.original.opt_v2.hflip',
+                            'train2014_head_v1_results.json'))
+
         if proposal_file is not None:
             self.proposals = self.load_proposals(proposal_file)
         else:
@@ -122,13 +126,16 @@ class CustomDataset(Dataset):
     def load_annotations(self, ann_file):
         return mmcv.load(ann_file)
 
+    def load_Pseudo_annotations(self,Pseudo_ann_file):
+        return dict()
+
     def load_proposals(self, proposal_file):
         return mmcv.load(proposal_file)
 
     def get_ann_info(self, idx):
-        print(self.img_infos[idx])
         return self.img_infos[idx]['ann']
-
+    def get_Pseudo_ann_info(self, image_name):
+        return dict()
     def _filter_imgs(self, min_size=32):
         """Filter images too small."""
         valid_inds = []
@@ -190,7 +197,8 @@ class CustomDataset(Dataset):
                 scores = None
 
         ann = self.get_ann_info(idx)
-        #print(ann)
+        pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
+        print(pseudo_ann)
         gt_bboxes = ann['bboxes']
         gt_labels = ann['labels']
         if self.with_crowd:
