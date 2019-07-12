@@ -204,7 +204,6 @@ class CustomDataset(Dataset):
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
 
-
         pseudo_bboxes = pseudo_ann['bboxes']
         pseudo_labels = pseudo_ann['labels']
 
