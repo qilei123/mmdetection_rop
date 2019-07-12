@@ -8,7 +8,7 @@ from .ohem_sampler import OHEMSampler
 from .sampling_result import SamplingResult
 
 __all__ = [
-    'BaseSampler', 'PseudoSampler', 'RandomSampler',
+    'BaseSampler', 'PseudoSampler', 'RandomSampler','Pseudogt1RandomSampler',
     'InstanceBalancedPosSampler', 'IoUBalancedNegSampler', 'CombinedSampler',
     'OHEMSampler', 'SamplingResult'
 ]

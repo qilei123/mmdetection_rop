@@ -118,6 +118,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 assign_result = bbox_assigner.assign(
                     proposal_list[i], gt_bboxes[i], gt_bboxes_ignore[i],
                     gt_labels[i])
+                '''
                 pos_inds = torch.nonzero(assign_result.gt_inds == 0)
                 print('pos_inds')
                 print(len(pos_inds))
@@ -127,23 +128,25 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 pseudo_pos_inds = torch.nonzero(pseudo_assign_result.gt_inds == 0)
                 print('pseudo_pos_inds')
                 print(len(pseudo_pos_inds))
-
+                '''
 
                 union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
                 union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
                 union_assign_result = bbox_assigner.assign(
                     proposal_list[i], union_bboxes, gt_bboxes_ignore[i],
                     union_labels)
+                '''
                 union_pos_inds = torch.nonzero(union_assign_result.gt_inds == 0)
                 print('union_pos_inds')
                 print(len(union_pos_inds))
-
+                '''
                 sampling_result = bbox_sampler.sample(
                     assign_result,
                     proposal_list[i],
                     gt_bboxes[i],
                     gt_labels[i],
-                    feats=[lvl_feat[i][None] for lvl_feat in x])
+                    feats=[lvl_feat[i][None] for lvl_feat in x],
+                    union_assign_result)
                 sampling_results.append(sampling_result)
 
         # bbox head forward and loss
