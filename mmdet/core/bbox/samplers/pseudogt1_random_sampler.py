@@ -42,10 +42,10 @@ class Pseudogt1RandomSampler(BaseSampler):
         else:
             return self.random_choice(pos_inds, num_expected)
 
-    def _sample_neg(self, assign_result, num_expected, **kwargs):
+    def _sample_neg(self, assign_result, num_expected, union_assign_result=None,**kwargs):
         """Randomly sample some negative samples."""
         print(kwargs)
-        neg_inds = torch.nonzero(assign_result.gt_inds == 0)
+        neg_inds = torch.nonzero(union_assign_result.gt_inds == 0)
         if neg_inds.numel() != 0:
             neg_inds = neg_inds.squeeze(1)
         '''

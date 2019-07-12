@@ -145,8 +145,8 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                     proposal_list[i],
                     gt_bboxes[i],
                     gt_labels[i],
-                    feats=[lvl_feat[i][None] for lvl_feat in x],
-                    union_assign_result)
+                    union_assign_result=union_assign_result,
+                    feats=[lvl_feat[i][None] for lvl_feat in x])
                 sampling_results.append(sampling_result)
 
         # bbox head forward and loss
