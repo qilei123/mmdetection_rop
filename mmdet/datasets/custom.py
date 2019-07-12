@@ -126,6 +126,7 @@ class CustomDataset(Dataset):
         return mmcv.load(proposal_file)
 
     def get_ann_info(self, idx):
+        print(self.img_infos[idx])
         return self.img_infos[idx]['ann']
 
     def _filter_imgs(self, min_size=32):
@@ -165,7 +166,6 @@ class CustomDataset(Dataset):
 
     def prepare_train_img(self, idx):
         img_info = self.img_infos[idx]
-        print(self.img_infos[idx]['ann'])
         print(idx)
         print(img_info)
         # load image
