@@ -33,7 +33,8 @@ class BaseSampler(metaclass=ABCMeta):
                bboxes,
                gt_bboxes,
                gt_labels=None,
-               union_assign_result_=None,
+               union_assign_result=None,
+               with_union=False,
                **kwargs):
         """Sample positive and negative bboxes.
 
@@ -73,7 +74,7 @@ class BaseSampler(metaclass=ABCMeta):
             if num_expected_neg > neg_upper_bound:
                 num_expected_neg = neg_upper_bound
         neg_inds = self.neg_sampler._sample_neg(
-            assign_result, num_expected_neg, union_assign_result=union_assign_result_,bboxes=bboxes, **kwargs)
+            assign_result, num_expected_neg, union_assign_result=union_assign_result,with_union=with_union,bboxes=bboxes, **kwargs)
         neg_inds = neg_inds.unique()
 
         return SamplingResult(pos_inds, neg_inds, bboxes, gt_bboxes,
