@@ -189,6 +189,7 @@ class CustomDataset(Dataset):
                 scores = None
 
         ann = self.get_ann_info(idx)
+        print(ann)
         gt_bboxes = ann['bboxes']
         gt_labels = ann['labels']
         if self.with_crowd:
