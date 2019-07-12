@@ -165,6 +165,7 @@ class CustomDataset(Dataset):
 
     def prepare_train_img(self, idx):
         img_info = self.img_infos[idx]
+        print(self.img_infos[idx]['ann'])
         print(idx)
         print(img_info)
         # load image
