@@ -129,13 +129,16 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 print('pseudo_pos_inds')
                 print(len(pseudo_pos_inds))
                 '''
-
-                union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
-                union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
-                union_assign_result = bbox_assigner.assign(
-                    proposal_list[i], union_bboxes, gt_bboxes_ignore[i],
-                    union_labels)
-                
+                if not pseudo_bboxes==None:
+                    union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
+                    union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
+                    union_assign_result = bbox_assigner.assign(
+                        proposal_list[i], union_bboxes, gt_bboxes_ignore[i],
+                        union_labels)
+                    with_union=True
+                else:
+                    union_assign_result=None
+                    with_union=False
                 #union_pos_inds = torch.nonzero(union_assign_result.gt_inds == 0)
                 #print('union_pos_inds')
                 #print(len(union_pos_inds))
@@ -146,7 +149,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                     gt_bboxes[i],
                     gt_labels[i],
                     union_assign_result_=union_assign_result,
-                    with_union=True,
+                    with_union=with_union,
                     feats=[lvl_feat[i][None] for lvl_feat in x])
                 sampling_results.append(sampling_result)
 
