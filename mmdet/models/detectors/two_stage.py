@@ -118,6 +118,13 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 assign_result = bbox_assigner.assign(
                     proposal_list[i], gt_bboxes[i], gt_bboxes_ignore[i],
                     gt_labels[i])
+                pos_inds = torch.nonzero(assign_result.gt_inds > 0)
+                print(len(pos_inds))
+                pseudo_assign_result = bbox_assigner.assign(
+                    proposal_list[i], pseudo_bboxes[i], gt_bboxes_ignore[i],
+                    pseudo_labels[i])
+                pseudo_pos_inds = torch.nonzero(pseudo_assign_result.gt_inds > 0)
+                print(len(pseudo_pos_inds))
                 sampling_result = bbox_sampler.sample(
                     assign_result,
                     proposal_list[i],
