@@ -33,7 +33,7 @@ class BaseSampler(metaclass=ABCMeta):
                bboxes,
                gt_bboxes,
                gt_labels=None,
-               union_assign_result=None,
+               union_assign_result_=None,
                **kwargs):
         """Sample positive and negative bboxes.
 
