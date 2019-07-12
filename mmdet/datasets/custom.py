@@ -165,6 +165,7 @@ class CustomDataset(Dataset):
 
     def prepare_train_img(self, idx):
         img_info = self.img_infos[idx]
+        print(idx)
         print(img_info)
         # load image
         #print (osp.join(self.img_prefix, img_info['filename']))
