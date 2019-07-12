@@ -1,0 +1,52 @@
+2019-07-12 00:26:33,526 - INFO - Start running, host: ycao@ycao-hadoop4, work_dir: /data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_second_round
+2019-07-12 00:26:33,527 - INFO - workflow: [('train', 1)], max: 20 epochs
+Traceback (most recent call last):
+  File "tools/train.py", line 92, in <module>
+    main()
+  File "tools/train.py", line 88, in main
+    logger=logger)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/apis/train.py", line 57, in train_detector
+    _dist_train(model, dataset, cfg, validate=validate)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/apis/train.py", line 96, in _dist_train
+    runner.run(data_loaders, cfg.workflow, cfg.total_epochs)
+  File "/usr/local/lib/python3.6/site-packages/mmcv/runner/runner.py", line 355, in run
+    epoch_runner(data_loaders[i], **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/mmcv/runner/runner.py", line 261, in train
+    self.model, data_batch, train_mode=True, **kwargs)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/apis/train.py", line 37, in batch_processor
+    losses = model(**data)
+  File "/usr/local/lib64/python3.6/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/mmcv/parallel/distributed.py", line 50, in forward
+    return self.module(*inputs[0], **kwargs[0])
+  File "/usr/local/lib64/python3.6/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/models/detectors/base.py", line 80, in forward
+    return self.forward_train(img, img_meta, **kwargs)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/models/detectors/two_stage.py", line 100, in forward_train
+    *rpn_loss_inputs, gt_bboxes_ignore=gt_bboxes_ignore)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/models/anchor_heads/rpn_head.py", line 87, in loss
+    gt_bboxes_ignore=gt_bboxes_ignore)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/models/anchor_heads/anchor_head.py", line 215, in loss
+    sampling=sampling)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/anchor/anchor_target.py", line 64, in anchor_target
+    unmap_outputs=unmap_outputs)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/utils/misc.py", line 24, in multi_apply
+    return tuple(map(list, zip(*map_results)))
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/anchor/anchor_target.py", line 118, in anchor_target_single
+    anchors, gt_bboxes, gt_bboxes_ignore, gt_labels, cfg)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/bbox/assign_sampling.py", line 34, in assign_and_sample
+    gt_labels)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/bbox/samplers/base_sampler.py", line 76, in sample
+    assign_result, num_expected_neg, union_assign_result=union_assign_result_,bboxes=bboxes, **kwargs)
+  File "/data0/qilei_chen/Development/mmdetection_rop/mmdet/core/bbox/samplers/pseudogt1_random_sampler.py", line 48, in _sample_neg
+    neg_inds = torch.nonzero(union_assign_result.gt_inds == 0)
+AttributeError: 'NoneType' object has no attribute 'gt_inds'
+Traceback (most recent call last):
+  File "/usr/lib64/python3.6/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/usr/lib64/python3.6/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/usr/local/lib64/python3.6/site-packages/torch/distributed/launch.py", line 235, in <module>
+    main()
+  File "/usr/local/lib64/python3.6/site-packag
