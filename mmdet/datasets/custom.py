@@ -198,11 +198,15 @@ class CustomDataset(Dataset):
 
         ann = self.get_ann_info(idx)
         pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
-        print(pseudo_ann)
+        #print(pseudo_ann)
         gt_bboxes = ann['bboxes']
         gt_labels = ann['labels']
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
+
+
+        pseudo_bboxes = pseudo_ann['bboxes']
+        pseudo_labels = pseudo_ann['labels']
 
         # skip the image if there is no valid gt bbox
         if len(gt_bboxes) == 0:
@@ -227,6 +231,9 @@ class CustomDataset(Dataset):
                 [proposals, scores]) if scores is not None else proposals
         gt_bboxes = self.bbox_transform(gt_bboxes, img_shape, scale_factor,
                                         flip)
+
+        pseudo_bboxes = self.bbox_transform(pseudo_bboxes,img_shape,scale_factor,flip)
+        
         if self.with_crowd:
             gt_bboxes_ignore = self.bbox_transform(gt_bboxes_ignore, img_shape,
                                                    scale_factor, flip)
@@ -254,6 +261,8 @@ class CustomDataset(Dataset):
             data['gt_bboxes_ignore'] = DC(to_tensor(gt_bboxes_ignore))
         if self.with_mask:
             data['gt_masks'] = DC(gt_masks, cpu_only=True)
+        data['pseudo_bboxes'] = DC(to_tensor(pseudo_bboxes))
+        data['pseudo_labels'] = DC(to_tensor(pseudo_labels))
         return data
 
     def prepare_test_img(self, idx):
