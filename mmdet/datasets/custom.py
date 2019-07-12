@@ -157,7 +157,7 @@ class CustomDataset(Dataset):
             return self.prepare_test_img(idx)
         while True:
             data = self.prepare_train_img(idx)
-            print(data)
+            
             if data is None:
                 idx = self._rand_another(idx)
                 continue
@@ -165,6 +165,7 @@ class CustomDataset(Dataset):
 
     def prepare_train_img(self, idx):
         img_info = self.img_infos[idx]
+        print(img_info)
         # load image
         #print (osp.join(self.img_prefix, img_info['filename']))
         img = mmcv.imread(osp.join(self.img_prefix, img_info['filename']))
