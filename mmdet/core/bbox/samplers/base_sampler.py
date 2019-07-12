@@ -73,7 +73,7 @@ class BaseSampler(metaclass=ABCMeta):
             if num_expected_neg > neg_upper_bound:
                 num_expected_neg = neg_upper_bound
         neg_inds = self.neg_sampler._sample_neg(
-            assign_result, num_expected_neg, bboxes=bboxes, union_assign_result=union_assign_result_,**kwargs)
+            assign_result, num_expected_neg, union_assign_result=union_assign_result_,bboxes=bboxes, **kwargs)
         neg_inds = neg_inds.unique()
 
         return SamplingResult(pos_inds, neg_inds, bboxes, gt_bboxes,

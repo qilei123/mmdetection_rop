@@ -28,7 +28,7 @@ def _init_dist_pytorch(backend, **kwargs):
     num_gpus = torch.cuda.device_count()
     torch.cuda.set_device(rank % num_gpus)
     print (backend)
-    #print (**kwargs)
+    print (**kwargs)
     dist.init_process_group(backend=backend, **kwargs)
 
 
