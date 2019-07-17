@@ -1,7 +1,8 @@
 import mmcv
 
 from . import assigners, samplers
-
+import torch
+import torch.nn as nn
 
 def build_assigner(cfg, **kwargs):
     if isinstance(cfg, assigners.BaseAssigner):
