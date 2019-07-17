@@ -2,6 +2,7 @@ import os
 import time
 
 while True:
+    os.system('clear')
     time.sleep(1)
     result = os.popen('nvidia-smi').read()
     print(result)
@@ -10,4 +11,4 @@ while True:
     print(gpu_info_line)
     infos = gpu_info_line.split(' ')
     print(infos)
-    os.system('clear')
+    
