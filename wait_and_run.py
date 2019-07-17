@@ -2,8 +2,12 @@ import os
 import time
 
 def single_gpu_check_and_wait(gpu_id,memory_limit):
+    count=0
     while True:
-        #os.system('clear')
+        count+=1
+        if count==100:
+            os.system('clear')
+            count=0
         memory_use = 100000
         time.sleep(1)
         result = os.popen('nvidia-smi').read()
