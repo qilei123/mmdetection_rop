@@ -76,8 +76,9 @@ def main():
 
     model = build_detector(
         cfg.model, train_cfg=cfg.train_cfg, test_cfg=cfg.test_cfg)
-    print(cfg.data.train)
+    #print(cfg.data.train)
     train_dataset = get_dataset(cfg.data.train)
+    print(train_dataset)
     #print(model)
     train_detector(
         model,
