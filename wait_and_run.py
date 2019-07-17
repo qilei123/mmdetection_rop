@@ -18,9 +18,14 @@ def single_gpu_check_and_wait(gpu_id,memory_limit):
         infos = gpu_info_line.split(' ')
         print(infos)
         print(infos[17])
-        if 'MiB' in infos[17]:
-            memory_use = int(infos[17][:-3])
-            print('gpu_id:'+str(gpu_id)+' '+infos[17])
+        info_index = 0
+        for info in infos:
+            if 'MiB' in info:
+                break
+            info_index+=1
+        
+        memory_use = int(infos[int(info_index)][:-3])
+        print('gpu_id:'+str(gpu_id)+' '+infos[int(info_index)])
         #print(infos)
         if memory_use<memory_limit:
             break
