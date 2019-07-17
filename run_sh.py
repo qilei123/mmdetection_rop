@@ -10,3 +10,4 @@ while True:
     print(gpu_info_line)
     infos = gpu_info_line.split(' ')
     print(infos)
+    os.system('clear')
