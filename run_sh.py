@@ -10,6 +10,6 @@ while True:
     gpu_info_line = lines[8]
     print(gpu_info_line)
     infos = gpu_info_line.split(' ')
-    print(int(infos[17][:-2]))
+    print(int(infos[17][:-3]))
     print(infos)
     
