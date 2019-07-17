@@ -130,7 +130,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 print(len(pseudo_pos_inds))
                 '''
                 if (not pseudo_bboxes==None) and self.train_cfg.rcnn.sampler['type']=='Pseudogt1RandomSampler':
-                    print(self.train_cfg.rcnn.sampler['type']+' in rcnn')
+                    #print(self.train_cfg.rcnn.sampler['type']+' in rcnn')
                     union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
                     union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
                     union_assign_result = bbox_assigner.assign(
