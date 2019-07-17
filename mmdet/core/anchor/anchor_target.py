@@ -49,8 +49,7 @@ def anchor_target(anchor_list,
         gt_labels_list = [None for _ in range(num_imgs)]
     if pseudo_bboxes is None:
         pseudo_bboxes = [None for _ in range(num_imgs)]
-    print(gt_bboxes_list)
-    print(pseudo_bboxes)
+
     (all_labels, all_label_weights, all_bbox_targets, all_bbox_weights,
      pos_inds_list, neg_inds_list) = multi_apply(
          anchor_target_single,
