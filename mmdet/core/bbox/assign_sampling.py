@@ -26,6 +26,7 @@ def build_sampler(cfg, **kwargs):
 
 
 def assign_and_sample(bboxes, gt_bboxes, gt_bboxes_ignore, gt_labels, cfg,pseudo_bboxes = None):
+    print(pseudo_bboxes)
     bbox_assigner = build_assigner(cfg.assigner)
 
     bbox_sampler = build_sampler(cfg.sampler)
