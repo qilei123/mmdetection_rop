@@ -107,7 +107,6 @@ def get_dataset(data_cfg):
         data_info['ann_file'] = ann_files[i]
         data_info['proposal_file'] = proposal_files[i]
         data_info['img_prefix'] = img_prefixes[i]
-        print(data_info)
         dset = obj_from_dict(data_info, datasets)
         dsets.append(dset)
     if len(dsets) > 1:
