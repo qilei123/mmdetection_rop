@@ -57,6 +57,7 @@ def anchor_target(anchor_list,
          gt_bboxes_list,
          gt_bboxes_ignore_list,
          gt_labels_list,
+         pseudo_bboxes,
          img_metas,
          target_means=target_means,
          target_stds=target_stds,
@@ -64,7 +65,7 @@ def anchor_target(anchor_list,
          label_channels=label_channels,
          sampling=sampling,
          unmap_outputs=unmap_outputs,
-         pseudo_bboxes=pseudo_bboxes)
+         )
     # no valid anchors
     if any([labels is None for labels in all_labels]):
         return None
@@ -100,14 +101,14 @@ def anchor_target_single(flat_anchors,
                          gt_bboxes,
                          gt_bboxes_ignore,
                          gt_labels,
+                         pseudo_bboxes,
                          img_meta,
                          target_means,
                          target_stds,
                          cfg,
                          label_channels=1,
                          sampling=True,
-                         unmap_outputs=True,
-                         pseudo_bboxes = None):
+                         unmap_outputs=True):
     inside_flags = anchor_inside_flags(flat_anchors, valid_flags,
                                        img_meta['img_shape'][:2],
                                        cfg.allowed_border)
