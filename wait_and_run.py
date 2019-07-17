@@ -23,9 +23,9 @@ def single_gpu_check_and_wait(gpu_id,memory_limit):
             if 'MiB' in info:
                 break
             info_index+=1
-        
-        memory_use = int(infos[int(info_index)][:-3])
-        print('gpu_id:'+str(gpu_id)+' | used memory:'+infos[int(info_index)])
+        if 'MiB' in infos[int(info_index)]:
+            memory_use = int(infos[int(info_index)][:-3])
+            print('gpu_id:'+str(gpu_id)+' | used memory:'+infos[int(info_index)])
         #print(infos)
         if memory_use<memory_limit:
             break
