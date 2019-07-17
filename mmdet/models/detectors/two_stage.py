@@ -148,7 +148,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                     proposal_list[i],
                     gt_bboxes[i],
                     gt_labels[i],
-                    union_assign_result_=union_assign_result,
+                    union_assign_result=union_assign_result,
                     with_union=with_union,
                     feats=[lvl_feat[i][None] for lvl_feat in x])
                 sampling_results.append(sampling_result)
