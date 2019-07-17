@@ -1,2 +1,3 @@
 import os
-print(os.system('nvidia-smi'))
+result = (os.system('nvidia-smi'))
+print(result)
