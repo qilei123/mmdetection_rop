@@ -26,12 +26,26 @@ def build_sampler(cfg, **kwargs):
 
 
 def assign_and_sample(bboxes, gt_bboxes, gt_bboxes_ignore, gt_labels, cfg,pseudo_bboxes = None):
-    print(pseudo_bboxes)
+
     bbox_assigner = build_assigner(cfg.assigner)
 
     bbox_sampler = build_sampler(cfg.sampler)
     assign_result = bbox_assigner.assign(bboxes, gt_bboxes, gt_bboxes_ignore,
                                          gt_labels)
+
+    if not pseudo_bboxes==None:
+        union_bboxes = torch.cat((gt_bboxes,pseudo_bboxes),0)
+        #union_labels = torch.cat((gt_labels,pseudo_labels),0)
+        union_assign_result = bbox_assigner.assign(
+            bboxes, union_bboxes, gt_bboxes_ignore,
+            None)
+        with_union=True
+    else:
+        union_assign_result=None
+        with_union=False
+    
     sampling_result = bbox_sampler.sample(assign_result, bboxes, gt_bboxes,
-                                          gt_labels)
+                                          gt_labels,                    
+                                          union_assign_result=union_assign_result,
+                                          with_union=with_union,)
     return assign_result, sampling_result
