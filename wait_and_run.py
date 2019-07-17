@@ -18,13 +18,13 @@ def single_gpu_check_and_wait(gpu_id,memory_limit):
         infos = gpu_info_line.split(' ')
         if 'MiB' in infos[17]:
             memory_use = int(infos[17][:-3])
-            print(infos[17])
+            print('gpu_id:'+str(gpu_id)+' '+infos[17])
         #print(infos)
         if memory_use<memory_limit:
             break
 
-single_gpu_check_and_wait(1,5000)
+single_gpu_check_and_wait(0,5000)
 
-command = 'sh test_faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1_IoUBalancedNegSampler.sh'
+command = 'sh test_faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1_InstanceBalancedPosSampler.sh'
 
 os.system(command)
