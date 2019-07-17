@@ -63,7 +63,8 @@ def anchor_target(anchor_list,
          cfg=cfg,
          label_channels=label_channels,
          sampling=sampling,
-         unmap_outputs=unmap_outputs)
+         unmap_outputs=unmap_outputs,
+         pseudo_bboxes=pseudo_bboxes)
     # no valid anchors
     if any([labels is None for labels in all_labels]):
         return None
