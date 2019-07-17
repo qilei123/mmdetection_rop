@@ -4,6 +4,7 @@ import time
 def single_gpu_check_and_wait(gpu_id,memory_limit):
     while True:
         #os.system('clear')
+        memory_use = 100000
         time.sleep(1)
         result = os.popen('nvidia-smi').read()
         #print(result)
@@ -11,8 +12,9 @@ def single_gpu_check_and_wait(gpu_id,memory_limit):
         gpu_info_line = lines[8+gpu_id*3]
         #print(gpu_info_line)
         infos = gpu_info_line.split(' ')
-        memory_use = int(infos[17][:-3])
-        print(int(infos[17][:-3]))
+        if 'MiB' in infos[17]:
+            memory_use = int(infos[17][:-3])
+            print(infos[17])
         #print(infos)
         if memory_use<memory_limit:
             break
