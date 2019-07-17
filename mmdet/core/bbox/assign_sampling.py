@@ -34,7 +34,7 @@ def assign_and_sample(bboxes, gt_bboxes, gt_bboxes_ignore, gt_labels, cfg,pseudo
     assign_result = bbox_assigner.assign(bboxes, gt_bboxes, gt_bboxes_ignore,
                                          gt_labels)
 
-    if not pseudo_bboxes==None:
+    if not pseudo_bboxes is None:
         print(gt_bboxes)
         print(pseudo_bboxes)
         union_bboxes = torch.cat((gt_bboxes,pseudo_bboxes),0)
