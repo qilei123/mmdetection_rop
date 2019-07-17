@@ -180,7 +180,8 @@ class AnchorHead(nn.Module):
              gt_labels,
              img_metas,
              cfg,
-             gt_bboxes_ignore=None):
+             gt_bboxes_ignore=None,
+             pseudo_bboxes=None):
         featmap_sizes = [featmap.size()[-2:] for featmap in cls_scores]
         #print(len(featmap_sizes))
         #print(len(self.anchor_generators))
@@ -212,7 +213,8 @@ class AnchorHead(nn.Module):
             gt_bboxes_ignore_list=gt_bboxes_ignore,
             gt_labels_list=gt_labels,
             label_channels=label_channels,
-            sampling=sampling)
+            sampling=sampling,
+            pseudo_bboxes = pseudo_bboxes)
         if cls_reg_targets is None:
             return None
         (labels_list, label_weights_list, bbox_targets_list, bbox_weights_list,
