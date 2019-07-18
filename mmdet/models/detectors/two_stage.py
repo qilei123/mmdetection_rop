@@ -183,7 +183,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
             loss_mask = self.mask_head.loss(mask_pred, mask_targets,
                                             pos_labels)
             losses.update(loss_mask)
-
+        print(losses)
         return losses
 
     def simple_test(self, img, img_meta, proposals=None, rescale=False):
