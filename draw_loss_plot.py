@@ -28,8 +28,9 @@ def draw_loss_plot(count,loss_records):
     for key in loss_records:
         x = range(count)
         y = loss_records[key]
-        plt.plot(x,y)
-        plt.lines[-1].set_label(key)
+        te, = plt.plot(x,y)
+        te.set_label(key)
+        plt.legend()
     plt.xlabel("count")
     plt.ylabel("loss")
     plt.title("A simple loss plot")
