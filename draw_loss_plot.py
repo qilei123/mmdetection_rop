@@ -31,7 +31,7 @@ def draw_loss_plot(count,loss_records,fig_title):
         te, = plt.plot(x,y)
         te.set_label(key)
         plt.legend()
-    y_ticks=np.arange(-0.1,0.5,0.01)
+    y_ticks=np.arange(-0.1,0.5,0.02)
     plt.yticks(y_ticks)
     plt.xlabel("count")
     plt.ylabel("loss")
