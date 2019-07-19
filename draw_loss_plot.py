@@ -34,7 +34,8 @@ def draw_loss_plot(count,loss_records):
     plt.xlabel("count")
     plt.ylabel("loss")
     plt.title("A simple loss plot")
-    plt.savefig('easyplot.jpg')
+    #plt.savefig('easyplot.jpg')
+    plt.show()
 
 
 loss_record_dir='/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_2000_v2/20190719_114750.log'
