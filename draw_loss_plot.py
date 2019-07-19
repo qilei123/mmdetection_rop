@@ -44,7 +44,7 @@ def start_loss_plot_server(loss_record_dir,updata_time):
         count,loss_records,fig_title = parse_loss_record(loss_record_dir)
         draw_loss_plot(count,loss_records,fig_title)
 
-loss_record_dir='/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_second_round_v0/20190717_022639.log'
+loss_record_dir='/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/20190626_171207.log'
 #count,loss_records,fig_title = parse_loss_record(loss_record_dir)
 #draw_loss_plot(count,loss_records,fig_title)
 updata_time=10
