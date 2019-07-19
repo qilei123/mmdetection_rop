@@ -31,6 +31,8 @@ def draw_loss_plot(count,loss_records,fig_title):
         te, = plt.plot(x,y)
         te.set_label(key)
         plt.legend()
+    y_ticks=np.arange(0.1,0.5,0.05)
+    plt.yticks(y_ticks)
     plt.xlabel("count")
     plt.ylabel("loss")
     plt.title("A simple loss plot")
@@ -39,10 +41,10 @@ def draw_loss_plot(count,loss_records,fig_title):
 
 def start_loss_plot_server(loss_record_dir,updata_time):
     while True:
-        time.sleep(updata_time)
         #loss_record_dir='/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_2000_v2/20190719_114750.log'
         count,loss_records,fig_title = parse_loss_record(loss_record_dir)
         draw_loss_plot(count,loss_records,fig_title)
+        time.sleep(updata_time)
 
 loss_record_dir='/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/20190626_171207.log'
 #count,loss_records,fig_title = parse_loss_record(loss_record_dir)
