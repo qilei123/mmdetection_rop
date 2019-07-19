@@ -165,7 +165,7 @@ log_config = dict(
 total_epochs = 12
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = data_root+'work_dirs/mask_rcnn_r50_fpn_1x'
+work_dir = data_root+'work_dirs/mask_rcnn_r50_fpn_1x_rop_9lesions'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
