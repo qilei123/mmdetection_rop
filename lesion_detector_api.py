@@ -271,17 +271,23 @@ class lesion_detector():
     def getDetectorName(self):
         return self.name
 import glob
+
+DEPLOY=False
+
 def test():
     LesionDetector = lesion_detector()
-    config_dir = '/home/intellifai/docker_images/mmdetection4dr/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
-    #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4/epoch_9.pth'
-    model_dir = '/home/intellifai/docker_images/mmdetection_models/epoch_9.pth'
+    if DEPLOY:
+        config_dir = '/home/intellifai/docker_images/mmdetection4dr/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
+        model_dir = '/home/intellifai/docker_images/mmdetection_models/epoch_9.pth'
+        img_dir = '/home/intellifai/docker_images/mmdetection_models/test_data/val2014/*.jpg'
+        show_save_dir = '/home/intellifai/docker_images/mmdetection_models/test_pytorch_detector.jpg'
+    else:
+        config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
+        model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4/epoch_9.pth'
+        img_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/0/*.jpeg'
+        #img_dir = '/data0/qilei_chen/AI_EYE/Messidor/cropped_base_jpeg/*.jpeg'
+        show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
     LesionDetector.init_predictor(config_dir,model_dir)
-    #img_dir = '/data0/qilei_chen/Development/Datasets/KAGGLE_DR/val/0/*.jpeg'
-    #img_dir = '/data0/qilei_chen/AI_EYE/Messidor/cropped_base_jpeg/*.jpeg'
-    img_dir = '/home/intellifai/docker_images/mmdetection_models/test_data/val2014/*.jpg'
-    #show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
-    show_save_dir = '/home/intellifai/docker_images/mmdetection_models/test_pytorch_detector.jpg'
     #show_save_dir = ''
     img_dirs = glob.glob(img_dir)
     #for i in range(10000):
@@ -309,6 +315,6 @@ def test_show_gt():
     save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
     show_groundtruth(json_annotation_dir,image_folder,save_folder)
 if __name__ == "__main__":
-    #test()
+    test()
     #test_show_results()
-    test_show_gt()
+    #test_show_gt()
