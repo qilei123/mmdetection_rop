@@ -258,7 +258,7 @@ class lesion_detector():
             image = cv2.imread(img_dir)
             for result in json_result['results']:
                 bbox = [int(result['bbox'][0]),int(result['bbox'][1]),int(result['bbox'][2]),int(result['bbox'][3])]
-                color = color_libs(result['label'])
+                color = color_libs(int(result['label']))
                 cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),color,2)
                 cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,color,2,cv2.LINE_AA)                
             cv2.imwrite(show_save_dir,image)
