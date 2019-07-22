@@ -262,8 +262,8 @@ class lesion_detector():
                 cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),color,2)
                 cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,color,2,cv2.LINE_AA)                
             cv2.imwrite(show_save_dir,image)
-            cv2.imshow('test',image)
-            cv2.waitKey(0)
+            #cv2.imshow('test',image)
+            #cv2.waitKey(0)
         self.json_result = json_result
         return self.json_result
     def getResult(self):
