@@ -228,7 +228,7 @@ class lesion_detector():
         self.cfg = None
         self.model = None
         self.threshold = 0.0001
-    def init_predictor(self,config_dir='/home/ubuntu/qilei_chen/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py',model_dir='/home/ubuntu/qilei_chen/mmdetection_rop/mmdetection_models/epoch_9.pth'):
+    def init_predictor(self,config_dir='/home/ubuntu/qilei_chen/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py',model_dir='/home/ubuntu/qilei_chen/mmdetection_models/epoch_9.pth'):
         self.cfg = mmcv.Config.fromfile(config_dir)
         self.cfg.model.pretrained = None
         self.model = build_detector(self.cfg.model, test_cfg=self.cfg.test_cfg)
@@ -262,8 +262,8 @@ class lesion_detector():
                 cv2.rectangle(image,(bbox[0],bbox[1]),(bbox[0]+bbox[2],bbox[1]+bbox[3]),color,2)
                 cv2.putText(image,str(result['label']),(bbox[0]+bbox[2],bbox[1]),cv2.FONT_HERSHEY_SIMPLEX, 1,color,2,cv2.LINE_AA)                
             cv2.imwrite(show_save_dir,image)
-            cv2.imshow('test',image)
-            cv2.waitKey(0)
+            #cv2.imshow('test',image)
+            #cv2.waitKey(0)
         self.json_result = json_result
         return self.json_result
     def getResult(self):
@@ -272,15 +272,15 @@ class lesion_detector():
         return self.name
 import glob
 
-DEPLOY_TEST=False
+DEPLOY_TEST=True
 
 def test():
     LesionDetector = lesion_detector()
     if DEPLOY_TEST:
         config_dir = '/home/ubuntu/qilei_chen/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
-        model_dir = '/home/ubuntu/qilei_chen/mmdetection_rop/mmdetection_models/epoch_9.pth'
-        img_dir = '/home/ubuntu/qilei_chen/mmdetection_rop/mmdetection_models/test_data/val2014/*.jpg'
-        show_save_dir = '/home/ubuntu/qilei_chen/mmdetection_rop/mmdetection_models/test_pytorch_detector.jpg'
+        model_dir = '/home/ubuntu/qilei_chen/mmdetection_models/epoch_9.pth'
+        img_dir = '/home/ubuntu/test/*.jpg'
+        show_save_dir = '/home/ubuntu/Code/AI_4_Retinaimage/result_img/test_pytorch_detector.jpg'
     else:
         config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
         model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/epoch_9.pth'
