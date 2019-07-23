@@ -91,7 +91,7 @@ test_cfg = dict(
 )
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/media/cql/DATA0/data/9LESIONS/'
+data_root = '/data0/qilei_chen/AI_EYE/ROP_DATASET/9LESIONS/'
 img_norm_cfg = dict(
     mean=[127.5, 127.5, 127.5], std=[127.5, 127.5, 127.5], to_rgb=True)
 data = dict(
