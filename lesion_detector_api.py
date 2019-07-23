@@ -265,6 +265,7 @@ class lesion_detector():
             #cv2.imshow('test',image)
             #cv2.waitKey(0)
         self.json_result = json_result
+        print(json_result)
         return self.json_result
     def getResult(self):
         return self.json_result
