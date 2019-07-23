@@ -264,6 +264,7 @@ class lesion_detector():
             cv2.imwrite(show_save_dir,image)
             #cv2.imshow('test',image)
             #cv2.waitKey(0)
+        json_result['result_img_dir'] = show_save_dir
         self.json_result = json_result
         print(json_result)
         return self.json_result
