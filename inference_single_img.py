@@ -71,7 +71,7 @@ def parse_args():
         '--model_dir', default='../2TISSUES/mask_epoch_12.pth',
         help='model file for testing')
     parser.add_argument(
-        '--score_thr', default=0.0,type = float,
+        '--score_thr', default=0.0001,type = float,
         help='score threshold for testing')
     parser.add_argument(
         '--resize_scale', default=1,type = float,
