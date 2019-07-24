@@ -227,7 +227,7 @@ class lesion_detector():
         self.json_result = None
         self.cfg = None
         self.model = None
-        self.threshold = 0.0001
+        self.threshold = 0.0
     def init_predictor(self,config_dir='/home/ubuntu/qilei_chen/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py',model_dir='/home/ubuntu/qilei_chen/mmdetection_models/epoch_9.pth'):
         self.cfg = mmcv.Config.fromfile(config_dir)
         self.cfg.model.pretrained = None
