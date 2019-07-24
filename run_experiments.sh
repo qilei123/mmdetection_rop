@@ -14,4 +14,5 @@ export CUDA_VISIBLE_DEVICES=0,1
 #sh tools/dist_train_DR_4lesions_3001.sh ${config_file} 1
 
 config_file=configs/faster_rcnn_rop/faster_rcnn_x101_64x4d_fpn_1x_ridge_in_one_with_randflip.py
+config_file=configs/faster_rcnn_rop/faster_rcnn_x101_64x4d_fpn_1x_ridge_in_one_with_randflip_preprocess.py
 sh tools/dist_train_DR_4lesions_3001.sh ${config_file} 2
