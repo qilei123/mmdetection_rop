@@ -234,6 +234,7 @@ class lesion_detector():
         self.model = build_detector(self.cfg.model, test_cfg=self.cfg.test_cfg)
         _ = load_checkpoint(self.model, model_dir)
     def prediction(self,img_dir,show_save_dir='/home/ubuntu/Code/AI_4_Retinaimage/result_img/pytorch_detector_result.jpg'):
+        oldtime=datetime.datetime.now()
         img = mmcv.imread(img_dir)
         result = inference_detector(self.model, img, self.cfg)
         if isinstance(result, tuple):
@@ -266,6 +267,8 @@ class lesion_detector():
             #cv2.waitKey(0)
         json_result['result_img_dir'] = show_save_dir
         self.json_result = json_result
+        newtime=datetime.datetime.now()
+        print((newtime-oldtime).microseconds/1000)
         #print(json_result)
         return self.json_result
     def getResult(self):
