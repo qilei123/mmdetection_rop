@@ -268,6 +268,7 @@ class lesion_detector():
         json_result['result_img_dir'] = show_save_dir
         self.json_result = json_result
         newtime=datetime.datetime.now()
+        print("detector prediction time:")
         print((newtime-oldtime).microseconds/1000)
         #print(json_result)
         return self.json_result
