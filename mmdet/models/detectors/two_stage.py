@@ -98,7 +98,9 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
         if self.with_rpn:
             rpn_outs = self.rpn_head(x)
             if self.with_pseudo_gt_at_rpn:
-                temp_gt_bboxes = torch.cat((gt_bboxes,pseudo_bboxes),1)
+                temp_gt_bboxes = []
+                for l in range(len(gt_bboxes)):
+                    temp_gt_bboxes.append(torch.cat((gt_bboxes[l],pseudo_bboxes[l]),0))
                 rpn_loss_inputs = rpn_outs + (temp_gt_bboxes, img_meta,
                             self.train_cfg.rpn)
             else:
