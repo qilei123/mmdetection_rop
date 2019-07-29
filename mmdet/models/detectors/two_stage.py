@@ -22,10 +22,13 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                  mask_head=None,
                  train_cfg=None,
                  test_cfg=None,
-                 pretrained=None):
+                 pretrained=None,
+                 with_pseudo_gt_at_rpn=False,
+                 with_pseudo_gt_at_rcnn=False):
         super(TwoStageDetector, self).__init__()
         self.backbone = builder.build_backbone(backbone)
-
+        self.with_pseudo_gt_at_rpn = with_pseudo_gt_at_rpn
+        self.with_pseudo_gt_at_rcnn = with_pseudo_gt_at_rcnn
         if neck is not None:
             self.neck = builder.build_neck(neck)
         else:
@@ -94,8 +97,13 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
         # RPN forward and loss
         if self.with_rpn:
             rpn_outs = self.rpn_head(x)
-            rpn_loss_inputs = rpn_outs + (gt_bboxes, img_meta,
-                                          self.train_cfg.rpn)
+            if self.with_pseudo_gt_at_rpn:
+                temp_gt_bboxes = torch.cat((gt_bboxes,pseudo_bboxes),1)
+                rpn_loss_inputs = rpn_outs + (temp_gt_bboxes, img_meta,
+                            self.train_cfg.rpn)
+            else:
+                rpn_loss_inputs = rpn_outs + (gt_bboxes, img_meta,
+                                            self.train_cfg.rpn)
             rpn_losses = self.rpn_head.loss(
                 *rpn_loss_inputs, gt_bboxes_ignore=gt_bboxes_ignore,pseudo_bboxes = pseudo_bboxes)
             losses.update(rpn_losses)
@@ -115,6 +123,19 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 gt_bboxes_ignore = [None for _ in range(num_imgs)]
             sampling_results = []
             for i in range(num_imgs):
+
+                if (not pseudo_bboxes==None) and self.train_cfg.rcnn.sampler['type']=='Pseudogt1RandomSampler':
+                    #print(self.train_cfg.rcnn.sampler['type']+' in rcnn')
+                    union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
+                    union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
+                    union_assign_result = bbox_assigner.assign(
+                        proposal_list[i], union_bboxes, gt_bboxes_ignore[i],
+                        union_labels)
+                    with_union=True
+                else:
+                    union_assign_result=None
+                    with_union=False
+                
                 assign_result = bbox_assigner.assign(
                     proposal_list[i], gt_bboxes[i], gt_bboxes_ignore[i],
                     gt_labels[i])
@@ -129,17 +150,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                 print('pseudo_pos_inds')
                 print(len(pseudo_pos_inds))
                 '''
-                if (not pseudo_bboxes==None) and self.train_cfg.rcnn.sampler['type']=='Pseudogt1RandomSampler':
-                    #print(self.train_cfg.rcnn.sampler['type']+' in rcnn')
-                    union_bboxes = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
-                    union_labels = torch.cat((gt_labels[i],pseudo_labels[i]),0)
-                    union_assign_result = bbox_assigner.assign(
-                        proposal_list[i], union_bboxes, gt_bboxes_ignore[i],
-                        union_labels)
-                    with_union=True
-                else:
-                    union_assign_result=None
-                    with_union=False
+
                 '''
                 union_pos_inds = torch.nonzero(union_assign_result.gt_inds == 0)
                 print('union_pos_inds')

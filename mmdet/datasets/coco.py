@@ -6,6 +6,7 @@ from .custom import CustomDataset
 #DATASET = 'DB_4LESIONS'
 #DATASET = 'ROP_9LESIONS'
 DATASET = 'DB_7LESIONS'
+pseudo_threds = 0.0
 class CocoDataset(CustomDataset):
     
     CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
@@ -77,7 +78,7 @@ class CocoDataset(CustomDataset):
         gt_bboxes_ignore = []
         pseudo_ann = self.pseudo_ann_info[image_name]
         for pseudo_box in pseudo_ann['box_results']:
-            if pseudo_box['score']>0.2:
+            if pseudo_box['score']>pseudo_threds:
                 x1, y1, w, h = pseudo_box['bbox']
                 box = [int(x1), int(y1), int(x1 + w - 1), int(y1 + h - 1)]
                 gt_bboxes.append(box)
