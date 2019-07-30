@@ -52,7 +52,7 @@ def py_cpu_nms(dets,scores, thresh):
         order = order[inds + 1]  
   
     return keep
-WITH_NMS=False
+WITH_NMS=True
 
 class CocoDataset(CustomDataset):
     
