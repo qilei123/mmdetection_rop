@@ -43,7 +43,7 @@ def filt_pseudo_with_gt(gt_ann,pseudo_ann):
     filted_bboxes = []
     filted_labels = []
     pseudo_index=0
-    print(len(pseudo_bboxes))
+    #print(len(pseudo_bboxes))
     for pseudo_bbox in pseudo_bboxes:
         qualified = True
         gt_index = 0
@@ -66,7 +66,7 @@ def filt_pseudo_with_gt(gt_ann,pseudo_ann):
         filted_labels = np.array([], dtype=np.int64)
     pseudo_ann['bboxes'] = filted_bboxes
     pseudo_ann['labels'] = filted_labels
-    print(len(filted_bboxes))
+    #print(len(filted_bboxes))
 
 class CustomDataset(Dataset):
     """Custom dataset for detection.
