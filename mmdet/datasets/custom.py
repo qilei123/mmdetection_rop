@@ -58,6 +58,14 @@ def filt_pseudo_with_gt(gt_ann,pseudo_ann):
             gt_index+=1
         pseudo_index+=1 
 
+    if filted_bboxes:
+        filted_bboxes = np.array(filted_bboxes, dtype=np.float32)
+        filted_labels = np.array(filted_labels, dtype=np.int64)
+    else:
+        filted_bboxes = np.zeros((0, 4), dtype=np.float32)
+        filted_labels = np.array([], dtype=np.int64)
+    pseudo_ann['bboxes'] = filted_bboxes
+    pseudo_ann['labels'] = pseudo_labels
     print(len(filted_bboxes))
 
 class CustomDataset(Dataset):
