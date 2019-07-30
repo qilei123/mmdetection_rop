@@ -10,6 +10,55 @@ from .transforms import (ImageTransform, BboxTransform, MaskTransform,
 from .utils import to_tensor, random_scale
 from .extra_aug import ExtraAugmentation
 
+def bb_intersection_over_union(boxA, boxB):
+	# determine the (x, y)-coordinates of the intersection rectangle
+	xA = max(boxA[0], boxB[0])
+	yA = max(boxA[1], boxB[1])
+	xB = min(boxA[2], boxB[2])
+	yB = min(boxA[3], boxB[3])
+ 
+	# compute the area of intersection rectangle
+	interArea = max(0, xB - xA + 1) * max(0, yB - yA + 1)
+ 
+	# compute the area of both the prediction and ground-truth
+	# rectangles
+	boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+	boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
+ 
+	# compute the intersection over union by taking the intersection
+	# area and dividing it by the sum of prediction + ground-truth
+	# areas - the interesection area
+	iou = interArea / float(boxAArea + boxBArea - interArea)
+ 
+	# return the intersection over union value
+	return iou
+
+def filt_pseudo_with_gt(gt_ann,pseudo_ann):
+    gt_bboxes = gt_ann['bboxes'].tolist()
+    gt_labels = gt_ann['labels'].tolist()
+
+    pseudo_bboxes = pseudo_ann['bboxes'].tolist()
+    pseudo_labels = pseudo_ann['labels'].tolist()
+
+    filted_bboxes = []
+    filted_labels = []
+    pseudo_index=0
+    print(len(pseudo_bboxes))
+    for pseudo_bbox in pseudo_bboxes:
+        qualified = True
+        gt_index = 0
+        for gt_bbox in gt_bboxes:
+            iou = bb_intersection_over_union(gt_bbox,pseudo_bbox)
+            if iou>0.1 and (not gt_labels[gt_index]==pseudo_labels[pseudo_index]):
+                qualified = False
+        if qualified:
+            filted_bboxes.append(pseudo_bbox)
+            filted_labels.append(pseudo_labels[pseudo_index])
+
+            gt_index+=1
+        pseudo_index+=1 
+
+    print(len(filted_bboxes))
 
 class CustomDataset(Dataset):
     """Custom dataset for detection.
@@ -208,6 +257,8 @@ class CustomDataset(Dataset):
             pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
         #print(ann)
         #print(pseudo_ann)
+        filt_pseudo_with_gt(ann,pseudo_ann)
+
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
         if self.with_pseudo:
