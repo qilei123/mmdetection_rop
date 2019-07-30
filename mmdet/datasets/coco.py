@@ -133,6 +133,7 @@ class CocoDataset(CustomDataset):
                 gt_labels.append(pseudo_box['category_id'])
                 gt_scores.append(pseudo_box['score'])
         if gt_bboxes:
+            print(len(gt_bboxes))
             temp_gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
             #temp_gt_labels = np.array(gt_labels, dtype=np.int64)
             temp_gt_scores = np.array(gt_scores,dtype = np.float32)
@@ -145,6 +146,7 @@ class CocoDataset(CustomDataset):
                 temp_gt_labels.append(gt_labels[int(index)])
             gt_bboxes=temp_gt_bboxes    
             gt_labels=temp_gt_labels
+            print(len(gt_bboxes))
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
             gt_labels = np.array(gt_labels, dtype=np.int64)        
         else:
