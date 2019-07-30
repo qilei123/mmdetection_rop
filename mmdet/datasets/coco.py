@@ -7,6 +7,53 @@ from .custom import CustomDataset
 #DATASET = 'ROP_9LESIONS'
 DATASET = 'DB_7LESIONS'
 pseudo_threds = 0.0
+
+
+def xyxy2xywh(bbox):
+    _bbox = bbox.tolist()
+    return [
+        _bbox[0],
+        _bbox[1],
+        _bbox[2] - _bbox[0] + 1,
+        _bbox[3] - _bbox[1] + 1,
+    ]
+
+def py_cpu_nms(dets,scores, thresh):  
+    """Pure Python NMS baseline."""  
+    x1 = dets[:, 0]  
+    y1 = dets[:, 1]  
+    x2 = dets[:, 2]  
+    y2 = dets[:, 3]  
+    #scores = dets[:, 4]  #bbox打分
+  
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)  
+    #打分从大到小排列，取index  
+    order = scores.argsort()[::-1]  
+    #keep为最后保留的边框  
+    keep = []  
+    while order.size > 0:  
+    #order[0]是当前分数最大的窗口，肯定保留  
+        i = order[0]  
+        keep.append(i)  
+        #计算窗口i与其他所有窗口的交叠部分的面积
+        xx1 = np.maximum(x1[i], x1[order[1:]])  
+        yy1 = np.maximum(y1[i], y1[order[1:]])  
+        xx2 = np.minimum(x2[i], x2[order[1:]])  
+        yy2 = np.minimum(y2[i], y2[order[1:]])  
+  
+        w = np.maximum(0.0, xx2 - xx1 + 1)  
+        h = np.maximum(0.0, yy2 - yy1 + 1)  
+        inter = w * h  
+        #交/并得到iou值  
+        ovr = inter / (areas[i] + areas[order[1:]] - inter)  
+        #inds为所有与窗口i的iou值小于threshold值的窗口的index，其他窗口此次都被窗口i吸收  
+        inds = np.where(ovr <= thresh)[0]  
+        #order里面只保留与窗口i交叠面积小于threshold的那些窗口，由于ovr长度比order长度少1(不包含i)，所以inds+1对应到保留的窗口
+        order = order[inds + 1]  
+  
+    return keep
+
+
 class CocoDataset(CustomDataset):
     
     CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
@@ -76,6 +123,7 @@ class CocoDataset(CustomDataset):
         gt_bboxes = []
         gt_labels = []
         gt_bboxes_ignore = []
+        gt_scores = []
         pseudo_ann = self.pseudo_ann_info[image_name]
         for pseudo_box in pseudo_ann['box_results']:
             if pseudo_box['score']>pseudo_threds:
@@ -83,9 +131,22 @@ class CocoDataset(CustomDataset):
                 box = [int(x1), int(y1), int(x1 + w - 1), int(y1 + h - 1)]
                 gt_bboxes.append(box)
                 gt_labels.append(pseudo_box['category_id'])
+                gt_scores.append(pseudo_box['score'])
         if gt_bboxes:
+            temp_gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
+            #temp_gt_labels = np.array(gt_labels, dtype=np.int64)
+            temp_gt_scores = np.array(gt_scores,dtype = np.float32)
+
+            indexes = py_cpu_nms(temp_gt_bboxes,temp_gt_scores,0.15)
+            temp_gt_bboxes = []
+            temp_gt_labels = []
+            for index in indexes:
+                temp_gt_bboxes.append(gt_bboxes[int(index)])
+                temp_gt_labels.append(gt_labels[int(index)])
+            gt_bboxes=temp_gt_bboxes    
+            gt_labels=temp_gt_labels
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
-            gt_labels = np.array(gt_labels, dtype=np.int64)
+            gt_labels = np.array(gt_labels, dtype=np.int64)        
         else:
             gt_bboxes = np.zeros((0, 4), dtype=np.float32)
             gt_labels = np.array([], dtype=np.int64)

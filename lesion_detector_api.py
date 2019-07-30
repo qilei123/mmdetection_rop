@@ -156,10 +156,10 @@ def nms_result(json_result):
     #print(boxes)
     if len(boxes)>0:
         #index = py_cpu_softnms(boxes, boxscores, method=3)
-        index = py_cpu_nms(boxes,boxscores,0.15)
+        indexes = py_cpu_nms(boxes,boxscores,0.15)
         #print(index)
         temp_list = []
-        for index in index:
+        for index in indexes:
             temp_list.append(json_result['results'][int(index)])
         json_result['results']=temp_list
 import os
