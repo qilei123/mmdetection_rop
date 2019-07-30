@@ -52,7 +52,7 @@ def py_cpu_nms(dets,scores, thresh):
         order = order[inds + 1]  
   
     return keep
-
+WITH_NMS=False
 
 class CocoDataset(CustomDataset):
     
@@ -133,20 +133,21 @@ class CocoDataset(CustomDataset):
                 gt_labels.append(pseudo_box['category_id'])
                 gt_scores.append(pseudo_box['score'])
         if gt_bboxes:
-            print(len(gt_bboxes))
-            temp_gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
-            #temp_gt_labels = np.array(gt_labels, dtype=np.int64)
-            temp_gt_scores = np.array(gt_scores,dtype = np.float32)
+            if WITH_NMS:
+                print(len(gt_bboxes))
+                temp_gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
+                #temp_gt_labels = np.array(gt_labels, dtype=np.int64)
+                temp_gt_scores = np.array(gt_scores,dtype = np.float32)
 
-            indexes = py_cpu_nms(temp_gt_bboxes,temp_gt_scores,0.15)
-            temp_gt_bboxes = []
-            temp_gt_labels = []
-            for index in indexes:
-                temp_gt_bboxes.append(gt_bboxes[int(index)])
-                temp_gt_labels.append(gt_labels[int(index)])
-            gt_bboxes=temp_gt_bboxes    
-            gt_labels=temp_gt_labels
-            print(len(gt_bboxes))
+                indexes = py_cpu_nms(temp_gt_bboxes,temp_gt_scores,0.15)
+                temp_gt_bboxes = []
+                temp_gt_labels = []
+                for index in indexes:
+                    temp_gt_bboxes.append(gt_bboxes[int(index)])
+                    temp_gt_labels.append(gt_labels[int(index)])
+                gt_bboxes=temp_gt_bboxes    
+                gt_labels=temp_gt_labels
+                print(len(gt_bboxes))
             gt_bboxes = np.array(gt_bboxes, dtype=np.float32)
             gt_labels = np.array(gt_labels, dtype=np.int64)        
         else:
