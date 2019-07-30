@@ -200,13 +200,14 @@ class CustomDataset(Dataset):
                 scores = None
 
         ann = self.get_ann_info(idx)
-        if self.with_pseudo:
-            pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
-        print(ann)
-        print(pseudo_ann)
+
         #print(pseudo_ann)
         gt_bboxes = ann['bboxes']
         gt_labels = ann['labels']
+        if self.with_pseudo:
+            pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
+        #print(ann)
+        #print(pseudo_ann)
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
         if self.with_pseudo:

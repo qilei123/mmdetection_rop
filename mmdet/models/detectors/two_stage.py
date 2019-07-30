@@ -141,7 +141,7 @@ class TwoStageDetector(BaseDetector, RPNTestMixin, BBoxTestMixin,
                     with_union=False
                 
                 print(gt_bboxes[i].size())
-                if self.self.with_pseudo_gt_at_rcnn and (not pseudo_bboxes==None):
+                if self.with_pseudo_gt_at_rcnn and (not pseudo_bboxes==None):
                     gt_bboxes[i] = torch.cat((gt_bboxes[i],pseudo_bboxes[i]),0)
                     gt_labels[i] = torch.cat((gt_labels[i],pseudo_labels[i]),0)                    
                 print(gt_bboxes[i].size())
