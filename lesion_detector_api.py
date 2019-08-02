@@ -288,10 +288,12 @@ def test():
         img_dir = '/home/ubuntu/test/*.jpg'
         show_save_dir = '/home/ubuntu/Code/AI_4_Retinaimage/result_img/test_pytorch_detector.jpg'
     else:
-        config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
-        model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/epoch_9.pth'
-        img_dir = '/data0/qilei_chen/AI_EYE/*.jpg'
-        #img_dir = '/data0/qilei_chen/AI_EYE/Messidor/cropped_base_jpeg/*.jpeg'
+        #config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
+        config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1_with_pseudo_gt_v1_with_nms.py'
+        #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/epoch_9.pth'
+        model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v1_with_nms/epoch_9.pth'
+        #img_dir = '/data0/qilei_chen/AI_EYE/*.jpg'
+        img_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014/*.jpeg'
         show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
     LesionDetector.init_predictor(config_dir,model_dir)
     #show_save_dir = ''
@@ -306,7 +308,7 @@ def test():
         newtime=datetime.datetime.now()
         print((newtime-oldtime).microseconds/1000)
         results['results'].append(result)
-    with open('/data0/qilei_chen/AI_EYE/Messidor/head_v1_detect_results.json','w') as json_file:
+    with open('/data0/qilei_chen/AI_EYE/BostonAI4DB7/head_v1_detect_results1.json','w') as json_file:
         json.dump(results,json_file)
 
 def test_show_results():
