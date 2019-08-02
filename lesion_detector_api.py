@@ -293,7 +293,7 @@ def test():
         #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/epoch_9.pth'
         model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v1_with_nms/epoch_9.pth'
         #img_dir = '/data0/qilei_chen/AI_EYE/*.jpg'
-        img_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014/*.jpeg'
+        img_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014/*.jpg'
         show_save_dir = '/data0/qilei_chen/Development/test_pytorch_detector.jpg'
     LesionDetector.init_predictor(config_dir,model_dir)
     #show_save_dir = ''
