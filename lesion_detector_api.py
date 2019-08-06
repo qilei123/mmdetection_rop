@@ -189,7 +189,8 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     cv2.putText(image,str(box_result['label']),(int(bbox[0]+bbox[2]),int(bbox[1])), font, 1,(0,255,0),2,cv2.LINE_AA)
             if image_loaded:
-                cv2.imwrite(os.path.join(save_folder,image_result['image_name'].replace('.jpeg','_show.jpeg')),image)
+                image_name = os.path.basename(image_result['image_dir'])
+                cv2.imwrite(os.path.join(save_folder,image_name.replace('.jpeg','_show.jpeg')),image)
                 #os.system('cp '+image_result['image_dir']+' '+save_folder)
                 pass
         if count%1000==0:
