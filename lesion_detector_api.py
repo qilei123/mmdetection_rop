@@ -312,9 +312,11 @@ def test():
         json.dump(results,json_file)
 
 def test_show_results():
-    json_result_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results.json'
+    #json_result_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results.json'
+    json_result_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/head_v1_detect_results1.json'
     image_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014'
-    save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
+    #save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
+    save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show1'
     show_results(json_result_dir,image_folder,save_folder)
 
 def test_show_gt():
@@ -323,6 +325,6 @@ def test_show_gt():
     save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
     show_groundtruth(json_annotation_dir,image_folder,save_folder)
 if __name__ == "__main__":
-    test()
-    #test_show_results()
+    #test()
+    test_show_results()
     #test_show_gt()
