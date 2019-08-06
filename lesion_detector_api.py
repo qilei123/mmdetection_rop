@@ -172,9 +172,11 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
     count_f = 0
     for image_result in json_results:
         count+=1
-        if len(image_result['box_results'])>0:
+        if len(image_result['results'])>0:
+        #if len(image_result['box_results'])>0:
             image_loaded = False
-            for box_result in image_result['box_results']:
+            #for box_result in image_result['box_results']:
+            for box_result in image_result['results']:
                 if box_result['score']>=score_threshold:
                     
                     if image_loaded==False:
