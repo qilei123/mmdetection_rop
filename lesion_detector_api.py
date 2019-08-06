@@ -170,7 +170,7 @@ def show_results(json_result_dir,image_folder,save_folder,score_threshold=0.3):
         os.makedirs(save_folder)
     count = 0
     count_f = 0
-    for image_result in json_results:
+    for image_result in json_results['results']:
         count+=1
         print(image_result)
         if len(image_result['results'])>0:
