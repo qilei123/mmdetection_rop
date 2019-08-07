@@ -265,7 +265,8 @@ class CustomDataset(Dataset):
             pseudo_ann = self.get_Pseudo_ann_info(img_info['filename'])
         #print(ann)
         #print(pseudo_ann)
-        filt_pseudo_with_gt(ann,pseudo_ann)
+        if self.with_pseudo:
+            filt_pseudo_with_gt(ann,pseudo_ann)
 
         if self.with_crowd:
             gt_bboxes_ignore = ann['bboxes_ignore']
