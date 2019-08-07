@@ -117,8 +117,8 @@ class CustomDataset(Dataset):
         self.img_infos = self.load_annotations(ann_file)
         if self.with_pseudo:
             self.pseudo_ann_info = self.load_Pseudo_annotations(
-                ann_file.replace('annotations/instances_train2014.json.original.opt_v2.hflip',
-                            'train2014_head_v1_results.json'))
+                ann_file.replace('annotations/size_merged_instances_train2014.json.original.opt_v2.hflip',
+                            'merged_train2014_head_v1_results.json'))
 
         if proposal_file is not None:
             self.proposals = self.load_proposals(proposal_file)
