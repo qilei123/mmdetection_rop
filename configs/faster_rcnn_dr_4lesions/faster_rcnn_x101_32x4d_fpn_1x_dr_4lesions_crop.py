@@ -93,7 +93,7 @@ test_cfg = dict(
 dataset_type = 'CocoDataset'
 data_root = '/data0/qilei_chen/AI_EYE/BostonAI4DB9/'
 img_norm_cfg = dict(
-    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+    mean=[127.5, 127.5, 127.5], std=[127.5, 127.5, 127.5], to_rgb=True)
 data = dict(
     imgs_per_gpu=2,
     workers_per_gpu=2,
@@ -155,5 +155,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 work_dir = data_root+'work_dirs/faster_rcnn_r50_fpn_1x'
 load_from = None
-resume_from = '/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_6.pth'
+resume_from = None#'/data0/qilei_chen/AI_EYE/BostonAI4DB9/work_dirs/faster_rcnn_r50_fpn_1x/epoch_6.pth'
 workflow = [('train', 1)]
