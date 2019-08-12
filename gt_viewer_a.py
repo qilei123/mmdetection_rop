@@ -141,5 +141,6 @@ def show_gt_with_result(anno_gt_dir,anno_result_dir,t_v_folder):
 for i in range(8,15):
     print(i)
     show_gt_with_result('annotations/instances_val2014.json.original.opt_v2.hflip','work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v1_with_nms/e'+str(i)+'_results.pkl.json','val')
+    show_gt_with_result('annotations/instances_val2014.json.original.opt_v2.hflip','work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v1_with_nms_2/e'+str(i)+'_results.pkl.json','val')
     show_gt_with_result('annotations/instances_val2014.json.original.opt_v2.hflip','work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v0/e'+str(i)+'_results.pkl.json','val')
     show_gt_with_result('annotations/instances_val2014.json.original.opt_v2.hflip','work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/e'+str(i)+'_results.pkl.json','val')
