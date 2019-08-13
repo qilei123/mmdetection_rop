@@ -3,6 +3,7 @@ import json
 import cv2
 
 save_folder = 'gt_viewer_a'
+iou_threshold = 0.2
 if not os.path.exists(save_folder):
     os.makedirs(save_folder+'/train')
     os.makedirs(save_folder+'/val')
@@ -114,7 +115,7 @@ def show_gt_with_result(anno_gt_dir,anno_result_dir,t_v_folder):
                     box_n = [int(anno_n['bbox'][0]),int(anno_n['bbox'][1]),int(anno_n['bbox'][0]+anno_n['bbox'][2]),int(anno_n['bbox'][1]+anno_n['bbox'][3])]
                     if anno_m['category_id']==anno_n['category_id'] and anno_n['score']>0.05:
                         iou_rate = bb_intersection_over_union(box_m,box_n)
-                        if iou_rate>0.2:
+                        if iou_rate>iou_threshold:
                             Targeted=True
                             break
             if not Targeted:
