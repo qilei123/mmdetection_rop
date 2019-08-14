@@ -330,6 +330,6 @@ def test_show_gt():
     save_folder = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/train2014_head_v1_results_show'
     show_groundtruth(json_annotation_dir,image_folder,save_folder)
 if __name__ == "__main__":
-    #test()
-    test_show_results()
+    test()
+    #test_show_results()
     #test_show_gt()
