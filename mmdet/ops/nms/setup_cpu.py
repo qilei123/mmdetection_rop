@@ -19,13 +19,13 @@ ext_args = dict(
 
 ext_modules = [
     Extension(
-        "cpu_nms",
-        sources=["cpu_nms.pyx"],
+        "nms_cpu",
+        sources=["nms_cpu.cpp"],
         **ext_args
     ),
     Extension(
-        "cpu_soft_nms",
-        sources=["cpu_soft_nms.pyx"],
+        "soft_nms_cpu",
+        sources=["soft_nms_cpu.pyx"],
         **ext_args
     ),
     ]
