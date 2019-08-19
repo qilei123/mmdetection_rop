@@ -34,5 +34,5 @@ setup(
     name='nms',
     ext_modules=cythonize(ext_modules),
     # inject our custom trigger
-    cmdclass={'build_ext': build_ext},
+    cmdclass={'build_ext': BuildExtension},
 )
