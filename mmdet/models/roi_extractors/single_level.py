@@ -111,6 +111,7 @@ class SingleRoIExtractor(nn.Module):
                 '''
                 roi_feats[:] += self.roi_layers[i](feats[i], rois)            
         else:
+            print(out_size)
             roi_feats = torch.cuda.FloatTensor(rois.size()[0], self.out_channels,
                                             out_size, out_size).fill_(0)
             for i in range(num_levels):
