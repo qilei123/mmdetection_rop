@@ -295,7 +295,7 @@ def test():
         #config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
         #config_dir = '/data0/qilei_chen/Development/mmdetection_rop/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1_with_pseudo_gt_v1_with_nms.py'
         config_dir = 'C:/Users/Administrator/Desktop/Development/mmdetection/configs/faster_rcnn_dr_4lesions/faster_rcnn_x101_32x4d_fpn_1x_dr_4lesions_7_a_with_focal_loss_smallset_advance_optdataset4_deephead_v1.py'
-        config_dir = 'C:/Users/Administrator/Desktop/Development/mmdetection/configs/faster_rcnn_x101_32x4d_fpn_1x.py'
+        #config_dir = 'C:/Users/Administrator/Desktop/Development/mmdetection/configs/faster_rcnn_x101_32x4d_fpn_1x.py'
         #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_deephead_v1/epoch_9.pth'
         #model_dir = '/data0/qilei_chen/AI_EYE/BostonAI4DB7/work_dirs/faster_rcnn_r50_fpn_1x_with_focal_loss_smallset_advance_optdataset4_head_v1_with_pseudo_gt_v1_with_nms/epoch_9.pth'
         model_dir = 'C:/Users/Administrator/Desktop/Development/models/epoch_9.pth'
